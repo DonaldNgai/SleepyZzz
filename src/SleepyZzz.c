@@ -18,9 +18,11 @@
 
 #include <cr_section_macros.h>
 
+#include "switch_matrix.h"
 #include "i2c.h"
 #include "lcd.h"
 
+#define I2C_ADDR_7BIT           (0x60)
 #define TICKRATE_HZ (10)	/* 10 ticks per second */
 
 /**
@@ -29,8 +31,10 @@
  */
 void SysTick_Handler(void)
 {
-	Board_LED_Toggle(0);
-	LCD_print_string();
+//	Board_LED_Toggle(0);
+//	Board_LED_Set(0, true);
+
+
 }
 
 int main(void) {
@@ -42,16 +46,17 @@ int main(void) {
     // Set up and initialize all required blocks and
     // functions related to the board hardware
     Board_Init();
-    // Set the LED to the state of "On"
-    Board_LED_Set(0, true);
 #endif
 #endif
+
+    reset_switch_matrix();
 
     /* Enable SysTick Timer */
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
 
-	//	/* Setup I2C pin muxing */
-	Init_I2C_PinMux();
+//	//	/* Setup I2C pin muxing */
+//	Init_I2C_PinMux();
+	assign_I2C_pins();
 	//
 	//	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
 	setupI2CMaster();
@@ -60,7 +65,8 @@ int main(void) {
 	NVIC_EnableIRQ(I2C_IRQn);
 
 	LCD_print_string();
-
+//	sendI2CMaster(0x50, true, false);
+//	sendI2CMaster(I2C_ADDR_7BIT, 0);
     // Force the counter to be placed into memory
     volatile static int i = 0 ;
     // Enter an infinite loop, just incrementing a counter

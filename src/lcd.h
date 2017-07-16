@@ -12,5 +12,4 @@ void clear_lcd(void);
 
 void LCD_print_string(void);
 
-
 #endif /* LCD_H_ */
