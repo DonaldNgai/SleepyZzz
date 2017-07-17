@@ -23,7 +23,11 @@
 #include "lcd.h"
 
 #define I2C_ADDR_7BIT           (0x60)
+
+//0x28 or 40
 #define TICKRATE_HZ (10)	/* 10 ticks per second */
+//Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
+//Meaning 41.66ns clock period
 
 /**
  * @brief	Handle interrupt from SysTick timer
@@ -31,9 +35,10 @@
  */
 void SysTick_Handler(void)
 {
-//	Board_LED_Toggle(0);
+	Board_LED_Toggle(0);
+	LCD_print_string();
+//	sendI2CMaster(I2C_ADDR_7BIT, 2);
 //	Board_LED_Set(0, true);
-
 
 }
 
@@ -49,24 +54,27 @@ int main(void) {
 #endif
 #endif
 
-    reset_switch_matrix();
+//    reset_switch_matrix();
 
     /* Enable SysTick Timer */
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
+//SysTick_Config(3000000);
+//	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_I2C0);
 
-//	//	/* Setup I2C pin muxing */
-//	Init_I2C_PinMux();
-	assign_I2C_pins();
-	//
-	//	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
+//
+////	//	/* Setup I2C pin muxing */
+	Init_I2C_PinMux();
+//	assign_I2C_pins();
+//	//
+//	//	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
 	setupI2CMaster();
-	//
-	//	/* Enable the interrupt for the I2C */
+//	//
+//	//	/* Enable the interrupt for the I2C */
 	NVIC_EnableIRQ(I2C_IRQn);
-
-	LCD_print_string();
+//
+//	LCD_print_string();
 //	sendI2CMaster(0x50, true, false);
-//	sendI2CMaster(I2C_ADDR_7BIT, 0);
+
     // Force the counter to be placed into memory
     volatile static int i = 0 ;
     // Enter an infinite loop, just incrementing a counter

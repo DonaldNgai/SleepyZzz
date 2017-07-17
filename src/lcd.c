@@ -9,7 +9,7 @@
 #include "board.h"
 #include "i2c.h"
 
-#define LCD_i2c_address	0x50 //80
+#define LCD_i2c_address	0x28 //80
 #define LCD_max_data_rate 100 //KHz
 
 uint8_t txData[16];
@@ -27,7 +27,8 @@ void clear_lcd()
 void turn_off_lcd()
 {
 	txData[0] = 0xFE; // Prefix
-	txData[1] = 0x72; // Command
+	txData[1] = 0x53; // Command
+	txData[2] = 0x06; // Command
 //	SetupXferRecAndExecute(LCD_i2c_address, txData, 2, rxData, 0);
 }
 
@@ -39,6 +40,9 @@ void LCD_print_string()
 //	sendI2CMaster(LCD_i2c_address, 0, 0);
 	txData[0] = 0xFE; // Prefix
 	txData[1] = 0x72; // Command
+//	txData[0] = 0xFE; // Prefix
+//		txData[1] = 0x53; // Command
+//		txData[2] = 0x06; // Command
 
 	SetupXferRecAndExecute(LCD_i2c_address, txData, 2, rxData, 0);
 

@@ -37,10 +37,13 @@ void reset_switch_matrix()
 void assign_I2C_pins()
 {
 	//Assign SDA
-	LPC_SWM->PINASSIGN[7] = SDA_PIN << 24;
+//	LPC_SWM->PINASSIGN[7] = SDA_PIN << 24;
+//
+//	//Assign SCL
+//	LPC_SWM->PINASSIGN[8] = SCL_PIN;
+	Chip_SWM_MovablePinAssign(SWM_I2C_SDA_IO, 10);
+	Chip_SWM_MovablePinAssign(SWM_I2C_SCL_IO, 11);
 
-	//Assign SCL
-	LPC_SWM->PINASSIGN[8] = SCL_PIN;
 }
 
 

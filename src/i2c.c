@@ -14,10 +14,11 @@
 
 /* I2CM transfer record */
 static I2CM_XFER_T  i2cmXferRec;
-/* System clock is set to 24MHz, I2C clock is set to 600kHz */
+/* System clock is set to 24MHz, I2C clock is set to 600kHz */ // Use 40
+// 30Mhz, divide by 50 will give 600kHz
 #define I2C_CLK_DIVIDER         (40)
 /* 100KHz I2C bit-rate */
-#define I2C_BITRATE             (100000)
+#define I2C_BITRATE             (40000)
 
 /* file local variables */
 static volatile int intErrCode;
@@ -43,6 +44,16 @@ static void errorI2C(void)
 /*****************************************************************************
  * Public functions
  ****************************************************************************/
+/**
+ * @brief	Handle I2C interrupt by calling I2CM interrupt transfer handler
+ * @return	Nothing
+ */
+void I2C_IRQHandler(void)
+{
+	/* Call I2CM ISR function with the I2C device and transfer rec */
+	Chip_I2CM_XferHandler(LPC_I2C, &i2cmXferRec);
+}
+
 /* Setup I2C handle and parameters */
 void setupI2CMaster()
 {
@@ -193,33 +204,33 @@ void SetupXferRecAndExecute(uint8_t devAddr,
 	i2cmXferRec.txBuff = txBuffPtr;
 	i2cmXferRec.rxBuff = rxBuffPtr;
 
-//	Chip_I2CM_XferBlocking(LPC_I2C, &i2cmXferRec);.
+	Chip_I2CM_XferBlocking(LPC_I2C, &i2cmXferRec);
 
-	Board_LED_Set(1, (LPC_I2C->STAT & I2C_STAT_MSTPENDING));
-	while(count <= 5000000)
-	{
-		count ++;
-	}
-
-	uint32_t ret = 0;
-	/* start transfer */
-	Chip_I2CM_Xfer(LPC_I2C, &i2cmXferRec);
-
-	while (ret == 0) {
-//		blink_led((LPC_I2C->STAT & I2C_STAT_MSTPENDING));
-		Board_LED_Set(1, (LPC_I2C->STAT & I2C_STAT_MSTPENDING));
-		ret = Chip_I2CM_XferHandler(LPC_I2C, &i2cmXferRec);
-		/* wait for status change interrupt */
-		while (!Chip_I2CM_IsMasterPending(LPC_I2C)) {
-			// Not pending
-//			blink_led(1);
-			blink_led((LPC_I2C->STAT & 0x7 << 1), count);
-			count = count + 1 % 3;
-		}
-		/* call state change handler */
-
-
-	}
+//	Board_LED_Set(1, (LPC_I2C->STAT & I2C_STAT_MSTPENDING));
+//	while(count <= 5000000)
+//	{
+//		count ++;
+//	}
+//
+//	uint32_t ret = 0;
+//	/* start transfer */
+//	Chip_I2CM_Xfer(LPC_I2C, &i2cmXferRec);
+//
+//	while (ret == 0) {
+////		blink_led((LPC_I2C->STAT & I2C_STAT_MSTPENDING));
+////		Board_LED_Set(1, (LPC_I2C->STAT & I2C_STAT_MSTPENDING));
+//
+//		/* wait for status change interrupt */
+//		while (!Chip_I2CM_IsMasterPending(LPC_I2C)) {
+//			// Not pending
+////			blink_led(1);
+//			blink_led((LPC_I2C->STAT & 0x7 << 1), count);
+//			count = count + 1 % 3;
+//		}
+//		/* call state change handler */
+//		ret = Chip_I2CM_XferHandler(LPC_I2C, &i2cmXferRec);
+//
+//	}
 
 }
 
@@ -235,5 +246,23 @@ void sendI2CMaster(uint16_t i2c_addr, uint32_t ledStateOut)
 	txData[index++] = (uint8_t) ((ledStateOut >> 24) & 0xff);		/* I2C device regVal */
 
 	SetupXferRecAndExecute(i2c_addr, txData, 5, rxData, 0);
+}
+
+/* Initializes pin muxing for I2C interface */
+void Init_I2C_PinMux(void)
+{
+	/* Enable the clock to the Switch Matrix */
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+
+	/* Connect the I2C_SDA and I2C_SCL signals to port pins(P0.10, P0.11) */
+	Chip_SWM_MovablePinAssign(SWM_I2C_SDA_IO, 10);
+	Chip_SWM_MovablePinAssign(SWM_I2C_SCL_IO, 11);
+
+	/* Enable Fast Mode Plus for I2C pins */
+	Chip_IOCON_PinSetI2CMode(LPC_IOCON, IOCON_PIO10, PIN_I2CMODE_FASTPLUS);
+	Chip_IOCON_PinSetI2CMode(LPC_IOCON, IOCON_PIO11, PIN_I2CMODE_FASTPLUS);
+
+	/* Disable the clock to the Switch Matrix to save power */
+	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 }
 
