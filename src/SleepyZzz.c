@@ -35,45 +35,64 @@
  */
 void SysTick_Handler(void)
 {
-	Board_LED_Toggle(0);
-	LCD_print_string();
-//	sendI2CMaster(I2C_ADDR_7BIT, 2);
+//	Board_LED_Toggle(0);
 //	Board_LED_Set(0, true);
 
+
+//	LCD_print_char('b');
+
+	//Works
+//	LCD_print_char('H');
+//	LCD_print_char('e');
+//	LCD_print_char('l');
+//	LCD_print_char('l');
+//	LCD_print_char('o');
+//
+//	LCD_print_char('a');
+//	turn_on_blinking_cursor();
+	//	turn_off_lcd();
+	//	turn_on_lcd();
+//	show_lcd_i2c_address();
+//	set_lcd_backlight_brightness(8);
+//	lcd_clear();
+
+}
+
+void program_init(void){
+
+	#if defined (__USE_LPCOPEN)
+		// Read clock settings and update SystemCoreClock variable
+		SystemCoreClockUpdate();
+	#if !defined(NO_BOARD_LIB)
+		// Set up and initialize all required blocks and
+		// functions related to the board hardware
+		Board_Init();
+	#endif
+	#endif
+
+//	reset_switch_matrix();
+
+	/* Enable SysTick Timer */
+	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
+
+	/* Setup I2C pin muxing */
+	Init_I2C_PinMux();
+
+	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
+	setupI2CMaster();
+
+	/* Enable the interrupt for the I2C */
+	NVIC_EnableIRQ(I2C_IRQn);
+
+	lcd_clear();
 }
 
 int main(void) {
 
-#if defined (__USE_LPCOPEN)
-    // Read clock settings and update SystemCoreClock variable
-    SystemCoreClockUpdate();
-#if !defined(NO_BOARD_LIB)
-    // Set up and initialize all required blocks and
-    // functions related to the board hardware
-    Board_Init();
-#endif
-#endif
+	program_init();
 
-//    reset_switch_matrix();
-
-    /* Enable SysTick Timer */
-	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
-//SysTick_Config(3000000);
-//	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_I2C0);
-
-//
-////	//	/* Setup I2C pin muxing */
-	Init_I2C_PinMux();
-//	assign_I2C_pins();
-//	//
-//	//	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
-	setupI2CMaster();
-//	//
-//	//	/* Enable the interrupt for the I2C */
-	NVIC_EnableIRQ(I2C_IRQn);
-//
-//	LCD_print_string();
-//	sendI2CMaster(0x50, true, false);
+	LCD_print_string(LINE_1, "Hello World!!!!!!!!!!!!!!!!!!!!!!!!!!!\0");
+//	lcd_clear_line(LINE_1);
 
     // Force the counter to be placed into memory
     volatile static int i = 0 ;
