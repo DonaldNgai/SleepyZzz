@@ -5,6 +5,7 @@
  *  Created on: Jul 11, 2017
  *      Author: donald
  */
+#include <stdlib.h>
 #include <stdint.h>
 #include "lcd.h"
 #include "board.h"
@@ -97,6 +98,13 @@ void LCD_print_string(lcd_lines line, char* string)
 			}
 		#endif
   	}
+}
+
+void LCD_print_integer(lcd_lines line, int number)
+{
+	char print_buffer[numberOfColumns];
+	itoa(number, print_buffer, 10);
+	LCD_print_string(line, print_buffer);
 }
 
 void show_lcd_i2c_address(void)

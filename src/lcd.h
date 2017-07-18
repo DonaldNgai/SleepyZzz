@@ -22,6 +22,7 @@ void set_lcd_cursor(lcd_lines x);
 void lcd_clear(void);
 void LCD_print_char(char c);
 void LCD_print_string(lcd_lines line, char* string);
+void LCD_print_integer(lcd_lines line, int number);
 void show_lcd_i2c_address(void);
 void set_lcd_backlight_brightness(int brightness);
 void turn_on_blinking_cursor(void);

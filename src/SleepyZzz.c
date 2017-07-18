@@ -29,6 +29,8 @@
 //Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
 //Meaning 41.66ns clock period
 
+char print_buffer[50];
+
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
@@ -89,9 +91,12 @@ void program_init(void){
 
 int main(void) {
 
+	int num = 100;
 	program_init();
 
-	LCD_print_string(LINE_1, "Hello World!!!!!!!!!!!!!!!!!!!!!!!!!!!\0");
+//	sprintf(print_buffer,"hi %d", 10);
+//	LCD_print_string(LINE_1, print_buffer);
+	LCD_print_integer(LINE_2, 999);
 //	lcd_clear_line(LINE_1);
 
     // Force the counter to be placed into memory
