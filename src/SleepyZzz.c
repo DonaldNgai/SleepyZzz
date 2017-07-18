@@ -37,27 +37,7 @@ char print_buffer[50];
  */
 void SysTick_Handler(void)
 {
-//	Board_LED_Toggle(0);
-//	Board_LED_Set(0, true);
-
-
-//	LCD_print_char('b');
-
-	//Works
-//	LCD_print_char('H');
-//	LCD_print_char('e');
-//	LCD_print_char('l');
-//	LCD_print_char('l');
-//	LCD_print_char('o');
-//
-//	LCD_print_char('a');
-//	turn_on_blinking_cursor();
-	//	turn_off_lcd();
-	//	turn_on_lcd();
-//	show_lcd_i2c_address();
-//	set_lcd_backlight_brightness(8);
-//	lcd_clear();
-
+	Board_LED_Toggle(0);
 }
 
 void program_init(void){
@@ -72,7 +52,7 @@ void program_init(void){
 	#endif
 	#endif
 
-//	reset_switch_matrix();
+	reset_switch_matrix();
 
 	/* Enable SysTick Timer */
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
@@ -91,13 +71,9 @@ void program_init(void){
 
 int main(void) {
 
-	int num = 100;
 	program_init();
 
-//	sprintf(print_buffer,"hi %d", 10);
-//	LCD_print_string(LINE_1, print_buffer);
-	LCD_print_integer(LINE_2, 999);
-//	lcd_clear_line(LINE_1);
+	LCD_print_string(LINE_1,"Hello World!\0");
 
     // Force the counter to be placed into memory
     volatile static int i = 0 ;

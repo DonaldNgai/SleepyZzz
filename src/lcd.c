@@ -80,6 +80,7 @@ void LCD_print_char(char c)
 }
 
 //Make sure to null terminate string
+//Ex: LCD_print_string(LINE_2, "Hello World!\0");
 void LCD_print_string(lcd_lines line, char* string)
 {
 	#ifdef restrictLineChange
@@ -100,6 +101,7 @@ void LCD_print_string(lcd_lines line, char* string)
   	}
 }
 
+//Ex: LCD_print_integer(LINE_2, 999);
 void LCD_print_integer(lcd_lines line, int number)
 {
 	char print_buffer[numberOfColumns];
