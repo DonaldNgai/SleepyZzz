@@ -21,23 +21,31 @@
 #include "switch_matrix.h"
 #include "i2c.h"
 #include "lcd.h"
+#include "adc.h"
 
 #define I2C_ADDR_7BIT           (0x60)
 
-//0x28 or 40
 #define TICKRATE_HZ (10)	/* 10 ticks per second */
 //Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
 //Meaning 41.66ns clock period
 
 char print_buffer[50];
-
+sensor_values_t sensorVals;
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
  */
 void SysTick_Handler(void)
 {
-	Board_LED_Toggle(0);
+//	Board_LED_Toggle(0);
+
+	get_sensor_values(&sensorVals);
+
+//	LCD_print_integer(LINE_1,(int) sensorVals.temperature);
+//	LCD_print_integer(LINE_2,(int) sensorVals.heart_rate);
+//	LCD_print_integer(LINE_3,(int) sensorVals.orientation);
+//	LCD_print_integer(LINE_4,(int) sensorVals.other);
+
 }
 
 void program_init(void){
@@ -67,14 +75,15 @@ void program_init(void){
 	NVIC_EnableIRQ(I2C_IRQn);
 
 	lcd_clear();
+
+	turn_on_blinking_cursor();
 }
 
 int main(void) {
 
 	program_init();
-
-	LCD_print_string(LINE_1,"Hello World!\0");
-
+	LCD_print_integer(LINE_1,SystemCoreClock);
+	LCD_print_string(LINE_3,"Hello World!\0");
     // Force the counter to be placed into memory
     volatile static int i = 0 ;
     // Enter an infinite loop, just incrementing a counter

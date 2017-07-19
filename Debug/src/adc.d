@@ -1,4 +1,4 @@
-src/SleepyZzz.o src/SleepyZzz.d: ../src/SleepyZzz.c \
+src/adc.o src/adc.d: ../src/adc.c \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/chip.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h \
@@ -40,7 +40,7 @@ src/SleepyZzz.o src/SleepyZzz.d: ../src/SleepyZzz.c \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/irc_8xx.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board_api.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h \
- ../src/switch_matrix.h ../src/i2c.h ../src/lcd.h ../src/adc.h
+ ../src/i2c.h ../src/adc.h
 
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board.h:
 
@@ -124,10 +124,6 @@ src/SleepyZzz.o src/SleepyZzz.d: ../src/SleepyZzz.c \
 
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h:
 
-../src/switch_matrix.h:
-
 ../src/i2c.h:
-
-../src/lcd.h:
 
 ../src/adc.h:

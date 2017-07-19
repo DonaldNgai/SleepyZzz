@@ -5,8 +5,10 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../src/SleepyZzz.c \
+../src/adc.c \
 ../src/cr_startup_lpc8xx.c \
 ../src/crp.c \
+../src/helper.c \
 ../src/i2c.c \
 ../src/lcd.c \
 ../src/mtb.c \
@@ -15,8 +17,10 @@ C_SRCS += \
 
 OBJS += \
 ./src/SleepyZzz.o \
+./src/adc.o \
 ./src/cr_startup_lpc8xx.o \
 ./src/crp.o \
+./src/helper.o \
 ./src/i2c.o \
 ./src/lcd.o \
 ./src/mtb.o \
@@ -25,8 +29,10 @@ OBJS += \
 
 C_DEPS += \
 ./src/SleepyZzz.d \
+./src/adc.d \
 ./src/cr_startup_lpc8xx.d \
 ./src/crp.d \
+./src/helper.d \
 ./src/i2c.d \
 ./src/lcd.d \
 ./src/mtb.d \
