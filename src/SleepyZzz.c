@@ -87,9 +87,18 @@ int main(void) {
 	Chip_UART_Init(LPC_USART0);
 	Board_LED_Set(0, false);
 
+	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
+		UART_CONFIG_T cfg = {
+			0,				/* U_PCLK frequency in Hz */
+			115200,			/* Baud Rate in Hz */
+			1,				/* 8N1 */
+			0,				/* Asynchronous Mode */
+			NO_ERR_EN		/* Enable No Errors */
+		};
+
 	/* Allocate UART handle, setup UART parameters, and initialize UART
 	   clocking */
-	setupUART(uartHandleMEM, sizeof(uartHandleMEM));
+	setupUART(uartHandleMEM, sizeof(uartHandleMEM), cfg);
 
 	/* Transmit the welcome message and instructions using the
 	   putline function */

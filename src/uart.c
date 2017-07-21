@@ -67,18 +67,9 @@ void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t TX_PIN, CHIP_SWM_P
 }
 
 /* Setup UART handle and parameters */
-void setupUART(uint32_t *uartHandleMEM, uint8_t mem_size)
+void setupUART(uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
 {
 	uint32_t frg_mult;
-
-	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
-	UART_CONFIG_T cfg = {
-		0,				/* U_PCLK frequency in Hz */
-		115200,			/* Baud Rate in Hz */
-		1,				/* 8N1 */
-		0,				/* Asynchronous Mode */
-		NO_ERR_EN		/* Enable No Errors */
-	};
 
 	/* Perform a sanity check on the storage allocation */
 	if (LPC_UARTD_API->uart_get_mem_size() > mem_size) {
