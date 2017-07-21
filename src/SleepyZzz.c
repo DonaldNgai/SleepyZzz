@@ -34,7 +34,8 @@
 char print_buffer[50];
 sensor_values_t sensorVals;
 
-char recv_buf[32];
+char recv0_buf[32];
+char recv1_buf[32];
 
 /* UART handle and memory for ROM API */
 UART_HANDLE_T* uart0Handle;
@@ -82,8 +83,10 @@ void program_init(void){
 	lcd_clear();
 	turn_on_blinking_cursor();
 
+	/*		USB DEBUG INIT		*/
+
 	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
-	UART_CONFIG_T cfg = {
+	UART_CONFIG_T cfg1 = {
 		0,				/* U_PCLK frequency in Hz */
 		115200,			/* Baud Rate in Hz */
 		1,				/* 8N1 */
@@ -91,17 +94,25 @@ void program_init(void){
 		NO_ERR_EN		/* Enable No Errors */
 	};
 
-	/*		USB DEBUG INIT		*/
 	Init_UART_PinMux(SWM_U1_TXD_O,6,SWM_U1_RXD_I,1);
 	Chip_UART_Init(LPC_USART1);
 	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
-	setupUART((uint32_t) LPC_USART1, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg);
+	setupUART((uint32_t) LPC_USART1, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg1);
 
 	/*		WIFI INIT		*/
-//	Init_UART_PinMux(SWM_U0_TXD_O,4,SWM_U0_RXD_I,0);
-//	Chip_UART_Init(LPC_USART0);
-//	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
-//	setupUART(&uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg);
+
+	UART_CONFIG_T cfg0 = {
+			0,				/* U_PCLK frequency in Hz */
+			115200,			/* Baud Rate in Hz */
+			1,				/* 8N1 */
+			0,				/* Asynchronous Mode */
+			NO_ERR_EN		/* Enable No Errors */
+		};
+
+	Init_UART_PinMux(SWM_U0_TXD_O,4,SWM_U0_RXD_I,0);
+	Chip_UART_Init(LPC_USART0);
+	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
+	setupUART((uint32_t) LPC_USART0, &uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg0);
 }
 
 int main(void) {
@@ -116,15 +127,27 @@ int main(void) {
 	   putline function */
 	putLineUART(uart1Handle, "Beginning of Program\r\n");
 
+	putLineUART(uart0Handle, "AT\r\n");
+	putLineUART(uart1Handle, "Sent AT to UART0\r\n");
+
+//	getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
+	recv0_buf[0] = LPC_UARTD_API->uart_get_char(uart0Handle);
+
+	putLineUART(uart1Handle, "Received Response\r\n");
+
+	recv0_buf[sizeof(recv0_buf) - 1] = '\0';	/* Safety */
+	putLineUART(uart1Handle, recv0_buf);
+	LCD_print_string(LINE_3, recv0_buf);
+
 	/* Get a string for the UART and echo it back to the caller. Data is NOT
 	   echoed back via the UART using this function. */
-	getLineUART(uart1Handle, recv_buf, sizeof(recv_buf));
-	recv_buf[sizeof(recv_buf) - 1] = '\0';	/* Safety */
-	if (strlen(recv_buf) == (sizeof(recv_buf) - 1)) {
+	getLineUART(uart1Handle, recv1_buf, sizeof(recv1_buf));
+	recv1_buf[sizeof(recv1_buf) - 1] = '\0';	/* Safety */
+	if (strlen(recv1_buf) == (sizeof(recv1_buf) - 1)) {
 		putLineUART(uart1Handle, "**String was truncated, input data longer than "
 					"receive buffer***\r\n");
 	}
-	putLineUART(uart1Handle, recv_buf);
+	putLineUART(uart1Handle, recv1_buf);
 
 	/* Transmit the message for byte/character part of the exampel */
 	putLineUART(uart1Handle, "\r\nByte receive with echo: "
