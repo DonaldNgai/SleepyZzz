@@ -34,7 +34,9 @@ char print_buffer[50];
 sensor_values_t sensorVals;
 
 char recv_buf[32];
-
+/* Use a buffer size larger than the expected return value of
+   uart_get_mem_size() for the static UART handle type */
+uint32_t uartHandleMEM[0x10];
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
@@ -87,7 +89,7 @@ int main(void) {
 
 	/* Allocate UART handle, setup UART parameters, and initialize UART
 	   clocking */
-	setupUART();
+	setupUART(uartHandleMEM, sizeof(uartHandleMEM));
 
 	/* Transmit the welcome message and instructions using the
 	   putline function */

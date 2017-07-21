@@ -22,10 +22,6 @@
 /* UART handle and memory for ROM API */
 static UART_HANDLE_T *uartHandle;
 
-/* Use a buffer size larger than the expected return value of
-   uart_get_mem_size() for the static UART handle type */
-static uint32_t uartHandleMEM[0x10];
-
 /* Receive buffer */
 #define RECV_BUFF_SIZE 32
 
@@ -71,7 +67,7 @@ void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t TX_PIN, CHIP_SWM_P
 }
 
 /* Setup UART handle and parameters */
-void setupUART()
+void setupUART(uint32_t *uartHandleMEM, uint8_t mem_size)
 {
 	uint32_t frg_mult;
 
@@ -85,14 +81,14 @@ void setupUART()
 	};
 
 	/* Perform a sanity check on the storage allocation */
-	if (LPC_UARTD_API->uart_get_mem_size() > sizeof(uartHandleMEM)) {
+	if (LPC_UARTD_API->uart_get_mem_size() > mem_size) {
 		/* Example only: this should never happen and probably isn't needed for
 		   most UART code. */
 		errorUART();
 	}
 
 	/* Setup the UART handle */
-	uartHandle = LPC_UARTD_API->uart_setup((uint32_t) LPC_USART0, (uint8_t *) &uartHandleMEM);
+	uartHandle = LPC_UARTD_API->uart_setup((uint32_t) LPC_USART0, (uint8_t *) uartHandleMEM);
 	if (uartHandle == NULL) {
 		errorUART();
 	}
