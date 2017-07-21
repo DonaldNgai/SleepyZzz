@@ -18,8 +18,6 @@
 
 #include <cr_section_macros.h>
 
-#include <string.h>
-
 #include "switch_matrix.h"
 #include "i2c.h"
 #include "lcd.h"
@@ -36,12 +34,6 @@ char print_buffer[50];
 sensor_values_t sensorVals;
 
 char recv_buf[32];
-/* UART handle and memory for ROM API */
-UART_HANDLE_T *uart1Handle;
-
-/* Use a buffer size larger than the expected return value of
-   uart_get_mem_size() for the static UART handle type */
-uint32_t uart1HandleMEM[UART_MEM_SIZE];
 
 /**
  * @brief	Handle interrupt from SysTick timer
@@ -89,41 +81,31 @@ int main(void) {
 //	LCD_print_integer(LINE_1,SystemCoreClock);
 //	LCD_print_string(LINE_3,"Hello World!\0");
 
-	Init_UART_PinMux(SWM_U0_TXD_O,6,SWM_U0_TXD_O,1);
+	Init_UART_PinMux(SWM_U0_TXD_O,6,SWM_U0_RXD_I,1);
 	Chip_UART_Init(LPC_USART0);
 	Board_LED_Set(0, false);
 
-	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
-	UART_CONFIG_T cfg = {
-		0,				/* U_PCLK frequency in Hz */
-		115200,			/* Baud Rate in Hz */
-		1,				/* 8N1 */
-		0,				/* Asynchronous Mode */
-		NO_ERR_EN		/* Enable No Errors */
-	};
-
-
 	/* Allocate UART handle, setup UART parameters, and initialize UART
 	   clocking */
-	setupUART((uint32_t)LPC_USART0, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), &cfg);
+	setupUART();
 
 	/* Transmit the welcome message and instructions using the
 	   putline function */
-	putLineUART(&uart1Handle, "LPC8XX USART API ROM polling Example\r\n");
-	putLineUART(&uart1Handle, "Enter a string, press enter (CR+LF) to echo it back:\r\n");
+	putLineUART("LPC8XX USART API ROM polling Example\r\n");
+	putLineUART("Enter a string, press enter (CR+LF) to echo it back:\r\n");
 
 	/* Get a string for the UART and echo it back to the caller. Data is NOT
 	   echoed back via the UART using this function. */
-	getLineUART(&uart1Handle, recv_buf, sizeof(recv_buf));
+	getLineUART(recv_buf, sizeof(recv_buf));
 	recv_buf[sizeof(recv_buf) - 1] = '\0';	/* Safety */
 	if (strlen(recv_buf) == (sizeof(recv_buf) - 1)) {
-		putLineUART(&uart1Handle, "**String was truncated, input data longer than "
+		putLineUART("**String was truncated, input data longer than "
 					"receive buffer***\r\n");
 	}
-	putLineUART(&uart1Handle, recv_buf);
+	putLineUART(recv_buf);
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART(&uart1Handle, "\r\nByte receive with echo: "
+	putLineUART("\r\nByte receive with echo: "
 				"Press a key to echo it back. Press ESC to exit\r");
 
 //	/* Endless loop until ESC key is pressed */
@@ -137,7 +119,7 @@ int main(void) {
 //	}
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART(uart1Handle, "\r\nESC key received, exiting\r\n");
+	putLineUART("\r\nESC key received, exiting\r\n");
 
 //    // Force the counter to be placed into memory
 //    volatile static int i = 0 ;

@@ -7,8 +7,6 @@
 
 
 #include "board.h"
-#include "uart.h"
-#include "lcd.h"
 #include <string.h>
 
 /*Had to add dialout to groups in order to connect to serial port via putty
@@ -20,6 +18,13 @@
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
+
+/* UART handle and memory for ROM API */
+static UART_HANDLE_T *uartHandle;
+
+/* Use a buffer size larger than the expected return value of
+   uart_get_mem_size() for the static UART handle type */
+static uint32_t uartHandleMEM[0x10];
 
 /* Receive buffer */
 #define RECV_BUFF_SIZE 32
@@ -37,9 +42,9 @@
  ****************************************************************************/
 
 /* Turn on LED to indicate an error */
-static void errorUART(int led)
+static void errorUART(void)
 {
-	Board_LED_Set(led, true);
+	Board_LED_Set(0, true);
 	while (1) {}
 }
 
@@ -49,7 +54,7 @@ static void errorUART(int led)
 
 /* UART Pin mux function - note that SystemInit() may already setup your
    pin muxing at system startup */
-void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t tx_pin, CHIP_SWM_PIN_MOVABLE_T UART_RX, uint8_t rx_pin)
+void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t TX_PIN, CHIP_SWM_PIN_MOVABLE_T UART_RX, uint8_t RX_PIN)
 {
 	/* Enable the clock to the Switch Matrix */
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
@@ -58,37 +63,45 @@ void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t tx_pin, CHIP_SWM_P
 
 	/* Connect the U0_TXD_O and U0_RXD_I signals to port pins(P0.4, P0.0) */
 	Chip_SWM_DisableFixedPin(SWM_FIXED_ACMP_I1);
-	Chip_SWM_MovablePinAssign(UART_TX, tx_pin);
-	Chip_SWM_MovablePinAssign(UART_RX, rx_pin);
+	Chip_SWM_MovablePinAssign(UART_TX, TX_PIN);
+	Chip_SWM_MovablePinAssign(UART_RX, RX_PIN);
 
 	/* Disable the clock to the Switch Matrix to save power */
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 }
 
 /* Setup UART handle and parameters */
-void setupUART(uint32_t UART_BASE, UART_HANDLE_T* uartHandle, uint32_t* uartHandleMEM, uint8_t mem_size, UART_CONFIG_T* cfg)
+void setupUART()
 {
 	uint32_t frg_mult;
-		LCD_print_integer(LINE_1,mem_size);
+
+	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
+	UART_CONFIG_T cfg = {
+		0,				/* U_PCLK frequency in Hz */
+		115200,			/* Baud Rate in Hz */
+		1,				/* 8N1 */
+		0,				/* Asynchronous Mode */
+		NO_ERR_EN		/* Enable No Errors */
+	};
 
 	/* Perform a sanity check on the storage allocation */
-	if (LPC_UARTD_API->uart_get_mem_size() > mem_size) {
+	if (LPC_UARTD_API->uart_get_mem_size() > sizeof(uartHandleMEM)) {
 		/* Example only: this should never happen and probably isn't needed for
 		   most UART code. */
-		errorUART(0);
+		errorUART();
 	}
 
 	/* Setup the UART handle */
-	uartHandle = LPC_UARTD_API->uart_setup(UART_BASE, uartHandleMEM);
+	uartHandle = LPC_UARTD_API->uart_setup((uint32_t) LPC_USART0, (uint8_t *) &uartHandleMEM);
 	if (uartHandle == NULL) {
-		errorUART(1);
+		errorUART();
 	}
 
 	/* Need to tell UART ROM API function the current UART peripheral clock speed */
-	cfg->sys_clk_in_hz = Chip_Clock_GetMainClockRate()/UART_CLOCK_DIV;
+	cfg.sys_clk_in_hz = Chip_Clock_GetMainClockRate()/UART_CLOCK_DIV;
 
 	/* Initialize the UART with the configuration parameters */
-	frg_mult = LPC_UARTD_API->uart_init(uartHandle, cfg);
+	frg_mult = LPC_UARTD_API->uart_init(uartHandle, &cfg);
 	if (frg_mult) {
 		Chip_SYSCTL_SetUSARTFRGDivider(0xFF);	/* value 0xFF should be always used */
 		Chip_SYSCTL_SetUSARTFRGMultiplier(frg_mult);
@@ -97,7 +110,7 @@ void setupUART(uint32_t UART_BASE, UART_HANDLE_T* uartHandle, uint32_t* uartHand
 
 /* Send a string on the UART terminated by a NULL character using
    polling mode. */
-void putLineUART(UART_HANDLE_T* uartHandle, const char *send_data)
+void putLineUART(const char *send_data)
 {
 	UART_PARAM_T param;
 
@@ -110,13 +123,13 @@ void putLineUART(UART_HANDLE_T* uartHandle, const char *send_data)
 
 	/* Transmit the data */
 	if (LPC_UARTD_API->uart_put_line(uartHandle, &param)) {
-		errorUART(2);
+		errorUART();
 	}
 }
 
 /* Receive a string on the UART terminated by a LF character using
    polling mode. */
-void getLineUART(UART_HANDLE_T* uartHandle, char *receive_buffer, uint32_t length)
+void getLineUART(char *receive_buffer, uint32_t length)
 {
 	UART_PARAM_T param;
 
@@ -130,6 +143,6 @@ void getLineUART(UART_HANDLE_T* uartHandle, char *receive_buffer, uint32_t lengt
 
 	/* Receive the data */
 	if (LPC_UARTD_API->uart_get_line(uartHandle, &param)) {
-		errorUART(2);
+		errorUART();
 	}
 }
