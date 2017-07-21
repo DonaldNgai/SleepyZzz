@@ -7,6 +7,8 @@
 
 
 #include "board.h"
+#include "lcd.h"
+#include "uart.h"
 #include <string.h>
 
 /*Had to add dialout to groups in order to connect to serial port via putty
@@ -18,9 +20,6 @@
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
-
-/* UART handle and memory for ROM API */
-static UART_HANDLE_T *uartHandle;
 
 /* Receive buffer */
 #define RECV_BUFF_SIZE 32
@@ -67,7 +66,7 @@ void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t TX_PIN, CHIP_SWM_P
 }
 
 /* Setup UART handle and parameters */
-void setupUART(uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
+void setupUART(UART_HANDLE_T** uartHandle, uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
 {
 	uint32_t frg_mult;
 
@@ -79,7 +78,7 @@ void setupUART(uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
 	}
 
 	/* Setup the UART handle */
-	uartHandle = LPC_UARTD_API->uart_setup((uint32_t) LPC_USART0, (uint8_t *) uartHandleMEM);
+	*uartHandle = LPC_UARTD_API->uart_setup((uint32_t) LPC_USART0, (uint8_t *) uartHandleMEM);
 	if (uartHandle == NULL) {
 		errorUART();
 	}
@@ -88,16 +87,18 @@ void setupUART(uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
 	cfg.sys_clk_in_hz = Chip_Clock_GetMainClockRate()/UART_CLOCK_DIV;
 
 	/* Initialize the UART with the configuration parameters */
-	frg_mult = LPC_UARTD_API->uart_init(uartHandle, &cfg);
+	frg_mult = LPC_UARTD_API->uart_init(*uartHandle, &cfg);
 	if (frg_mult) {
 		Chip_SYSCTL_SetUSARTFRGDivider(0xFF);	/* value 0xFF should be always used */
 		Chip_SYSCTL_SetUSARTFRGMultiplier(frg_mult);
 	}
+
+	LCD_print_integer(LINE_1,*uartHandle);
 }
 
 /* Send a string on the UART terminated by a NULL character using
    polling mode. */
-void putLineUART(const char *send_data)
+void putLineUART(UART_HANDLE_T* uartHandle, const char *send_data)
 {
 	UART_PARAM_T param;
 
@@ -116,7 +117,7 @@ void putLineUART(const char *send_data)
 
 /* Receive a string on the UART terminated by a LF character using
    polling mode. */
-void getLineUART(char *receive_buffer, uint32_t length)
+void getLineUART(UART_HANDLE_T* uartHandle, char *receive_buffer, uint32_t length)
 {
 	UART_PARAM_T param;
 

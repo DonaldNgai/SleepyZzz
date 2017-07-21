@@ -34,6 +34,10 @@ char print_buffer[50];
 sensor_values_t sensorVals;
 
 char recv_buf[32];
+
+/* UART handle and memory for ROM API */
+UART_HANDLE_T* uartHandle;
+
 /* Use a buffer size larger than the expected return value of
    uart_get_mem_size() for the static UART handle type */
 uint32_t uartHandleMEM[0x10];
@@ -98,25 +102,25 @@ int main(void) {
 
 	/* Allocate UART handle, setup UART parameters, and initialize UART
 	   clocking */
-	setupUART(uartHandleMEM, sizeof(uartHandleMEM), cfg);
+	setupUART(&uartHandle, uartHandleMEM, sizeof(uartHandleMEM), cfg);
 
 	/* Transmit the welcome message and instructions using the
 	   putline function */
-	putLineUART("LPC8XX USART API ROM polling Example\r\n");
-	putLineUART("Enter a string, press enter (CR+LF) to echo it back:\r\n");
+	putLineUART(uartHandle, "LPC8XX USART API ROM polling Example\r\n");
+	putLineUART(uartHandle, "Enter a string, press enter (CR+LF) to echo it back:\r\n");
 
 	/* Get a string for the UART and echo it back to the caller. Data is NOT
 	   echoed back via the UART using this function. */
-	getLineUART(recv_buf, sizeof(recv_buf));
+	getLineUART(uartHandle, recv_buf, sizeof(recv_buf));
 	recv_buf[sizeof(recv_buf) - 1] = '\0';	/* Safety */
 	if (strlen(recv_buf) == (sizeof(recv_buf) - 1)) {
-		putLineUART("**String was truncated, input data longer than "
+		putLineUART(uartHandle, "**String was truncated, input data longer than "
 					"receive buffer***\r\n");
 	}
-	putLineUART(recv_buf);
+	putLineUART(uartHandle, recv_buf);
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART("\r\nByte receive with echo: "
+	putLineUART(uartHandle, "\r\nByte receive with echo: "
 				"Press a key to echo it back. Press ESC to exit\r");
 
 //	/* Endless loop until ESC key is pressed */
@@ -130,7 +134,7 @@ int main(void) {
 //	}
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART("\r\nESC key received, exiting\r\n");
+	putLineUART(&uartHandle, "\r\nESC key received, exiting\r\n");
 
 //    // Force the counter to be placed into memory
 //    volatile static int i = 0 ;
