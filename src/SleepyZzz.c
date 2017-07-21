@@ -18,10 +18,13 @@
 
 #include <cr_section_macros.h>
 
+#include <string.h>
+
 #include "switch_matrix.h"
 #include "i2c.h"
 #include "lcd.h"
 #include "adc.h"
+#include "uart.h"
 
 #define I2C_ADDR_7BIT           (0x60)
 
@@ -31,6 +34,15 @@
 
 char print_buffer[50];
 sensor_values_t sensorVals;
+
+char recv_buf[32];
+/* UART handle and memory for ROM API */
+UART_HANDLE_T *uart1Handle;
+
+/* Use a buffer size larger than the expected return value of
+   uart_get_mem_size() for the static UART handle type */
+uint32_t uart1HandleMEM[UART_MEM_SIZE];
+
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
@@ -38,14 +50,6 @@ sensor_values_t sensorVals;
 void SysTick_Handler(void)
 {
 //	Board_LED_Toggle(0);
-
-	get_sensor_values(&sensorVals);
-
-//	LCD_print_integer(LINE_1,(int) sensorVals.temperature);
-//	LCD_print_integer(LINE_2,(int) sensorVals.heart_rate);
-//	LCD_print_integer(LINE_3,(int) sensorVals.orientation);
-//	LCD_print_integer(LINE_4,(int) sensorVals.other);
-
 }
 
 void program_init(void){
@@ -82,13 +86,64 @@ void program_init(void){
 int main(void) {
 
 	program_init();
-	LCD_print_integer(LINE_1,SystemCoreClock);
-	LCD_print_string(LINE_3,"Hello World!\0");
-    // Force the counter to be placed into memory
-    volatile static int i = 0 ;
-    // Enter an infinite loop, just incrementing a counter
-    while(1) {
-        i++ ;
-    }
+//	LCD_print_integer(LINE_1,SystemCoreClock);
+//	LCD_print_string(LINE_3,"Hello World!\0");
+
+	Init_UART_PinMux(SWM_U0_TXD_O,6,SWM_U0_TXD_O,1);
+	Chip_UART_Init(LPC_USART0);
+	Board_LED_Set(0, false);
+
+	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
+	UART_CONFIG_T cfg = {
+		0,				/* U_PCLK frequency in Hz */
+		115200,			/* Baud Rate in Hz */
+		1,				/* 8N1 */
+		0,				/* Asynchronous Mode */
+		NO_ERR_EN		/* Enable No Errors */
+	};
+
+
+	/* Allocate UART handle, setup UART parameters, and initialize UART
+	   clocking */
+	setupUART((uint32_t)LPC_USART0, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), &cfg);
+
+	/* Transmit the welcome message and instructions using the
+	   putline function */
+	putLineUART(&uart1Handle, "LPC8XX USART API ROM polling Example\r\n");
+	putLineUART(&uart1Handle, "Enter a string, press enter (CR+LF) to echo it back:\r\n");
+
+	/* Get a string for the UART and echo it back to the caller. Data is NOT
+	   echoed back via the UART using this function. */
+	getLineUART(&uart1Handle, recv_buf, sizeof(recv_buf));
+	recv_buf[sizeof(recv_buf) - 1] = '\0';	/* Safety */
+	if (strlen(recv_buf) == (sizeof(recv_buf) - 1)) {
+		putLineUART(&uart1Handle, "**String was truncated, input data longer than "
+					"receive buffer***\r\n");
+	}
+	putLineUART(&uart1Handle, recv_buf);
+
+	/* Transmit the message for byte/character part of the exampel */
+	putLineUART(&uart1Handle, "\r\nByte receive with echo: "
+				"Press a key to echo it back. Press ESC to exit\r");
+
+//	/* Endless loop until ESC key is pressed */
+//	recv_buf[0] = '\n';
+//	while (recv_buf[0] != ESCKEY) {
+//		/* Echo it back */
+//		LPC_UARTD_API->uart_put_char(uartHandle, recv_buf[0]);
+//
+//		/* uart_get_char will block until a character is received */
+//		recv_buf[0] = LPC_UARTD_API->uart_get_char(uartHandle);
+//	}
+
+	/* Transmit the message for byte/character part of the exampel */
+	putLineUART(uart1Handle, "\r\nESC key received, exiting\r\n");
+
+//    // Force the counter to be placed into memory
+//    volatile static int i = 0 ;
+//    // Enter an infinite loop, just incrementing a counter
+//    while(1) {
+//        i++ ;
+//    }
     return 0 ;
 }
