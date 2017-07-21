@@ -13,7 +13,8 @@ C_SRCS += \
 ../src/lcd.c \
 ../src/mtb.c \
 ../src/switch_matrix.c \
-../src/sysinit.c 
+../src/sysinit.c \
+../src/uart.c 
 
 OBJS += \
 ./src/SleepyZzz.o \
@@ -25,7 +26,8 @@ OBJS += \
 ./src/lcd.o \
 ./src/mtb.o \
 ./src/switch_matrix.o \
-./src/sysinit.o 
+./src/sysinit.o \
+./src/uart.o 
 
 C_DEPS += \
 ./src/SleepyZzz.d \
@@ -37,7 +39,8 @@ C_DEPS += \
 ./src/lcd.d \
 ./src/mtb.d \
 ./src/switch_matrix.d \
-./src/sysinit.d 
+./src/sysinit.d \
+./src/uart.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

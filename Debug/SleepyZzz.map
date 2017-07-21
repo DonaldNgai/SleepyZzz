@@ -1,7 +1,7 @@
 Archive member included to satisfy reference by file (symbol)
 
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                              ./src/helper.o (Board_LED_Toggle)
+                              ./src/uart.o (Board_LED_Set)
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
                               ./src/sysinit.o (Board_SystemInit)
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
@@ -34,6 +34,8 @@ Archive member included to satisfy reference by file (symbol)
                               ./src/cr_startup_lpc8xx.o (__main)
 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
                               ./src/lcd.o (itoa)
+/usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+                              ./src/uart.o (strlen)
 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
                               /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o) (__aeabi_idiv)
 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_64.o)
@@ -552,6 +554,125 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 ./src/sysinit.o
  .debug_macro   0x00000000       0x9a ./src/sysinit.o
  .debug_macro   0x00000000       0x20 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .group         0x00000000        0x8 ./src/uart.o
+ .text          0x00000000        0x0 ./src/uart.o
+ .data          0x00000000        0x0 ./src/uart.o
+ .bss           0x00000000        0x0 ./src/uart.o
+ .text.Chip_Clock_EnablePeriphClock
+                0x00000000       0x38 ./src/uart.o
+ .text.Chip_Clock_DisablePeriphClock
+                0x00000000       0x3c ./src/uart.o
+ .text.Chip_Clock_SetUARTClockDiv
+                0x00000000       0x1c ./src/uart.o
+ .text.Chip_SYSCTL_SetUSARTFRGDivider
+                0x00000000       0x24 ./src/uart.o
+ .text.Chip_SYSCTL_SetUSARTFRGMultiplier
+                0x00000000       0x24 ./src/uart.o
+ .text.Chip_SWM_DisableFixedPin
+                0x00000000       0x3c ./src/uart.o
+ .bss.uartHandle
+                0x00000000        0x4 ./src/uart.o
+ .bss.uartHandleMEM
+                0x00000000       0x40 ./src/uart.o
+ .bss.recv_buf  0x00000000       0x20 ./src/uart.o
+ .text.errorUART
+                0x00000000       0x10 ./src/uart.o
+ .text.Init_UART_PinMux
+                0x00000000       0x34 ./src/uart.o
+ .rodata        0x00000000        0xc ./src/uart.o
+ .text.setupUART
+                0x00000000       0x98 ./src/uart.o
+ .text.putLineUART
+                0x00000000       0x5c ./src/uart.o
+ .text.getLineUART
+                0x00000000       0x58 ./src/uart.o
+ .debug_info    0x00000000      0xfe9 ./src/uart.o
+ .debug_abbrev  0x00000000      0x21c ./src/uart.o
+ .debug_aranges
+                0x00000000       0x70 ./src/uart.o
+ .debug_ranges  0x00000000       0x60 ./src/uart.o
+ .debug_macro   0x00000000      0x235 ./src/uart.o
+ .debug_macro   0x00000000      0x844 ./src/uart.o
+ .debug_macro   0x00000000       0x10 ./src/uart.o
+ .debug_macro   0x00000000      0x12d ./src/uart.o
+ .debug_macro   0x00000000      0x5b2 ./src/uart.o
+ .debug_macro   0x00000000       0x22 ./src/uart.o
+ .debug_macro   0x00000000       0x7b ./src/uart.o
+ .debug_macro   0x00000000       0x10 ./src/uart.o
+ .debug_macro   0x00000000       0x28 ./src/uart.o
+ .debug_macro   0x00000000       0x3a ./src/uart.o
+ .debug_macro   0x00000000       0x1f ./src/uart.o
+ .debug_macro   0x00000000      0x250 ./src/uart.o
+ .debug_macro   0x00000000      0x145 ./src/uart.o
+ .debug_macro   0x00000000       0xca ./src/uart.o
+ .debug_macro   0x00000000       0x6a ./src/uart.o
+ .debug_macro   0x00000000       0x70 ./src/uart.o
+ .debug_macro   0x00000000       0x28 ./src/uart.o
+ .debug_macro   0x00000000      0x190 ./src/uart.o
+ .debug_macro   0x00000000       0x24 ./src/uart.o
+ .debug_macro   0x00000000       0x64 ./src/uart.o
+ .debug_macro   0x00000000       0x10 ./src/uart.o
+ .debug_macro   0x00000000       0x22 ./src/uart.o
+ .debug_macro   0x00000000       0xb2 ./src/uart.o
+ .debug_macro   0x00000000       0x58 ./src/uart.o
+ .debug_macro   0x00000000       0x58 ./src/uart.o
+ .debug_macro   0x00000000       0x6a ./src/uart.o
+ .debug_macro   0x00000000       0x82 ./src/uart.o
+ .debug_macro   0x00000000       0x16 ./src/uart.o
+ .debug_macro   0x00000000      0x131 ./src/uart.o
+ .debug_macro   0x00000000       0x22 ./src/uart.o
+ .debug_macro   0x00000000       0x52 ./src/uart.o
+ .debug_macro   0x00000000      0x181 ./src/uart.o
+ .debug_macro   0x00000000      0x289 ./src/uart.o
+ .debug_macro   0x00000000      0x28b ./src/uart.o
+ .debug_macro   0x00000000       0x2e ./src/uart.o
+ .debug_macro   0x00000000       0x22 ./src/uart.o
+ .debug_macro   0x00000000       0x16 ./src/uart.o
+ .debug_macro   0x00000000       0x9a ./src/uart.o
+ .debug_macro   0x00000000       0x20 ./src/uart.o
+ .debug_line    0x00000000      0x4e5 ./src/uart.o
+ .debug_str     0x00000000     0xad5e ./src/uart.o
+ .comment       0x00000000       0x6f ./src/uart.o
+ .debug_frame   0x00000000      0x168 ./src/uart.o
+ .ARM.attributes
+                0x00000000       0x31 ./src/uart.o
  .group         0x00000000        0x8 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .group         0x00000000        0x8 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .group         0x00000000        0x8 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
@@ -1701,6 +1822,13 @@ Discarded input sections
  .data          0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
  .bss           0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
  .text.uitoa    0x00000000       0x48 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
+ .text          0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+ .data          0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+ .bss           0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+ .text.strlen   0x00000000       0x54 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+ .comment       0x00000000       0x6f /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+ .ARM.attributes
+                0x00000000       0x31 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
  .text          0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
  .data          0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
  .bss           0x00000000        0x0 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
@@ -1813,6 +1941,7 @@ LOAD ./src/lcd.o
 LOAD ./src/mtb.o
 LOAD ./src/switch_matrix.o
 LOAD ./src/sysinit.o
+LOAD ./src/uart.o
 LOAD /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a
 LOAD /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a
 START GROUP
