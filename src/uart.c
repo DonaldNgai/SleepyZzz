@@ -93,7 +93,6 @@ void setupUART(UART_HANDLE_T** uartHandle, uint32_t *uartHandleMEM, uint8_t mem_
 		Chip_SYSCTL_SetUSARTFRGMultiplier(frg_mult);
 	}
 
-	LCD_print_integer(LINE_1,*uartHandle);
 }
 
 /* Send a string on the UART terminated by a NULL character using

@@ -36,11 +36,11 @@ sensor_values_t sensorVals;
 char recv_buf[32];
 
 /* UART handle and memory for ROM API */
-UART_HANDLE_T* uartHandle;
+UART_HANDLE_T* uart1Handle;
 
 /* Use a buffer size larger than the expected return value of
    uart_get_mem_size() for the static UART handle type */
-uint32_t uartHandleMEM[0x10];
+uint32_t uart1HandleMEM[0x10];
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
@@ -102,25 +102,25 @@ int main(void) {
 
 	/* Allocate UART handle, setup UART parameters, and initialize UART
 	   clocking */
-	setupUART(&uartHandle, uartHandleMEM, sizeof(uartHandleMEM), cfg);
+	setupUART(&uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg);
 
 	/* Transmit the welcome message and instructions using the
 	   putline function */
-	putLineUART(uartHandle, "LPC8XX USART API ROM polling Example\r\n");
-	putLineUART(uartHandle, "Enter a string, press enter (CR+LF) to echo it back:\r\n");
+	putLineUART(uart1Handle, "LPC8XX USART API ROM polling Example\r\n");
+	putLineUART(uart1Handle, "Enter a string, press enter (CR+LF) to echo it back:\r\n");
 
 	/* Get a string for the UART and echo it back to the caller. Data is NOT
 	   echoed back via the UART using this function. */
-	getLineUART(uartHandle, recv_buf, sizeof(recv_buf));
+	getLineUART(uart1Handle, recv_buf, sizeof(recv_buf));
 	recv_buf[sizeof(recv_buf) - 1] = '\0';	/* Safety */
 	if (strlen(recv_buf) == (sizeof(recv_buf) - 1)) {
-		putLineUART(uartHandle, "**String was truncated, input data longer than "
+		putLineUART(uart1Handle, "**String was truncated, input data longer than "
 					"receive buffer***\r\n");
 	}
-	putLineUART(uartHandle, recv_buf);
+	putLineUART(uart1Handle, recv_buf);
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART(uartHandle, "\r\nByte receive with echo: "
+	putLineUART(uart1Handle, "\r\nByte receive with echo: "
 				"Press a key to echo it back. Press ESC to exit\r");
 
 //	/* Endless loop until ESC key is pressed */
@@ -134,7 +134,7 @@ int main(void) {
 //	}
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART(&uartHandle, "\r\nESC key received, exiting\r\n");
+	putLineUART(uart1Handle, "\r\nESC key received, exiting\r\n");
 
 //    // Force the counter to be placed into memory
 //    volatile static int i = 0 ;
