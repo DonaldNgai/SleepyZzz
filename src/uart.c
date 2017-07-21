@@ -66,7 +66,7 @@ void Init_UART_PinMux(CHIP_SWM_PIN_MOVABLE_T UART_TX, uint8_t TX_PIN, CHIP_SWM_P
 }
 
 /* Setup UART handle and parameters */
-void setupUART(UART_HANDLE_T** uartHandle, uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
+void setupUART(uint32_t uartBase, UART_HANDLE_T** uartHandle, uint32_t *uartHandleMEM, uint8_t mem_size, UART_CONFIG_T cfg)
 {
 	uint32_t frg_mult;
 
@@ -78,7 +78,7 @@ void setupUART(UART_HANDLE_T** uartHandle, uint32_t *uartHandleMEM, uint8_t mem_
 	}
 
 	/* Setup the UART handle */
-	*uartHandle = LPC_UARTD_API->uart_setup((uint32_t) LPC_USART0, (uint8_t *) uartHandleMEM);
+	*uartHandle = LPC_UARTD_API->uart_setup(uartBase, (uint8_t *) uartHandleMEM);
 	if (uartHandle == NULL) {
 		errorUART();
 	}

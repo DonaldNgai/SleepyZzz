@@ -18,6 +18,7 @@
 
 #include <cr_section_macros.h>
 
+#include <string.h>
 #include "switch_matrix.h"
 #include "i2c.h"
 #include "lcd.h"
@@ -36,11 +37,14 @@ sensor_values_t sensorVals;
 char recv_buf[32];
 
 /* UART handle and memory for ROM API */
+UART_HANDLE_T* uart0Handle;
 UART_HANDLE_T* uart1Handle;
 
 /* Use a buffer size larger than the expected return value of
    uart_get_mem_size() for the static UART handle type */
+uint32_t uart0HandleMEM[0x10];
 uint32_t uart1HandleMEM[0x10];
+
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
@@ -67,18 +71,37 @@ void program_init(void){
 	/* Enable SysTick Timer */
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
 
+	/*		LCD INIT		*/
+
 	/* Setup I2C pin muxing */
 	Init_I2C_PinMux();
-
 	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
 	setupI2CMaster();
-
 	/* Enable the interrupt for the I2C */
 	NVIC_EnableIRQ(I2C_IRQn);
-
 	lcd_clear();
-
 	turn_on_blinking_cursor();
+
+	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
+	UART_CONFIG_T cfg = {
+		0,				/* U_PCLK frequency in Hz */
+		115200,			/* Baud Rate in Hz */
+		1,				/* 8N1 */
+		0,				/* Asynchronous Mode */
+		NO_ERR_EN		/* Enable No Errors */
+	};
+
+	/*		USB DEBUG INIT		*/
+	Init_UART_PinMux(SWM_U1_TXD_O,6,SWM_U1_RXD_I,1);
+	Chip_UART_Init(LPC_USART1);
+	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
+	setupUART((uint32_t) LPC_USART1, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg);
+
+	/*		WIFI INIT		*/
+//	Init_UART_PinMux(SWM_U0_TXD_O,4,SWM_U0_RXD_I,0);
+//	Chip_UART_Init(LPC_USART0);
+//	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
+//	setupUART(&uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg);
 }
 
 int main(void) {
@@ -87,27 +110,11 @@ int main(void) {
 //	LCD_print_integer(LINE_1,SystemCoreClock);
 //	LCD_print_string(LINE_3,"Hello World!\0");
 
-	Init_UART_PinMux(SWM_U0_TXD_O,6,SWM_U0_RXD_I,1);
-	Chip_UART_Init(LPC_USART0);
 	Board_LED_Set(0, false);
-
-	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
-		UART_CONFIG_T cfg = {
-			0,				/* U_PCLK frequency in Hz */
-			115200,			/* Baud Rate in Hz */
-			1,				/* 8N1 */
-			0,				/* Asynchronous Mode */
-			NO_ERR_EN		/* Enable No Errors */
-		};
-
-	/* Allocate UART handle, setup UART parameters, and initialize UART
-	   clocking */
-	setupUART(&uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg);
 
 	/* Transmit the welcome message and instructions using the
 	   putline function */
-	putLineUART(uart1Handle, "LPC8XX USART API ROM polling Example\r\n");
-	putLineUART(uart1Handle, "Enter a string, press enter (CR+LF) to echo it back:\r\n");
+	putLineUART(uart1Handle, "Beginning of Program\r\n");
 
 	/* Get a string for the UART and echo it back to the caller. Data is NOT
 	   echoed back via the UART using this function. */

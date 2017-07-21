@@ -104,6 +104,10 @@ Discarded input sections
                 0x00000000       0x32 ./src/SleepyZzz.o
  .bss.sensorVals
                 0x00000000       0x20 ./src/SleepyZzz.o
+ .bss.uart0Handle
+                0x00000000        0x4 ./src/SleepyZzz.o
+ .bss.uart0HandleMEM
+                0x00000000       0x40 ./src/SleepyZzz.o
  .group         0x00000000        0x8 ./src/adc.o
  .group         0x00000000        0x8 ./src/adc.o
  .group         0x00000000        0x8 ./src/adc.o
@@ -1958,7 +1962,7 @@ END GROUP
                 0x10001000                __top_RamLoc4 = 0x10001000
                 0x10001000                __top_RAM = 0x10001000
 
-.text           0x00000000     0x24d4
+.text           0x00000000     0x2460
  FILL mask 0xff
                 0x00000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -1967,7 +1971,7 @@ END GROUP
                 0x000000c0                . = ALIGN (0x4)
                 0x000000c0                __section_table_start = .
                 0x000000c0                __data_section_table = .
-                0x000000c0        0x4 LONG 0x24d4 LOADADDR (.data)
+                0x000000c0        0x4 LONG 0x2460 LOADADDR (.data)
                 0x000000c4        0x4 LONG 0x10000100 ADDR (.data)
                 0x000000c8        0x4 LONG 0x0 SIZEOF (.data)
                 0x000000cc                __data_section_table_end = .
@@ -2025,339 +2029,340 @@ END GROUP
                 0x00000450        0xc ./src/SleepyZzz.o
                 0x00000450                SysTick_Handler
  .text.program_init
-                0x0000045c       0x44 ./src/SleepyZzz.o
+                0x0000045c       0x90 ./src/SleepyZzz.o
                 0x0000045c                program_init
- .text.main     0x000004a0       0xf0 ./src/SleepyZzz.o
-                0x000004a0                main
+ .text.main     0x000004ec       0x98 ./src/SleepyZzz.o
+                0x000004ec                main
  .text.Chip_Clock_EnablePeriphClock
-                0x00000590       0x38 ./src/i2c.o
+                0x00000584       0x38 ./src/i2c.o
  .text.Chip_Clock_DisablePeriphClock
-                0x000005c8       0x3c ./src/i2c.o
+                0x000005bc       0x3c ./src/i2c.o
  .text.Chip_I2C_SetClockDiv
-                0x00000604       0x34 ./src/i2c.o
+                0x000005f8       0x34 ./src/i2c.o
  .text.Chip_I2CM_Enable
-                0x00000638       0x20 ./src/i2c.o
+                0x0000062c       0x20 ./src/i2c.o
  .text.I2C_IRQHandler
-                0x00000658       0x20 ./src/i2c.o
-                0x00000658                I2C_IRQHandler
+                0x0000064c       0x20 ./src/i2c.o
+                0x0000064c                I2C_IRQHandler
  .text.setupI2CMaster
-                0x00000678       0x38 ./src/i2c.o
-                0x00000678                setupI2CMaster
+                0x0000066c       0x38 ./src/i2c.o
+                0x0000066c                setupI2CMaster
  .text.SetupXferRecAndExecute
-                0x000006b0       0x68 ./src/i2c.o
-                0x000006b0                SetupXferRecAndExecute
+                0x000006a4       0x68 ./src/i2c.o
+                0x000006a4                SetupXferRecAndExecute
  .text.Init_I2C_PinMux
-                0x00000718       0x44 ./src/i2c.o
-                0x00000718                Init_I2C_PinMux
+                0x0000070c       0x44 ./src/i2c.o
+                0x0000070c                Init_I2C_PinMux
  .text.send_packet
-                0x0000075c       0x2c ./src/lcd.o
- .text.delay    0x00000788       0x24 ./src/lcd.o
+                0x00000750       0x2c ./src/lcd.o
+ .text.delay    0x0000077c       0x24 ./src/lcd.o
  .text.lcd_clear
-                0x000007ac       0x2c ./src/lcd.o
-                0x000007ac                lcd_clear
+                0x000007a0       0x2c ./src/lcd.o
+                0x000007a0                lcd_clear
  .text.turn_on_blinking_cursor
-                0x000007d8       0x2c ./src/lcd.o
-                0x000007d8                turn_on_blinking_cursor
+                0x000007cc       0x2c ./src/lcd.o
+                0x000007cc                turn_on_blinking_cursor
  .text.Chip_Clock_EnablePeriphClock
-                0x00000804       0x38 ./src/switch_matrix.o
+                0x000007f8       0x38 ./src/switch_matrix.o
  .text.Chip_Clock_DisablePeriphClock
-                0x0000083c       0x3c ./src/switch_matrix.o
+                0x00000830       0x3c ./src/switch_matrix.o
  .text.reset_switch_matrix
-                0x00000878       0x48 ./src/switch_matrix.o
-                0x00000878                reset_switch_matrix
+                0x0000086c       0x48 ./src/switch_matrix.o
+                0x0000086c                reset_switch_matrix
  .text.SystemInit
-                0x000008c0       0x10 ./src/sysinit.o
-                0x000008c0                SystemInit
+                0x000008b4       0x10 ./src/sysinit.o
+                0x000008b4                SystemInit
  .text.Chip_Clock_EnablePeriphClock
-                0x000008d0       0x38 ./src/uart.o
+                0x000008c4       0x38 ./src/uart.o
  .text.Chip_Clock_DisablePeriphClock
-                0x00000908       0x3c ./src/uart.o
+                0x000008fc       0x3c ./src/uart.o
  .text.Chip_Clock_SetUARTClockDiv
-                0x00000944       0x1c ./src/uart.o
+                0x00000938       0x1c ./src/uart.o
  .text.Chip_SYSCTL_SetUSARTFRGDivider
-                0x00000960       0x24 ./src/uart.o
+                0x00000954       0x24 ./src/uart.o
  .text.Chip_SYSCTL_SetUSARTFRGMultiplier
-                0x00000984       0x24 ./src/uart.o
+                0x00000978       0x24 ./src/uart.o
  .text.Chip_SWM_DisableFixedPin
-                0x000009a8       0x3c ./src/uart.o
+                0x0000099c       0x3c ./src/uart.o
  .text.errorUART
-                0x000009e4       0x10 ./src/uart.o
+                0x000009d8       0x10 ./src/uart.o
  .text.Init_UART_PinMux
-                0x000009f4       0x68 ./src/uart.o
-                0x000009f4                Init_UART_PinMux
+                0x000009e8       0x68 ./src/uart.o
+                0x000009e8                Init_UART_PinMux
  .text.setupUART
-                0x00000a5c       0xb0 ./src/uart.o
-                0x00000a5c                setupUART
+                0x00000a50       0x90 ./src/uart.o
+                0x00000a50                setupUART
  .text.putLineUART
-                0x00000b0c       0x58 ./src/uart.o
-                0x00000b0c                putLineUART
+                0x00000ae0       0x58 ./src/uart.o
+                0x00000ae0                putLineUART
  .text.getLineUART
-                0x00000b64       0x54 ./src/uart.o
-                0x00000b64                getLineUART
+                0x00000b38       0x54 ./src/uart.o
+                0x00000b38                getLineUART
  .text.Chip_Clock_EnablePeriphClock
-                0x00000bb8       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000b8c       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_Clock_DisablePeriphClock
-                0x00000bf0       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000bc4       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_Clock_SetUARTClockDiv
-                0x00000c2c       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000c00       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_SWM_DisableFixedPin
-                0x00000c48       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000c1c       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_GPIO_SetPinState
-                0x00000c84       0x40 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000c58       0x40 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_GPIO_SetPinDIROutput
-                0x00000cc4       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000c98       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_UART_Enable
-                0x00000d14       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000ce8       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_UART_TXEnable
-                0x00000d38       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000d0c       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_UART_ConfigData
-                0x00000d58       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000d2c       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Board_LED_Init
-                0x00000d84       0x4c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000d58       0x4c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Board_UART_Init
-                0x00000dd0       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000da4       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Board_LED_Set
-                0x00000e04       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x00000e04                Board_LED_Set
+                0x00000dd8       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000dd8                Board_LED_Set
  .text.Board_Debug_Init
-                0x00000e4c       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x00000e4c                Board_Debug_Init
+                0x00000e20       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000e20                Board_Debug_Init
  .text.Board_Init
-                0x00000e9c       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x00000e9c                Board_Init
+                0x00000e70       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000e70                Board_Init
  .text.Chip_Clock_EnablePeriphClock
-                0x00000eb8       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x00000e8c       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
  .text.Chip_Clock_DisablePeriphClock
-                0x00000ef0       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x00000ec4       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
  .text.Board_SetupMuxing
-                0x00000f2c       0x4c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
-                0x00000f2c                Board_SetupMuxing
+                0x00000f00       0x4c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x00000f00                Board_SetupMuxing
  .text.Board_SetupClocking
-                0x00000f78       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
-                0x00000f78                Board_SetupClocking
+                0x00000f4c       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x00000f4c                Board_SetupClocking
  .text.Board_SystemInit
-                0x00000f90       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
-                0x00000f90                Board_SystemInit
+                0x00000f64       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x00000f64                Board_SystemInit
  .text.SystemCoreClockUpdate
-                0x00000fa4       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
-                0x00000fa4                SystemCoreClockUpdate
+                0x00000f78       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+                0x00000f78                SystemCoreClockUpdate
  .text.Chip_SYSCTL_AssertPeriphReset
-                0x00000fbc       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000f90       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_DeassertPeriphReset
-                0x00000ff4       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000fc8       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_PeriphReset
-                0x00001028       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000ffc       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_SetUARTClockDiv
-                0x00001050       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001024       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetUARTClockDiv
-                0x0000106c       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001040       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_SetUSARTFRGDivider
-                0x00001084       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001058       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_GetUSARTFRGDivider
-                0x000010a8       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000107c       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_SetUSARTFRGMultiplier
-                0x000010c0       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001094       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_GetUSARTFRGMultiplier
-                0x000010e4       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000010b8       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetMainOscRate
-                0x000010fc       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000010d0       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetIntOscRate
-                0x00001110       0x10 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000010e4       0x10 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetExtClockInRate
-                0x00001120       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000010f4       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetWDTLFORate
-                0x00001134       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001108       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetPLLFreq
-                0x0000117c       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001150       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_SetSystemPLLSource
-                0x000011a0       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000011a0                Chip_Clock_SetSystemPLLSource
+                0x00001174       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001174                Chip_Clock_SetSystemPLLSource
  .text.Chip_Clock_SetMainClockSource
-                0x000011cc       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000011cc                Chip_Clock_SetMainClockSource
+                0x000011a0       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000011a0                Chip_Clock_SetMainClockSource
  .text.Chip_Clock_SetCLKOUTSource
-                0x000011f8       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000011f8                Chip_Clock_SetCLKOUTSource
+                0x000011cc       0x3c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000011cc                Chip_Clock_SetCLKOUTSource
  .text.Chip_Clock_GetWDTOSCRate
-                0x00001234       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x00001234                Chip_Clock_GetWDTOSCRate
+                0x00001208       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001208                Chip_Clock_GetWDTOSCRate
  .text.Chip_Clock_GetSystemPLLInClockRate
-                0x00001254       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x00001254                Chip_Clock_GetSystemPLLInClockRate
+                0x00001228       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001228                Chip_Clock_GetSystemPLLInClockRate
  .text.Chip_Clock_GetSystemPLLOutClockRate
-                0x000012a4       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000012a4                Chip_Clock_GetSystemPLLOutClockRate
+                0x00001278       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001278                Chip_Clock_GetSystemPLLOutClockRate
  .text.Chip_Clock_GetMainClockRate
-                0x000012cc       0x64 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000012cc                Chip_Clock_GetMainClockRate
+                0x000012a0       0x64 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000012a0                Chip_Clock_GetMainClockRate
  .text.Chip_Clock_GetSystemClockRate
-                0x00001330       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x00001330                Chip_Clock_GetSystemClockRate
+                0x00001304       0x24 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001304                Chip_Clock_GetSystemClockRate
  .text.Chip_Clock_GetUSARTNBaseClockRate
-                0x00001354       0x84 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x00001354                Chip_Clock_GetUSARTNBaseClockRate
+                0x00001328       0x84 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00001328                Chip_Clock_GetUSARTNBaseClockRate
  .text.Chip_Clock_SetUSARTNBaseClockRate
-                0x000013d8       0x84 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000013d8                Chip_Clock_SetUSARTNBaseClockRate
+                0x000013ac       0x84 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000013ac                Chip_Clock_SetUSARTNBaseClockRate
  .text.Chip_Clock_EnablePeriphClock
-                0x0000145c       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+                0x00001430       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
  .text.Chip_GPIO_Init
-                0x00001494       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
-                0x00001494                Chip_GPIO_Init
+                0x00001468       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+                0x00001468                Chip_GPIO_Init
  .text.Chip_SYSCTL_AssertPeriphReset
-                0x000014ac       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x00001480       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_SYSCTL_DeassertPeriphReset
-                0x000014e4       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x000014b8       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_SYSCTL_PeriphReset
-                0x00001518       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x000014ec       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_Clock_EnablePeriphClock
-                0x00001540       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x00001514       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.I2C_GetResetID
-                0x00001578       0x44 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x0000154c       0x44 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.I2C_GetClockID
-                0x000015bc       0x44 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x00001590       0x44 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_I2C_Init
-                0x00001600       0x30 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
-                0x00001600                Chip_I2C_Init
+                0x000015d4       0x30 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x000015d4                Chip_I2C_Init
  .text.Chip_I2C_GetClockDiv
-                0x00001630       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00001604       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_GetStatus
-                0x0000164c       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00001620       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_ClearStatus
-                0x00001668       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000163c       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_IsMasterPending
-                0x00001684       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00001658       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_GetMasterState
-                0x000016a4       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00001678       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SendStart
-                0x000016c0       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00001694       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SendStop
-                0x000016d8       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000016ac       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_MasterContinue
-                0x000016f0       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000016c4       0x18 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_WriteByte
-                0x00001708       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000016dc       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SetDutyCycle
-                0x00001728       0x7c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000016fc       0x7c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SetBusSpeed
-                0x000017a4       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x000017a4                Chip_I2CM_SetBusSpeed
+                0x00001778       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00001778                Chip_I2CM_SetBusSpeed
  .text.Chip_I2CM_XferHandler
-                0x000017f4      0x164 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x000017f4                Chip_I2CM_XferHandler
+                0x000017c8      0x164 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000017c8                Chip_I2CM_XferHandler
  .text.Chip_I2CM_Xfer
-                0x00001958       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x00001958                Chip_I2CM_Xfer
+                0x0000192c       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000192c                Chip_I2CM_Xfer
  .text.Chip_I2CM_XferBlocking
-                0x000019a8       0x54 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x000019a8                Chip_I2CM_XferBlocking
+                0x0000197c       0x54 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000197c                Chip_I2CM_XferBlocking
  .text.Chip_IOCON_PinSetI2CMode
-                0x000019fc       0x4c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
-                0x000019fc                Chip_IOCON_PinSetI2CMode
+                0x000019d0       0x4c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+                0x000019d0                Chip_IOCON_PinSetI2CMode
  .text.Chip_SWM_MovablePinAssign
-                0x00001a48       0x64 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
-                0x00001a48                Chip_SWM_MovablePinAssign
+                0x00001a1c       0x64 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+                0x00001a1c                Chip_SWM_MovablePinAssign
  .text.Chip_SetupIrcClocking
-                0x00001aac       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
-                0x00001aac                Chip_SetupIrcClocking
+                0x00001a80       0x20 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+                0x00001a80                Chip_SetupIrcClocking
  .text.Chip_SYSCTL_AssertPeriphReset
-                0x00001acc       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001aa0       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_SYSCTL_DeassertPeriphReset
-                0x00001b04       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001ad8       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_SYSCTL_PeriphReset
-                0x00001b38       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001b0c       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_Clock_EnablePeriphClock
-                0x00001b60       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001b34       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.getUARTClockID
-                0x00001b98       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001b6c       0x34 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_UART_Init
-                0x00001bcc       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
-                0x00001bcc                Chip_UART_Init
+                0x00001ba0       0x50 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001ba0                Chip_UART_Init
  .text.Chip_UART_SetBaud
-                0x00001c1c       0x30 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
-                0x00001c1c                Chip_UART_SetBaud
+                0x00001bf0       0x30 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00001bf0                Chip_UART_SetBaud
  .text.Chip_Clock_SetupSystemPLL
-                0x00001c4c       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00001c20       0x38 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_Clock_IsSystemPLLLocked
-                0x00001c84       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00001c58       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_Clock_SetSysClockDiv
-                0x00001ca0       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00001c74       0x1c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_FMC_SetFLASHAccess
-                0x00001cbc       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00001c90       0x2c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.pll_config
-                0x00001ce8       0x6c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00001cbc       0x6c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_IRC_SetFreq
-                0x00001d54       0xf4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
-                0x00001d54                Chip_IRC_SetFreq
+                0x00001d28       0xf4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00001d28                Chip_IRC_SetFreq
  .text.Chip_SYSCTL_PowerDown
-                0x00001e48       0x44 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
-                0x00001e48                Chip_SYSCTL_PowerDown
+                0x00001e1c       0x44 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+                0x00001e1c                Chip_SYSCTL_PowerDown
  .text.Chip_SYSCTL_PowerUp
-                0x00001e8c       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
-                0x00001e8c                Chip_SYSCTL_PowerUp
+                0x00001e60       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+                0x00001e60                Chip_SYSCTL_PowerUp
  .text.__weak_main
-                0x00001ed4        0x8 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(__weak__main.o)
-                0x00001ed4                __main
-                0x00001ed4                __weak_main
- .text.strlen   0x00001edc       0x54 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
-                0x00001edc                strlen
+                0x00001ea8        0x8 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(__weak__main.o)
+                0x00001ea8                __main
+                0x00001ea8                __weak_main
+ .text.strlen   0x00001eb0       0x54 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(strlen.o)
+                0x00001eb0                strlen
  .text.__aeabi_division_idivmod
-                0x00001f30       0x78 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
-                0x00001f30                __aeabi_idiv
-                0x00001f30                __aeabi_idivmod
-                0x00001f36                __aeabi_uidiv
-                0x00001f36                __aeabi_uidivmod
+                0x00001f04       0x78 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
+                0x00001f04                __aeabi_idiv
+                0x00001f04                __aeabi_idivmod
+                0x00001f0a                __aeabi_uidiv
+                0x00001f0a                __aeabi_uidivmod
  .text.__aeabi_division_uldivmod
-                0x00001fa8       0x5a /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_64.o)
-                0x00001fa8                __aeabi_uldivmod
+                0x00001f7c       0x5a /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_64.o)
+                0x00001f7c                __aeabi_uldivmod
  .text.__aeabi_division_idiv0
-                0x00002002        0x2 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_idiv0.o)
-                0x00002002                __aeabi_idiv0
+                0x00001fd6        0x2 /usr/local/mcuxpressoide-10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_idiv0.o)
+                0x00001fd6                __aeabi_idiv0
  *(.rodata .rodata.* .constdata .constdata.*)
- .rodata        0x00002004      0x11c ./src/SleepyZzz.o
+ .rodata        0x00001fd8       0xd2 ./src/SleepyZzz.o
+ *fill*         0x000020aa        0x2 ff
  .rodata.ledBits
-                0x00002120        0x3 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- *fill*         0x00002123        0x1 ff
+                0x000020ac        0x3 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ *fill*         0x000020af        0x1 ff
  .rodata.OscRateIn
-                0x00002124        0x4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x00002124                OscRateIn
+                0x000020b0        0x4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x000020b0                OscRateIn
  .rodata.ExtRateIn
-                0x00002128        0x4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x00002128                ExtRateIn
+                0x000020b4        0x4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x000020b4                ExtRateIn
  .rodata.wdtOSCRate
-                0x0000212c       0x40 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x000020b8       0x40 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .rodata.Chip_I2CM_XferHandler
-                0x0000216c       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000020f8       0x14 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .rodata.config_tab
-                0x00002180      0x354 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
-                0x000024d4                . = ALIGN (0x4)
+                0x0000210c      0x354 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00002460                . = ALIGN (0x4)
 
-.glue_7         0x000024d4        0x0
- .glue_7        0x000024d4        0x0 linker stubs
+.glue_7         0x00002460        0x0
+ .glue_7        0x00002460        0x0 linker stubs
 
-.glue_7t        0x000024d4        0x0
- .glue_7t       0x000024d4        0x0 linker stubs
+.glue_7t        0x00002460        0x0
+ .glue_7t       0x00002460        0x0 linker stubs
 
-.vfp11_veneer   0x000024d4        0x0
- .vfp11_veneer  0x000024d4        0x0 linker stubs
+.vfp11_veneer   0x00002460        0x0
+ .vfp11_veneer  0x00002460        0x0 linker stubs
 
-.v4_bx          0x000024d4        0x0
- .v4_bx         0x000024d4        0x0 linker stubs
+.v4_bx          0x00002460        0x0
+ .v4_bx         0x00002460        0x0 linker stubs
 
-.iplt           0x000024d4        0x0
- .iplt          0x000024d4        0x0 ./src/SleepyZzz.o
+.iplt           0x00002460        0x0
+ .iplt          0x00002460        0x0 ./src/SleepyZzz.o
 
-.rel.dyn        0x000024d4        0x0
- .rel.iplt      0x000024d4        0x0 ./src/SleepyZzz.o
+.rel.dyn        0x00002460        0x0
+ .rel.iplt      0x00002460        0x0 ./src/SleepyZzz.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000024d4                __exidx_start = .
+                0x00002460                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x000024d4                __exidx_end = .
-                0x000024d4                _etext = .
+                0x00002460                __exidx_end = .
+                0x00002460                _etext = .
 
 .mtb_buffer_default
                 0x10000000      0x100
@@ -2371,7 +2376,7 @@ END GROUP
                 0x10000100                . = ALIGN (0x4)
                 0x10000100                _end_uninit_RESERVED = .
 
-.data           0x10000100        0x0 load address 0x000024d4
+.data           0x10000100        0x0 load address 0x00002460
  FILL mask 0xff
                 0x10000100                _data = .
  *(vtable)
@@ -2380,10 +2385,10 @@ END GROUP
                 0x10000100                . = ALIGN (0x4)
                 0x10000100                _edata = .
 
-.igot.plt       0x10000100        0x0 load address 0x000024d4
+.igot.plt       0x10000100        0x0 load address 0x00002460
  .igot.plt      0x10000100        0x0 ./src/SleepyZzz.o
 
-.bss            0x10000100       0x80 load address 0x000024d4
+.bss            0x10000100       0x80 load address 0x00002460
                 0x10000100                _bss = .
  *(.bss*)
  .bss.recv_buf  0x10000100       0x20 ./src/SleepyZzz.o
@@ -2410,7 +2415,7 @@ END GROUP
                 0x10000180                _ebss = .
                 [!provide]                PROVIDE (end, .)
 
-.noinit         0x10000180        0x0 load address 0x000024d4
+.noinit         0x10000180        0x0 load address 0x00002460
                 0x10000180                _noinit = .
  *(.noinit*)
                 0x10000180                . = ALIGN (0x4)
@@ -2420,53 +2425,53 @@ END GROUP
                 0xefffeb1d                PROVIDE (__valid_user_code_checksum, (0x0 - (((_vStackTop + (ResetISR + 0x1)) + (DEFINED (NMI_Handler)?NMI_Handler:M0_NMI_Handler + 0x1)) + (DEFINED (HardFault_Handler)?HardFault_Handler:M0_HardFault_Handler + 0x1))))
 OUTPUT(SleepyZzz.axf elf32-littlearm)
 
-.debug_info     0x00000000     0x8eda
- .debug_info    0x00000000      0x78d ./src/SleepyZzz.o
- .debug_info    0x0000078d      0x203 ./src/cr_startup_lpc8xx.o
- .debug_info    0x00000990       0x3f ./src/crp.o
- .debug_info    0x000009cf      0x9d1 ./src/i2c.o
- .debug_info    0x000013a0      0x2e5 ./src/lcd.o
- .debug_info    0x00001685       0x51 ./src/mtb.o
- .debug_info    0x000016d6      0x671 ./src/switch_matrix.o
- .debug_info    0x00001d47       0xc3 ./src/sysinit.o
- .debug_info    0x00001e0a     0x102a ./src/uart.o
- .debug_info    0x00002e34      0xce7 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_info    0x00003b1b      0x6af /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
- .debug_info    0x000041ca       0xcd /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
- .debug_info    0x00004297      0xa81 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
- .debug_info    0x00004d18      0x665 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
- .debug_info    0x0000537d      0x7bc /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
- .debug_info    0x00005b39      0x525 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
- .debug_info    0x0000605e      0x6a5 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
- .debug_info    0x00006703      0x349 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
- .debug_info    0x00006a4c      0x5ea /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
- .debug_info    0x00007036      0xbc6 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
- .debug_info    0x00007bfc      0xe4f /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
- .debug_info    0x00008a4b      0x48f /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+.debug_info     0x00000000     0x8e4f
+ .debug_info    0x00000000      0x798 ./src/SleepyZzz.o
+ .debug_info    0x00000798      0x203 ./src/cr_startup_lpc8xx.o
+ .debug_info    0x0000099b       0x3f ./src/crp.o
+ .debug_info    0x000009da      0x9d1 ./src/i2c.o
+ .debug_info    0x000013ab      0x2e5 ./src/lcd.o
+ .debug_info    0x00001690       0x51 ./src/mtb.o
+ .debug_info    0x000016e1      0x671 ./src/switch_matrix.o
+ .debug_info    0x00001d52       0xc3 ./src/sysinit.o
+ .debug_info    0x00001e15      0xf94 ./src/uart.o
+ .debug_info    0x00002da9      0xce7 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_info    0x00003a90      0x6af /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_info    0x0000413f       0xcd /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_info    0x0000420c      0xa81 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_info    0x00004c8d      0x665 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_info    0x000052f2      0x7bc /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_info    0x00005aae      0x525 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_info    0x00005fd3      0x6a5 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_info    0x00006678      0x349 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_info    0x000069c1      0x5ea /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_info    0x00006fab      0xbc6 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_info    0x00007b71      0xe4f /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_info    0x000089c0      0x48f /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
-.debug_abbrev   0x00000000     0x1c12
- .debug_abbrev  0x00000000      0x21a ./src/SleepyZzz.o
- .debug_abbrev  0x0000021a       0xe6 ./src/cr_startup_lpc8xx.o
- .debug_abbrev  0x00000300       0x36 ./src/crp.o
- .debug_abbrev  0x00000336      0x14c ./src/i2c.o
- .debug_abbrev  0x00000482      0x123 ./src/lcd.o
- .debug_abbrev  0x000005a5       0x41 ./src/mtb.o
- .debug_abbrev  0x000005e6      0x114 ./src/switch_matrix.o
- .debug_abbrev  0x000006fa       0x6a ./src/sysinit.o
- .debug_abbrev  0x00000764      0x1dd ./src/uart.o
- .debug_abbrev  0x00000941      0x213 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_abbrev  0x00000b54       0xfc /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
- .debug_abbrev  0x00000c50       0x7b /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
- .debug_abbrev  0x00000ccb      0x272 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
- .debug_abbrev  0x00000f3d      0x127 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
- .debug_abbrev  0x00001064      0x19c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
- .debug_abbrev  0x00001200      0x15d /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
- .debug_abbrev  0x0000135d      0x183 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
- .debug_abbrev  0x000014e0      0x138 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
- .debug_abbrev  0x00001618      0x141 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
- .debug_abbrev  0x00001759      0x1f6 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
- .debug_abbrev  0x0000194f      0x1f5 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
- .debug_abbrev  0x00001b44       0xce /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+.debug_abbrev   0x00000000     0x1be4
+ .debug_abbrev  0x00000000      0x1fb ./src/SleepyZzz.o
+ .debug_abbrev  0x000001fb       0xe6 ./src/cr_startup_lpc8xx.o
+ .debug_abbrev  0x000002e1       0x36 ./src/crp.o
+ .debug_abbrev  0x00000317      0x14c ./src/i2c.o
+ .debug_abbrev  0x00000463      0x123 ./src/lcd.o
+ .debug_abbrev  0x00000586       0x41 ./src/mtb.o
+ .debug_abbrev  0x000005c7      0x114 ./src/switch_matrix.o
+ .debug_abbrev  0x000006db       0x6a ./src/sysinit.o
+ .debug_abbrev  0x00000745      0x1ce ./src/uart.o
+ .debug_abbrev  0x00000913      0x213 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_abbrev  0x00000b26       0xfc /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_abbrev  0x00000c22       0x7b /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_abbrev  0x00000c9d      0x272 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_abbrev  0x00000f0f      0x127 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_abbrev  0x00001036      0x19c /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_abbrev  0x000011d2      0x15d /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_abbrev  0x0000132f      0x183 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_abbrev  0x000014b2      0x138 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_abbrev  0x000015ea      0x141 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_abbrev  0x0000172b      0x1f6 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_abbrev  0x00001921      0x1f5 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_abbrev  0x00001b16       0xce /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
 .debug_aranges  0x00000000      0x838
  .debug_aranges
@@ -2536,145 +2541,145 @@ OUTPUT(SleepyZzz.axf elf32-littlearm)
  .debug_ranges  0x00000658       0x48 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .debug_ranges  0x000006a0       0x28 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
-.debug_macro    0x00000000     0x5493
- .debug_macro   0x00000000      0x25a ./src/SleepyZzz.o
- .debug_macro   0x0000025a      0x844 ./src/SleepyZzz.o
- .debug_macro   0x00000a9e       0x10 ./src/SleepyZzz.o
- .debug_macro   0x00000aae      0x12d ./src/SleepyZzz.o
- .debug_macro   0x00000bdb      0x5b2 ./src/SleepyZzz.o
- .debug_macro   0x0000118d       0x22 ./src/SleepyZzz.o
- .debug_macro   0x000011af       0x7b ./src/SleepyZzz.o
- .debug_macro   0x0000122a       0x10 ./src/SleepyZzz.o
- .debug_macro   0x0000123a       0x28 ./src/SleepyZzz.o
- .debug_macro   0x00001262       0x3a ./src/SleepyZzz.o
- .debug_macro   0x0000129c       0x1f ./src/SleepyZzz.o
- .debug_macro   0x000012bb      0x250 ./src/SleepyZzz.o
- .debug_macro   0x0000150b      0x145 ./src/SleepyZzz.o
- .debug_macro   0x00001650       0xca ./src/SleepyZzz.o
- .debug_macro   0x0000171a       0x6a ./src/SleepyZzz.o
- .debug_macro   0x00001784       0x70 ./src/SleepyZzz.o
- .debug_macro   0x000017f4       0x28 ./src/SleepyZzz.o
- .debug_macro   0x0000181c      0x190 ./src/SleepyZzz.o
- .debug_macro   0x000019ac       0x24 ./src/SleepyZzz.o
- .debug_macro   0x000019d0       0x64 ./src/SleepyZzz.o
- .debug_macro   0x00001a34       0x10 ./src/SleepyZzz.o
- .debug_macro   0x00001a44       0x22 ./src/SleepyZzz.o
- .debug_macro   0x00001a66       0xb2 ./src/SleepyZzz.o
- .debug_macro   0x00001b18       0x58 ./src/SleepyZzz.o
- .debug_macro   0x00001b70       0x58 ./src/SleepyZzz.o
- .debug_macro   0x00001bc8       0x6a ./src/SleepyZzz.o
- .debug_macro   0x00001c32       0x82 ./src/SleepyZzz.o
- .debug_macro   0x00001cb4       0x16 ./src/SleepyZzz.o
- .debug_macro   0x00001cca      0x131 ./src/SleepyZzz.o
- .debug_macro   0x00001dfb       0x22 ./src/SleepyZzz.o
- .debug_macro   0x00001e1d       0x52 ./src/SleepyZzz.o
- .debug_macro   0x00001e6f      0x181 ./src/SleepyZzz.o
- .debug_macro   0x00001ff0      0x289 ./src/SleepyZzz.o
- .debug_macro   0x00002279      0x28b ./src/SleepyZzz.o
- .debug_macro   0x00002504       0x2e ./src/SleepyZzz.o
- .debug_macro   0x00002532       0x22 ./src/SleepyZzz.o
- .debug_macro   0x00002554       0x1c ./src/SleepyZzz.o
- .debug_macro   0x00002570       0x9a ./src/SleepyZzz.o
- .debug_macro   0x0000260a       0x20 ./src/SleepyZzz.o
- .debug_macro   0x0000262a       0x82 ./src/SleepyZzz.o
- .debug_macro   0x000026ac       0x16 ./src/SleepyZzz.o
- .debug_macro   0x000026c2       0x16 ./src/SleepyZzz.o
- .debug_macro   0x000026d8       0x1d ./src/cr_startup_lpc8xx.o
- .debug_macro   0x000026f5       0x1a ./src/crp.o
- .debug_macro   0x0000270f       0x34 ./src/crp.o
- .debug_macro   0x00002743      0x22b ./src/i2c.o
- .debug_macro   0x0000296e      0x25f ./src/lcd.o
- .debug_macro   0x00002bcd       0x28 ./src/lcd.o
- .debug_macro   0x00002bf5       0x74 ./src/lcd.o
- .debug_macro   0x00002c69       0x29 ./src/mtb.o
- .debug_macro   0x00002c92       0x10 ./src/mtb.o
- .debug_macro   0x00002ca2      0x233 ./src/switch_matrix.o
- .debug_macro   0x00002ed5      0x215 ./src/sysinit.o
- .debug_macro   0x000030ea      0x248 ./src/uart.o
- .debug_macro   0x00003332      0x232 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_macro   0x00003564      0x838 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_macro   0x00003d9c       0x12 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_macro   0x00003dae      0x215 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
- .debug_macro   0x00003fc3      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
- .debug_macro   0x000041a3      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
- .debug_macro   0x00004383      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
- .debug_macro   0x00004563      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
- .debug_macro   0x00004743      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
- .debug_macro   0x00004923      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
- .debug_macro   0x00004b03      0x1ec /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
- .debug_macro   0x00004cef      0x1ec /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
- .debug_macro   0x00004edb      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
- .debug_macro   0x000050bb      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
- .debug_macro   0x0000529b      0x1f8 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+.debug_macro    0x00000000     0x54a1
+ .debug_macro   0x00000000      0x268 ./src/SleepyZzz.o
+ .debug_macro   0x00000268      0x844 ./src/SleepyZzz.o
+ .debug_macro   0x00000aac       0x10 ./src/SleepyZzz.o
+ .debug_macro   0x00000abc      0x12d ./src/SleepyZzz.o
+ .debug_macro   0x00000be9      0x5b2 ./src/SleepyZzz.o
+ .debug_macro   0x0000119b       0x22 ./src/SleepyZzz.o
+ .debug_macro   0x000011bd       0x7b ./src/SleepyZzz.o
+ .debug_macro   0x00001238       0x10 ./src/SleepyZzz.o
+ .debug_macro   0x00001248       0x28 ./src/SleepyZzz.o
+ .debug_macro   0x00001270       0x3a ./src/SleepyZzz.o
+ .debug_macro   0x000012aa       0x1f ./src/SleepyZzz.o
+ .debug_macro   0x000012c9      0x250 ./src/SleepyZzz.o
+ .debug_macro   0x00001519      0x145 ./src/SleepyZzz.o
+ .debug_macro   0x0000165e       0xca ./src/SleepyZzz.o
+ .debug_macro   0x00001728       0x6a ./src/SleepyZzz.o
+ .debug_macro   0x00001792       0x70 ./src/SleepyZzz.o
+ .debug_macro   0x00001802       0x28 ./src/SleepyZzz.o
+ .debug_macro   0x0000182a      0x190 ./src/SleepyZzz.o
+ .debug_macro   0x000019ba       0x24 ./src/SleepyZzz.o
+ .debug_macro   0x000019de       0x64 ./src/SleepyZzz.o
+ .debug_macro   0x00001a42       0x10 ./src/SleepyZzz.o
+ .debug_macro   0x00001a52       0x22 ./src/SleepyZzz.o
+ .debug_macro   0x00001a74       0xb2 ./src/SleepyZzz.o
+ .debug_macro   0x00001b26       0x58 ./src/SleepyZzz.o
+ .debug_macro   0x00001b7e       0x58 ./src/SleepyZzz.o
+ .debug_macro   0x00001bd6       0x6a ./src/SleepyZzz.o
+ .debug_macro   0x00001c40       0x82 ./src/SleepyZzz.o
+ .debug_macro   0x00001cc2       0x16 ./src/SleepyZzz.o
+ .debug_macro   0x00001cd8      0x131 ./src/SleepyZzz.o
+ .debug_macro   0x00001e09       0x22 ./src/SleepyZzz.o
+ .debug_macro   0x00001e2b       0x52 ./src/SleepyZzz.o
+ .debug_macro   0x00001e7d      0x181 ./src/SleepyZzz.o
+ .debug_macro   0x00001ffe      0x289 ./src/SleepyZzz.o
+ .debug_macro   0x00002287      0x28b ./src/SleepyZzz.o
+ .debug_macro   0x00002512       0x2e ./src/SleepyZzz.o
+ .debug_macro   0x00002540       0x22 ./src/SleepyZzz.o
+ .debug_macro   0x00002562       0x1c ./src/SleepyZzz.o
+ .debug_macro   0x0000257e       0x9a ./src/SleepyZzz.o
+ .debug_macro   0x00002618       0x20 ./src/SleepyZzz.o
+ .debug_macro   0x00002638       0x82 ./src/SleepyZzz.o
+ .debug_macro   0x000026ba       0x16 ./src/SleepyZzz.o
+ .debug_macro   0x000026d0       0x16 ./src/SleepyZzz.o
+ .debug_macro   0x000026e6       0x1d ./src/cr_startup_lpc8xx.o
+ .debug_macro   0x00002703       0x1a ./src/crp.o
+ .debug_macro   0x0000271d       0x34 ./src/crp.o
+ .debug_macro   0x00002751      0x22b ./src/i2c.o
+ .debug_macro   0x0000297c      0x25f ./src/lcd.o
+ .debug_macro   0x00002bdb       0x28 ./src/lcd.o
+ .debug_macro   0x00002c03       0x74 ./src/lcd.o
+ .debug_macro   0x00002c77       0x29 ./src/mtb.o
+ .debug_macro   0x00002ca0       0x10 ./src/mtb.o
+ .debug_macro   0x00002cb0      0x233 ./src/switch_matrix.o
+ .debug_macro   0x00002ee3      0x215 ./src/sysinit.o
+ .debug_macro   0x000030f8      0x248 ./src/uart.o
+ .debug_macro   0x00003340      0x232 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_macro   0x00003572      0x838 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_macro   0x00003daa       0x12 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_macro   0x00003dbc      0x215 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_macro   0x00003fd1      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x000041b1      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00004391      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_macro   0x00004571      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_macro   0x00004751      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_macro   0x00004931      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_macro   0x00004b11      0x1ec /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_macro   0x00004cfd      0x1ec /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00004ee9      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x000050c9      0x1e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_macro   0x000052a9      0x1f8 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
-.debug_line     0x00000000     0x5931
- .debug_line    0x00000000      0x51b ./src/SleepyZzz.o
- .debug_line    0x0000051b       0xb9 ./src/cr_startup_lpc8xx.o
- .debug_line    0x000005d4       0x7c ./src/crp.o
- .debug_line    0x00000650      0x4a2 ./src/i2c.o
- .debug_line    0x00000af2      0x51d ./src/lcd.o
- .debug_line    0x0000100f       0x99 ./src/mtb.o
- .debug_line    0x000010a8      0x451 ./src/switch_matrix.o
- .debug_line    0x000014f9      0x3fd ./src/sysinit.o
- .debug_line    0x000018f6      0x4f6 ./src/uart.o
- .debug_line    0x00001dec      0x656 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_line    0x00002442      0x45a /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
- .debug_line    0x0000289c      0x38a /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
- .debug_line    0x00002c26      0x5da /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
- .debug_line    0x00003200      0x3c3 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
- .debug_line    0x000035c3      0x437 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
- .debug_line    0x000039fa      0x4e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
- .debug_line    0x00003eda      0x4b4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
- .debug_line    0x0000438e      0x3ca /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
- .debug_line    0x00004758      0x412 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
- .debug_line    0x00004b6a      0x5ae /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
- .debug_line    0x00005118      0x452 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
- .debug_line    0x0000556a      0x3c7 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+.debug_line     0x00000000     0x593c
+ .debug_line    0x00000000      0x526 ./src/SleepyZzz.o
+ .debug_line    0x00000526       0xb9 ./src/cr_startup_lpc8xx.o
+ .debug_line    0x000005df       0x7c ./src/crp.o
+ .debug_line    0x0000065b      0x4a2 ./src/i2c.o
+ .debug_line    0x00000afd      0x51d ./src/lcd.o
+ .debug_line    0x0000101a       0x99 ./src/mtb.o
+ .debug_line    0x000010b3      0x451 ./src/switch_matrix.o
+ .debug_line    0x00001504      0x3fd ./src/sysinit.o
+ .debug_line    0x00001901      0x4f6 ./src/uart.o
+ .debug_line    0x00001df7      0x656 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_line    0x0000244d      0x45a /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_line    0x000028a7      0x38a /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_line    0x00002c31      0x5da /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_line    0x0000320b      0x3c3 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_line    0x000035ce      0x437 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_line    0x00003a05      0x4e0 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_line    0x00003ee5      0x4b4 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_line    0x00004399      0x3ca /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_line    0x00004763      0x412 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_line    0x00004b75      0x5ae /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_line    0x00005123      0x452 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_line    0x00005575      0x3c7 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
-.debug_str      0x00000000     0xd556
- .debug_str     0x00000000     0xa7d4 ./src/SleepyZzz.o
-                               0xa898 (size before relaxing)
- .debug_str     0x0000a7d4      0x1a7 ./src/cr_startup_lpc8xx.o
+.debug_str      0x00000000     0xd573
+ .debug_str     0x00000000     0xa7fd ./src/SleepyZzz.o
+                               0xa8c1 (size before relaxing)
+ .debug_str     0x0000a7fd      0x1a7 ./src/cr_startup_lpc8xx.o
                                0x252d (size before relaxing)
- .debug_str     0x0000a97b       0xe9 ./src/crp.o
+ .debug_str     0x0000a9a4       0xe9 ./src/crp.o
                                0x2490 (size before relaxing)
- .debug_str     0x0000aa64      0x719 ./src/i2c.o
+ .debug_str     0x0000aa8d      0x719 ./src/i2c.o
                                0xa6b2 (size before relaxing)
- .debug_str     0x0000b17d      0x28f ./src/lcd.o
+ .debug_str     0x0000b1a6      0x28f ./src/lcd.o
                                0x9fab (size before relaxing)
- .debug_str     0x0000b40c       0xd0 ./src/mtb.o
+ .debug_str     0x0000b435       0xd0 ./src/mtb.o
                                0x28c1 (size before relaxing)
- .debug_str     0x0000b4dc       0xc7 ./src/switch_matrix.o
+ .debug_str     0x0000b505       0xc7 ./src/switch_matrix.o
                                0xa3f2 (size before relaxing)
- .debug_str     0x0000b5a3       0x11 ./src/sysinit.o
+ .debug_str     0x0000b5cc       0x11 ./src/sysinit.o
                                0x9cdd (size before relaxing)
- .debug_str     0x0000b5b4      0x989 ./src/uart.o
-                               0xaddd (size before relaxing)
- .debug_str     0x0000bf3d      0x314 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_str     0x0000b5dd      0x97d ./src/uart.o
+                               0xad97 (size before relaxing)
+ .debug_str     0x0000bf5a      0x314 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
                                0xa6c8 (size before relaxing)
- .debug_str     0x0000c251       0xc5 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_str     0x0000c26e       0xc5 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
                                0xa353 (size before relaxing)
- .debug_str     0x0000c316       0x72 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_str     0x0000c333       0x72 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
                                0x99b4 (size before relaxing)
- .debug_str     0x0000c388      0x700 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_str     0x0000c3a5      0x700 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
                                0xa380 (size before relaxing)
- .debug_str     0x0000ca88       0x32 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_str     0x0000caa5       0x32 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
                                0x9e2e (size before relaxing)
- .debug_str     0x0000caba       0x54 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_str     0x0000cad7       0x54 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
                                0x9fc7 (size before relaxing)
- .debug_str     0x0000cb0e      0x163 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_str     0x0000cb2b      0x163 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
                                0x9bc2 (size before relaxing)
- .debug_str     0x0000cc71      0x2fc /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_str     0x0000cc8e      0x2fc /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
                                0x9eec (size before relaxing)
- .debug_str     0x0000cf6d       0xcf /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_str     0x0000cf8a       0xcf /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
                                0x9d8d (size before relaxing)
- .debug_str     0x0000d03c      0x161 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_str     0x0000d059      0x161 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
                                0x9de8 (size before relaxing)
- .debug_str     0x0000d19d      0x1e7 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_str     0x0000d1ba      0x1e7 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
                                0xa153 (size before relaxing)
- .debug_str     0x0000d384       0xbe /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_str     0x0000d3a1       0xbe /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
                                0xa5f4 (size before relaxing)
- .debug_str     0x0000d442      0x114 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_str     0x0000d45f      0x114 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
                                0x9ca4 (size before relaxing)
 
 .comment        0x00000000       0x6e
