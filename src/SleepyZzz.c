@@ -121,6 +121,8 @@ void program_init(void){
 	Chip_UART_Init(LPC_USART0);
 	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
 	setupUART((uint32_t) LPC_USART0, &uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg0);
+
+	setup_wifi_module(uart0Handle)
 }
 
 int main(void) {
@@ -130,7 +132,7 @@ int main(void) {
 //	LCD_print_string(LINE_3,"Hello World!\0");
 
 	Board_LED_Set(0, false);
-	join_network();
+	// join_network();
 	/* Transmit the welcome message and instructions using the
 	   putline function */
 	print_to_console("Beginning of Program\r\n");
