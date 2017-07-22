@@ -7,6 +7,7 @@
  */
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "lcd.h"
 #include "board.h"
 #include "i2c.h"
@@ -88,6 +89,8 @@ void LCD_print_string(lcd_lines line, char* string)
 	#ifdef restrictLineChange
 		int count = 0;
 	#endif
+
+	string[strlen(string)] = '\0';	/* Safety */
 
 	set_lcd_cursor(line);
 

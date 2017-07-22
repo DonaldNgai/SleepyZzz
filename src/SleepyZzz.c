@@ -24,6 +24,8 @@
 #include "lcd.h"
 #include "adc.h"
 #include "uart.h"
+#include "wifi.h"
+#include "SleepyZzz.h"
 
 #define I2C_ADDR_7BIT           (0x60)
 
@@ -31,8 +33,9 @@
 //Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
 //Meaning 41.66ns clock period
 
-char print_buffer[50];
 sensor_values_t sensorVals;
+
+char print_buffer[50];
 
 char recv0_buf[32];
 char recv1_buf[32];
@@ -50,6 +53,11 @@ uint32_t uart1HandleMEM[0x10];
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
  */
+
+void print_to_console(char* string){
+	putLineUART(uart1Handle, string);
+}
+
 void SysTick_Handler(void)
 {
 //	Board_LED_Toggle(0);
@@ -122,35 +130,37 @@ int main(void) {
 //	LCD_print_string(LINE_3,"Hello World!\0");
 
 	Board_LED_Set(0, false);
-
+	join_network();
 	/* Transmit the welcome message and instructions using the
 	   putline function */
-	putLineUART(uart1Handle, "Beginning of Program\r\n");
+	print_to_console("Beginning of Program\r\n");
 
-	putLineUART(uart0Handle, "AT\r\n");
-	putLineUART(uart1Handle, "Sent AT to UART0\r\n");
+	putLineUART(uart0Handle,"AT\r\n");
+
+	print_to_console("Sent AT to UART0\r\n");
 
 //	getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
 	recv0_buf[0] = LPC_UARTD_API->uart_get_char(uart0Handle);
 
-	putLineUART(uart1Handle, "Received Response\r\n");
+	print_to_console("Received Response\r\n");
 
 	recv0_buf[sizeof(recv0_buf) - 1] = '\0';	/* Safety */
-	putLineUART(uart1Handle, recv0_buf);
+	print_to_console(recv0_buf);
 	LCD_print_string(LINE_3, recv0_buf);
 
-	/* Get a string for the UART and echo it back to the caller. Data is NOT
-	   echoed back via the UART using this function. */
-	getLineUART(uart1Handle, recv1_buf, sizeof(recv1_buf));
-	recv1_buf[sizeof(recv1_buf) - 1] = '\0';	/* Safety */
-	if (strlen(recv1_buf) == (sizeof(recv1_buf) - 1)) {
-		putLineUART(uart1Handle, "**String was truncated, input data longer than "
-					"receive buffer***\r\n");
-	}
-	putLineUART(uart1Handle, recv1_buf);
+//	/* Get a string for the UART and echo it back to the caller. Data is NOT
+//	   echoed back via the UART using this function. */
+//	getLineUART(uart1Handle, recv1_buf, sizeof(recv1_buf));
+//
+//	recv1_buf[sizeof(recv1_buf) - 1] = '\0';	/* Safety */
+//	if (strlen(recv1_buf) == (sizeof(recv1_buf) - 1)) {
+//		print_to_console("**String was truncated, input data longer than "
+//					"receive buffer***\r\n");
+//	}
+	print_to_console(recv1_buf);
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART(uart1Handle, "\r\nByte receive with echo: "
+	print_to_console("\r\nByte receive with echo: "
 				"Press a key to echo it back. Press ESC to exit\r");
 
 //	/* Endless loop until ESC key is pressed */
@@ -164,7 +174,7 @@ int main(void) {
 //	}
 
 	/* Transmit the message for byte/character part of the exampel */
-	putLineUART(uart1Handle, "\r\nESC key received, exiting\r\n");
+	print_to_console("\r\nESC key received, exiting\r\n");
 
 //    // Force the counter to be placed into memory
 //    volatile static int i = 0 ;
