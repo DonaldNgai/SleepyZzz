@@ -25,7 +25,7 @@
 #include "adc.h"
 #include "uart.h"
 #include "wifi.h"
-#include "helper.h"
+#include "print.h"
 #include "SleepyZzz.h"
 
 #define I2C_ADDR_7BIT           (0x60)

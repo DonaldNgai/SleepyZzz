@@ -12,6 +12,7 @@ C_SRCS += \
 ../src/i2c.c \
 ../src/lcd.c \
 ../src/mtb.c \
+../src/print.c \
 ../src/switch_matrix.c \
 ../src/sysinit.c \
 ../src/uart.c \
@@ -26,6 +27,7 @@ OBJS += \
 ./src/i2c.o \
 ./src/lcd.o \
 ./src/mtb.o \
+./src/print.o \
 ./src/switch_matrix.o \
 ./src/sysinit.o \
 ./src/uart.o \
@@ -40,6 +42,7 @@ C_DEPS += \
 ./src/i2c.d \
 ./src/lcd.d \
 ./src/mtb.d \
+./src/print.d \
 ./src/switch_matrix.d \
 ./src/sysinit.d \
 ./src/uart.d \
