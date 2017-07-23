@@ -117,7 +117,8 @@ int main(void) {
 	// join_network();
 	/* Transmit the welcome message and instructions using the
 	   putline function */
-	my_sprintf(string_buffer, "Test %d\r\n",123);
+	my_sprintf(string_buffer, "Test %d\r\n",true);
+//	set_module_mode();
 //	LCD_print_integer(LINE_2,my_sprintf(string_buffer, "Test %d\r\n",123));;
 
 	print_to_console("Beginning of Program\r\n");

@@ -40,7 +40,8 @@ src/wifi.o src/wifi.d: ../src/wifi.c \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/irc_8xx.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board_api.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h \
- ../src/lcd.h ../src/uart.h ../src/wifi.h ../src/SleepyZzz.h
+ ../src/lcd.h ../src/uart.h ../src/wifi.h ../src/print.h \
+ ../src/SleepyZzz.h
 
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board.h:
 
@@ -129,5 +130,7 @@ src/wifi.o src/wifi.d: ../src/wifi.c \
 ../src/uart.h:
 
 ../src/wifi.h:
+
+../src/print.h:
 
 ../src/SleepyZzz.h:
