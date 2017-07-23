@@ -5,11 +5,7 @@
  *      Author: donald
  */
 
-
-#include "board.h"
-#include "lcd.h"
 #include "uart.h"
-#include <string.h>
 
 /*Had to add dialout to groups in order to connect to serial port via putty
  * https://github.com/simondlevy/BreezyLidar/issues/3

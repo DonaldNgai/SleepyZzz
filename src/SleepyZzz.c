@@ -25,6 +25,7 @@
 #include "adc.h"
 #include "uart.h"
 #include "wifi.h"
+#include "helper.h"
 #include "SleepyZzz.h"
 
 #define I2C_ADDR_7BIT           (0x60)
@@ -35,28 +36,21 @@
 
 sensor_values_t sensorVals;
 
-char print_buffer[50];
-
 char recv0_buf[32];
-char recv1_buf[32];
+
 
 /* UART handle and memory for ROM API */
 UART_HANDLE_T* uart0Handle;
-UART_HANDLE_T* uart1Handle;
+
 
 /* Use a buffer size larger than the expected return value of
    uart_get_mem_size() for the static UART handle type */
 uint32_t uart0HandleMEM[0x10];
-uint32_t uart1HandleMEM[0x10];
 
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
  */
-
-void print_to_console(char* string){
-	putLineUART(uart1Handle, string);
-}
 
 void SysTick_Handler(void)
 {
@@ -91,21 +85,7 @@ void program_init(void){
 	lcd_clear();
 	turn_on_blinking_cursor();
 
-	/*		USB DEBUG INIT		*/
-
-	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
-	UART_CONFIG_T cfg1 = {
-		0,				/* U_PCLK frequency in Hz */
-		115200,			/* Baud Rate in Hz */
-		1,				/* 8N1 */
-		0,				/* Asynchronous Mode */
-		NO_ERR_EN		/* Enable No Errors */
-	};
-
-	Init_UART_PinMux(SWM_U1_TXD_O,6,SWM_U1_RXD_I,1);
-	Chip_UART_Init(LPC_USART1);
-	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
-	setupUART((uint32_t) LPC_USART1, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg1);
+	setup_usb_console();
 
 	/*		WIFI INIT		*/
 
@@ -122,10 +102,12 @@ void program_init(void){
 	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
 	setupUART((uint32_t) LPC_USART0, &uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg0);
 
-	setup_wifi_module(uart0Handle)
+//	setup_wifi_module(uart0Handle);
 }
 
 int main(void) {
+
+	char string_buffer[512];
 
 	program_init();
 //	LCD_print_integer(LINE_1,SystemCoreClock);
@@ -135,7 +117,12 @@ int main(void) {
 	// join_network();
 	/* Transmit the welcome message and instructions using the
 	   putline function */
+	my_sprintf(string_buffer, "Test %d\r\n",123);
+//	LCD_print_integer(LINE_2,my_sprintf(string_buffer, "Test %d\r\n",123));;
+
 	print_to_console("Beginning of Program\r\n");
+
+	print_to_console(string_buffer);
 
 	putLineUART(uart0Handle,"AT\r\n");
 
@@ -150,16 +137,14 @@ int main(void) {
 	print_to_console(recv0_buf);
 	LCD_print_string(LINE_3, recv0_buf);
 
-//	/* Get a string for the UART and echo it back to the caller. Data is NOT
-//	   echoed back via the UART using this function. */
-//	getLineUART(uart1Handle, recv1_buf, sizeof(recv1_buf));
+
 //
 //	recv1_buf[sizeof(recv1_buf) - 1] = '\0';	/* Safety */
 //	if (strlen(recv1_buf) == (sizeof(recv1_buf) - 1)) {
 //		print_to_console("**String was truncated, input data longer than "
 //					"receive buffer***\r\n");
 //	}
-	print_to_console(recv1_buf);
+//	print_to_console(recv1_buf);
 
 	/* Transmit the message for byte/character part of the exampel */
 	print_to_console("\r\nByte receive with echo: "

@@ -6,12 +6,51 @@
  */
 
 #include <stdarg.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <windows.h>
+#include "lcd.h"
+#include "uart.h"
+
+static char print_buffer[512];
+static char recv1_buf[32];
+
+/* UART handle and memory for ROM API */
+UART_HANDLE_T* uart1Handle;
+
+/* Use a buffer size larger than the expected return value of
+   uart_get_mem_size() for the static UART handle type */
+uint32_t uart1HandleMEM[0x10];
 
 static void ftoa_fixed(char *buffer, double value);
 static void ftoa_sci(char *buffer, double value);
+
+//	/* Get a string for the UART and echo it back to the caller. Data is NOT
+//	   echoed back via the UART using this function. */
+//	getLineUART(uart1Handle, recv1_buf, sizeof(recv1_buf));
+void print_to_console(char* string){
+//	strcat(string,"\n\n");
+	putLineUART(uart1Handle, string);
+}
+
+void setup_usb_console(void){
+	/*		USB DEBUG INIT		*/
+
+	/* 115.2KBPS, 8N1, ASYNC mode, no errors, clock filled in later */
+	UART_CONFIG_T cfg1 = {
+		0,				/* U_PCLK frequency in Hz */
+		115200,			/* Baud Rate in Hz */
+		1,				/* 8N1 */
+		0,				/* Asynchronous Mode */
+		NO_ERR_EN		/* Enable No Errors */
+	};
+
+	Init_UART_PinMux(SWM_U1_TXD_O,6,SWM_U1_RXD_I,1);
+	Chip_UART_Init(LPC_USART1);
+	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
+	setupUART((uint32_t) LPC_USART1, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg1);
+
+}
 
 void blink_led(int number_of_blinks, int led)
 {
@@ -23,7 +62,7 @@ void blink_led(int number_of_blinks, int led)
 	{
 
 //		Board_LED_Set(2, true);
-		Board_LED_Toggle(led);
+//		Board_LED_Toggle(led);
 		while(count <= 1000000)
 		{
 			count ++;
@@ -33,10 +72,8 @@ void blink_led(int number_of_blinks, int led)
 	}
 //	Board_LED_Set(1, true);
 }
-// memset(dest, '\0', sizeof(dest));
-//Clear string
-// strcat chars into file
-int my_vsprintf(char *file, char const *fmt, va_list arg) {
+
+int my_vsprintf(char *file, char *fmt, va_list arg) {
 
     int int_temp;
     char char_temp;
@@ -44,30 +81,37 @@ int my_vsprintf(char *file, char const *fmt, va_list arg) {
     double double_temp;
 
     char ch;
+    int index = 0;
     int length = 0;
 
     char buffer[512];
 
-    while ( ch = *fmt++) {
+    strcpy(file,"\0"); // Clear string to concatenate with
+    ch = fmt[index++];
+
+    while ( ch ) {
+
         if ( '%' == ch ) {
-            switch (ch = *fmt++) {
+        	ch = fmt[index++];
+            switch (ch) {
                 /* %% - print out a single %    */
                 case '%':
-                    fputc('%', file);
+                    strcat(file, "%");
                     length++;
                     break;
 
                 /* %c: print out a character    */
                 case 'c':
                     char_temp = va_arg(arg, int);
-                    fputc(char_temp, file);
+                    file[length] = char_temp;
+                    file[length+1] = '\0';
                     length++;
                     break;
 
                 /* %s: print out a string       */
                 case 's':
                     string_temp = va_arg(arg, char *);
-                    fputs(string_temp, file);
+                    strcat(file, string_temp);
                     length += strlen(string_temp);
                     break;
 
@@ -75,7 +119,7 @@ int my_vsprintf(char *file, char const *fmt, va_list arg) {
                 case 'd':
                     int_temp = va_arg(arg, int);
                     itoa(int_temp, buffer, 10);
-                    fputs(buffer, file);
+                    strcat(file, buffer);
                     length += strlen(buffer);
                     break;
 
@@ -83,106 +127,110 @@ int my_vsprintf(char *file, char const *fmt, va_list arg) {
                 case 'x':
                     int_temp = va_arg(arg, int);
                     itoa(int_temp, buffer, 16);
-                    fputs(buffer, file);
+                    strcat(file, buffer);
                     length += strlen(buffer);
                     break;
 
                 case 'f':
                     double_temp = va_arg(arg, double);
                     ftoa_fixed(buffer, double_temp);
-                    fputs(buffer, file);
+                    strcat(file, buffer);
                     length += strlen(buffer);
                     break;
 
                 case 'e':
                     double_temp = va_arg(arg, double);
                     ftoa_sci(buffer, double_temp);
-                    fputs(buffer, file);
+                    strcat(file, buffer);
                     length += strlen(buffer);
                     break;
             }
         }
         else {
-            putc(ch, file);
+        	file[length] = ch;
+        	file[length+1] = '\0';
             length++;
         }
+//        Get next char
+        ch = fmt[index++];
     }
+
     return length;
 }
 
-int my_vfprintf(FILE *file, char const *fmt, va_list arg) {
-
-    int int_temp;
-    char char_temp;
-    char *string_temp;
-    double double_temp;
-
-    char ch;
-    int length = 0;
-
-    char buffer[512];
-
-    while ( ch = *fmt++) {
-        if ( '%' == ch ) {
-            switch (ch = *fmt++) {
-                /* %% - print out a single %    */
-                case '%':
-                    fputc('%', file);
-                    length++;
-                    break;
-
-                /* %c: print out a character    */
-                case 'c':
-                    char_temp = va_arg(arg, int);
-                    fputc(char_temp, file);
-                    length++;
-                    break;
-
-                /* %s: print out a string       */
-                case 's':
-                    string_temp = va_arg(arg, char *);
-                    fputs(string_temp, file);
-                    length += strlen(string_temp);
-                    break;
-
-                /* %d: print out an int         */
-                case 'd':
-                    int_temp = va_arg(arg, int);
-                    itoa(int_temp, buffer, 10);
-                    fputs(buffer, file);
-                    length += strlen(buffer);
-                    break;
-
-                /* %x: print out an int in hex  */
-                case 'x':
-                    int_temp = va_arg(arg, int);
-                    itoa(int_temp, buffer, 16);
-                    fputs(buffer, file);
-                    length += strlen(buffer);
-                    break;
-
-                case 'f':
-                    double_temp = va_arg(arg, double);
-                    ftoa_fixed(buffer, double_temp);
-                    fputs(buffer, file);
-                    length += strlen(buffer);
-                    break;
-
-                case 'e':
-                    double_temp = va_arg(arg, double);
-                    ftoa_sci(buffer, double_temp);
-                    fputs(buffer, file);
-                    length += strlen(buffer);
-                    break;
-            }
-        }
-        else {
-            putc(ch, file);
-            length++;
-        }
-    }
-    return length;
-}
+//int my_vfprintf(FILE *file, char const *fmt, va_list arg) {
+//
+//    int int_temp;
+//    char char_temp;
+//    char *string_temp;
+//    double double_temp;
+//
+//    char ch;
+//    int length = 0;
+//
+//    char buffer[512];
+//
+//    while ( ch = *fmt++) {
+//        if ( '%' == ch ) {
+//            switch (ch = *fmt++) {
+//                /* %% - print out a single %    */
+//                case '%':
+//                    fputc('%', file);
+//                    length++;
+//                    break;
+//
+//                /* %c: print out a character    */
+//                case 'c':
+//                    char_temp = va_arg(arg, int);
+//                    fputc(char_temp, file);
+//                    length++;
+//                    break;
+//
+//                /* %s: print out a string       */
+//                case 's':
+//                    string_temp = va_arg(arg, char *);
+//                    fputs(string_temp, file);
+//                    length += strlen(string_temp);
+//                    break;
+//
+//                /* %d: print out an int         */
+//                case 'd':
+//                    int_temp = va_arg(arg, int);
+//                    itoa(int_temp, buffer, 10);
+//                    fputs(buffer, file);
+//                    length += strlen(buffer);
+//                    break;
+//
+//                /* %x: print out an int in hex  */
+//                case 'x':
+//                    int_temp = va_arg(arg, int);
+//                    itoa(int_temp, buffer, 16);
+//                    fputs(buffer, file);
+//                    length += strlen(buffer);
+//                    break;
+//
+//                case 'f':
+//                    double_temp = va_arg(arg, double);
+//                    ftoa_fixed(buffer, double_temp);
+//                    fputs(buffer, file);
+//                    length += strlen(buffer);
+//                    break;
+//
+//                case 'e':
+//                    double_temp = va_arg(arg, double);
+//                    ftoa_sci(buffer, double_temp);
+//                    fputs(buffer, file);
+//                    length += strlen(buffer);
+//                    break;
+//            }
+//        }
+//        else {
+//            putc(ch, file);
+//            length++;
+//        }
+//    }
+//    return length;
+//}
 
 int normalize(double *val) {
     int exponent = 0;
@@ -258,7 +306,6 @@ static void ftoa_fixed(char *buffer, double value) {
 void ftoa_sci(char *buffer, double value) {
 	int i = 0;
     int exponent = 0;
-    int places = 0;
     static const int width = 4;
 
     if (value == 0.0) {
@@ -291,27 +338,27 @@ void ftoa_sci(char *buffer, double value) {
     itoa(exponent, buffer, 10);
 }
 
-int my_printf(char const *fmt, ...) {
-    va_list arg;
-    int length;
+//int my_printf(char const *fmt, ...) {
+//    va_list arg;
+//    int length;
+//
+//    va_start(arg, fmt);
+//    length = my_vfprintf(stdout, fmt, arg);
+//    va_end(arg);
+//    return length;
+//}
+//
+//int my_fprintf(FILE *file, char const *fmt, ...) {
+//    va_list arg;
+//    int length;
+//
+//    va_start(arg, fmt);
+//    length = my_vfprintf(file, fmt, arg);
+//    va_end(arg);
+//    return length;
+//}
 
-    va_start(arg, fmt);
-    length = my_vfprintf(stdout, fmt, arg);
-    va_end(arg);
-    return length;
-}
-
-int my_fprintf(FILE *file, char const *fmt, ...) {
-    va_list arg;
-    int length;
-
-    va_start(arg, fmt);
-    length = my_vfprintf(file, fmt, arg);
-    va_end(arg);
-    return length;
-}
-
-int my_sprintf(char *file, char const *fmt, ...) {
+int my_sprintf(char *file, char *fmt, ...) {
     va_list arg;
     int length;
 
@@ -321,18 +368,18 @@ int my_sprintf(char *file, char const *fmt, ...) {
     return length;
 }
 
-int main() {
-	int i = 0;
-	char string[100];
-
-    float floats[] = { 0.0, 1.234e-10, 1.234e+10, -1.234e-10, -1.234e-10 };
-    my_printf(string, "%s, %d, %x\n", "Some string", 1, 0x1234);
-
-    // my_printf("%s, %d, %x\n", "Some string", 1, 0x1234);
-
-    // for ( = 0; i < sizeof(floats) / sizeof(floats[0]); i++)
-    //     my_printf("%f, %e\n", floats[i], floats[i]);
-
-    return 0;
-}
+//int main() {
+//	int i = 0;
+//	char string[100];
+//
+//    float floats[] = { 0.0, 1.234e-10, 1.234e+10, -1.234e-10, -1.234e-10 };
+//    my_printf(string, "%s, %d, %x\n", "Some string", 1, 0x1234);
+//
+//    // my_printf("%s, %d, %x\n", "Some string", 1, 0x1234);
+//
+//    // for ( = 0; i < sizeof(floats) / sizeof(floats[0]); i++)
+//    //     my_printf("%f, %e\n", floats[i], floats[i]);
+//
+//    return 0;
+//}
 
