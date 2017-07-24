@@ -41,7 +41,8 @@ src/SleepyZzz.o src/SleepyZzz.d: ../src/SleepyZzz.c \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board_api.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h \
  ../src/switch_matrix.h ../src/i2c.h ../src/lcd.h ../src/adc.h \
- ../src/uart.h ../src/wifi.h ../src/print.h ../src/SleepyZzz.h
+ ../src/uart.h ../src/wifi.h ../src/print.h ../src/helper.h \
+ ../src/SleepyZzz.h
 
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board.h:
 
@@ -138,5 +139,7 @@ src/SleepyZzz.o src/SleepyZzz.d: ../src/SleepyZzz.c \
 ../src/wifi.h:
 
 ../src/print.h:
+
+../src/helper.h:
 
 ../src/SleepyZzz.h:

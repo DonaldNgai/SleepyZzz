@@ -5,7 +5,7 @@
  * Generated linker script file for LPC812
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE Debug Build on 23-Jul-2017 8:07:24 PM
+ * MCUXpresso IDE Debug Build on 24-Jul-2017 1:25:24 AM
  */
 
 INCLUDE "SleepyZzz_Debug_library.ld"
