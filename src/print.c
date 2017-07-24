@@ -12,6 +12,8 @@
 #include "lcd.h"
 #include "uart.h"
 
+
+#define ESC_KEY	27
 //static char print_buffer[512];
 //static char recv1_buf[32];
 
@@ -26,13 +28,6 @@ uint32_t uart1HandleMEM[0x10];
 static void ftoa_fixed(char *buffer, double value);
 static void ftoa_sci(char *buffer, double value);
 #endif
-//	/* Get a string for the UART and echo it back to the caller. Data is NOT
-//	   echoed back via the UART using this function. */
-//	getLineUART(uart1Handle, recv1_buf, sizeof(recv1_buf));
-void print_to_console(char* string){
-//	strcat(string,"\n\n");
-	putLineUART(uart1Handle, string);
-}
 
 void setup_usb_console(void){
 	/*		USB DEBUG INIT		*/
@@ -258,4 +253,32 @@ int my_sprintf(char *file, char *fmt, ...) {
     length = my_vsprintf(file, fmt, arg);
     va_end(arg);
     return length;
+}
+
+//	/* Get a string for the UART and echo it back to the caller. Data is NOT
+//	   echoed back via the UART using this function. */
+void print_to_console(char* string){
+	putLineUART(uart1Handle, string);
+}
+
+void echo_to_console(void)
+{
+	char recv_buf[5];
+	char output_buffer[10];
+	putLineUART(uart1Handle, "Console is echoing until 'ESC' is pressed\r\n");
+	recv_buf[0] = '\n';
+	while (recv_buf[0] != ESC_KEY) {
+		 /* Echo it back */
+//		 LPC_UARTD_API->uart_put_char(uart1Handle, recv_buf[0]);
+		my_sprintf(output_buffer,"I: %d, C: %c\r\n",recv_buf[0],(int)recv_buf[0]);
+		print_to_console(output_buffer);
+		 /* uart_get_char will block until a character is received */
+		 recv_buf[0] = LPC_UARTD_API->uart_get_char(uart1Handle);
+	}
+}
+
+void get_line_from_console(char* recv_buffer, int buffer_size)
+{
+	putLineUART(uart1Handle, "Reading keyboard. Terminate line using Ctrl+m(13 - Carriage Return - r), Ctrl+j(10 - Line Feed - n)\r\n");
+	getLineUART(uart1Handle, recv_buffer, buffer_size);
 }

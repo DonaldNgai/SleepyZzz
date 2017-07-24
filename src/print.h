@@ -12,6 +12,8 @@
 
 void setup_usb_console(void);
 void print_to_console(char* string);
+void get_line_from_console(char* recv_buffer, int buffer_size);
+void echo_to_console(void);
 int my_sprintf(char *file, char *fmt, ...);
 
 #endif /* PRINT_H_ */
