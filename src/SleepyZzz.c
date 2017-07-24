@@ -34,15 +34,10 @@
 //Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
 //Meaning 41.66ns clock period
 
-char print_buffer[50];
 sensor_values_t sensorVals;
 
-char recv0_buf[512];
-#define BUF_LEN 100
-	char string_buffer[512];
 /* UART handle and memory for ROM API */
 UART_HANDLE_T* uart0Handle;
-
 
 /* Use a buffer size larger than the expected return value of
    uart_get_mem_size() for the static UART handle type */
@@ -56,28 +51,7 @@ uint32_t uart0HandleMEM[0x10];
 void SysTick_Handler(void)
 {
 
-	get_sensor_values(&sensorVals);
 
-//	LCD_print_integer(LINE_1,(int) sensorVals.temperature);
-//	LCD_print_integer(LINE_2,(int) sensorVals.heart_rate);
-//	LCD_print_integer(LINE_3,(int) sensorVals.orientation);
-//	LCD_print_integer(LINE_4,(int) sensorVals.other);
-
-}
-
-//clock runs at 30MHz
-void delay(int ms)
-{
-	int k = 0;
-	int j = 0;
-	while (k <= ms)
-	{
-		j = 0;
-		while (j <= 3000){
-			j++;
-		}
-		k++;
-	}
 }
 
 void program_init(void){
@@ -97,35 +71,68 @@ void program_init(void){
 	/* Enable SysTick Timer */
 	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
 
+	/*		LCD INIT		*/
+
 	/* Setup I2C pin muxing */
 	Init_I2C_PinMux();
-
 	/* Allocate I2C handle, setup I2C rate, and initialize I2C clocking */
 	setupI2CMaster();
-
 	/* Enable the interrupt for the I2C */
 	NVIC_EnableIRQ(I2C_IRQn);
-
 	lcd_clear();
+	turn_on_blinking_cursor();
 
-//	turn_on_blinking_cursor();
+	setup_usb_console();
+
+	/*		WIFI INIT		*/
+
+	UART_CONFIG_T cfg0 = {
+			0,				/* U_PCLK frequency in Hz */
+			115200,			/* Baud Rate in Hz */
+			1,				/* 8N1 */
+			0,				/* Asynchronous Mode */
+			NO_ERR_EN		/* Enable No Errors */
+		};
+
+	Init_UART_PinMux(SWM_U0_TXD_O,4,SWM_U0_RXD_I,0);
+	Chip_UART_Init(LPC_USART0);
+	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
+	setupUART((uint32_t) LPC_USART0, &uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg0);
+
 }
 
 int main(void) {
 
+	char recv0_buf[100];
+
 	program_init();
-//	LCD_print_integer(LINE_2,SystemCoreClock);
-//	LCD_print_string(LINE_3,"Hello World!\0");
-    // Force the counter to be placed into memory
-    int temp;
-    int heartrate;
-    // Enter an infinite loop, just incrementing a counter
-    sensor_values_t sensors;
-    while(1) {
-    	delay(500);
-    	get_sensor_values(&sensors);
-    	LCD_print_integer(LINE_1,sensors.temperature);
-    	LCD_print_integer(LINE_2,sensors.heart_rate);
-    }
+
+	Board_LED_Set(0, false);
+
+	print_to_console("\r\nBeginning of Program\r\n");
+
+	echo_to_console();
+
+	get_line_from_console(recv0_buf,sizeof(recv0_buf));
+
+//  How to print to console and use sprintf
+//	print_to_console("Sent AT to UART0\r\n");
+//	my_sprintf(string_buffer,"r: %x, n: %x",'\r','\n');
+
+//	Get line from WIFI Module
+//	getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
+// 	Get char from WIFI Module
+//	recv0_buf[0] = LPC_UARTD_API->uart_get_char(uart0Handle);
+// 	How to put a line to Wifi Module
+// 	putLineUART(uart0Handle,"AT\r\n");
+
+   // Force the counter to be placed into memory
+	volatile static int i = 0 ;
+
+	while(1)
+	{
+		// Enter an infinite loop, just incrementing a counter
+		i++
+	}
     return 0 ;
 }
