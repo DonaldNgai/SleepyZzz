@@ -100,11 +100,8 @@ int main(void) {
 //	LCD_print_integer(LINE_2,SystemCoreClock);
 //	LCD_print_string(LINE_3,"Hello World!\0");
     // Force the counter to be placed into memory
-    static int i = 0 ;
     int temp;
     int heartrate;
-    int orientation;
-    int other;
     // Enter an infinite loop, just incrementing a counter
     sensor_values_t sensors;
     while(1) {
@@ -112,18 +109,6 @@ int main(void) {
     	get_sensor_values(&sensors);
     	LCD_print_integer(LINE_1,sensors.temperature);
     	LCD_print_integer(LINE_2,sensors.heart_rate);
-//    	LCD_print_integer(LINE_3,sensors.orientation);
-//    	LCD_print_integer(LINE_4,sensors.other);
-
-//    	temp = get_analog_input(0);
-//    	heartrate = get_analog_input(1);
-//    	orientation = get_analog_input(2);
-//    	other = get_analog_input(3);
-//    	LCD_print_integer(LINE_1,temp);
-//		LCD_print_integer(LINE_2,heartrate);
-//		LCD_print_integer(LINE_3,orientation);
-//		LCD_print_integer(LINE_4,other);
-        i++ ;
     }
     return 0 ;
 }

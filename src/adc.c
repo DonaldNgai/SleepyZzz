@@ -10,7 +10,7 @@
 #include "adc.h"
 
 static uint8_t tx_packet; //Unnecessary
-static uint8_t rx_packet[NUMBER_OF_ANALOG_INPUTS];
+static uint8_t rx_packet[NUMBER_OF_ANALOG_INPUTS+1];
 
 void get_analog_inputs()
 {
@@ -43,6 +43,6 @@ void get_sensor_values(sensor_values_t* sensor_struct)
 	get_analog_inputs();
 	sensor_struct->temperature = 	rx_packet[1];
 	sensor_struct->heart_rate = 	rx_packet[2];
-	sensor_struct->orientation = 	rx_packet[3];
-	sensor_struct->other = 			rx_packet[4];
+//	sensor_struct->orientation = 	rx_packet[3];
+//	sensor_struct->other = 			rx_packet[4];
 }

@@ -206,7 +206,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x11 ./src/helper.o
  .debug_macro   0x0000000000000000      0x844 ./src/helper.o
  .debug_line    0x0000000000000000       0x4e ./src/helper.o
- .debug_str     0x0000000000000000     0x23ef ./src/helper.o
+ .debug_str     0x0000000000000000     0x23e8 ./src/helper.o
  .comment       0x0000000000000000       0x6f ./src/helper.o
  .debug_frame   0x0000000000000000       0x30 ./src/helper.o
  .ARM.attributes
@@ -1762,7 +1762,7 @@ END GROUP
                 0x0000000010001000                __top_RamLoc4 = 0x10001000
                 0x0000000010001000                __top_RAM = 0x10001000
 
-.text           0x0000000000000000     0x21a0
+.text           0x0000000000000000     0x218c
  FILL mask 0xff
                 0x0000000000000000                __vectors_start__ = ABSOLUTE (.)
  *(.isr_vector)
@@ -1771,7 +1771,7 @@ END GROUP
                 0x00000000000000c0                . = ALIGN (0x4)
                 0x00000000000000c0                __section_table_start = .
                 0x00000000000000c0                __data_section_table = .
-                0x00000000000000c0        0x4 LONG 0x21a0 LOADADDR (.data)
+                0x00000000000000c0        0x4 LONG 0x218c LOADADDR (.data)
                 0x00000000000000c4        0x4 LONG 0x10000100 ADDR (.data)
                 0x00000000000000c8        0x4 LONG 0x0 SIZEOF (.data)
                 0x00000000000000cc                __data_section_table_end = .
@@ -1842,319 +1842,319 @@ END GROUP
                 0x0000000000000554       0x14 ./src/adc.o
                 0x0000000000000554                enable_ADC_auto_increment
  .text.get_sensor_values
-                0x0000000000000568       0x50 ./src/adc.o
+                0x0000000000000568       0x3c ./src/adc.o
                 0x0000000000000568                get_sensor_values
  .text.Chip_Clock_EnablePeriphClock
-                0x00000000000005b8       0x38 ./src/i2c.o
+                0x00000000000005a4       0x38 ./src/i2c.o
  .text.Chip_Clock_DisablePeriphClock
-                0x00000000000005f0       0x3c ./src/i2c.o
+                0x00000000000005dc       0x3c ./src/i2c.o
  .text.Chip_I2C_SetClockDiv
-                0x000000000000062c       0x34 ./src/i2c.o
+                0x0000000000000618       0x34 ./src/i2c.o
  .text.Chip_I2CM_Enable
-                0x0000000000000660       0x20 ./src/i2c.o
+                0x000000000000064c       0x20 ./src/i2c.o
  .text.I2C_IRQHandler
-                0x0000000000000680       0x20 ./src/i2c.o
-                0x0000000000000680                I2C_IRQHandler
+                0x000000000000066c       0x20 ./src/i2c.o
+                0x000000000000066c                I2C_IRQHandler
  .text.setupI2CMaster
-                0x00000000000006a0       0x38 ./src/i2c.o
-                0x00000000000006a0                setupI2CMaster
+                0x000000000000068c       0x38 ./src/i2c.o
+                0x000000000000068c                setupI2CMaster
  .text.SetupXferRecAndExecute
-                0x00000000000006d8       0x68 ./src/i2c.o
-                0x00000000000006d8                SetupXferRecAndExecute
+                0x00000000000006c4       0x68 ./src/i2c.o
+                0x00000000000006c4                SetupXferRecAndExecute
  .text.Init_I2C_PinMux
-                0x0000000000000740       0x44 ./src/i2c.o
-                0x0000000000000740                Init_I2C_PinMux
+                0x000000000000072c       0x44 ./src/i2c.o
+                0x000000000000072c                Init_I2C_PinMux
  .text.send_packet
-                0x0000000000000784       0x2c ./src/lcd.o
- .text.delay    0x00000000000007b0       0x24 ./src/lcd.o
+                0x0000000000000770       0x2c ./src/lcd.o
+ .text.delay    0x000000000000079c       0x24 ./src/lcd.o
  .text.set_lcd_cursor
-                0x00000000000007d4       0x40 ./src/lcd.o
-                0x00000000000007d4                set_lcd_cursor
+                0x00000000000007c0       0x40 ./src/lcd.o
+                0x00000000000007c0                set_lcd_cursor
  .text.lcd_clear
-                0x0000000000000814       0x2c ./src/lcd.o
-                0x0000000000000814                lcd_clear
+                0x0000000000000800       0x2c ./src/lcd.o
+                0x0000000000000800                lcd_clear
  .text.LCD_print_char
-                0x0000000000000840       0x34 ./src/lcd.o
-                0x0000000000000840                LCD_print_char
+                0x000000000000082c       0x34 ./src/lcd.o
+                0x000000000000082c                LCD_print_char
  .text.LCD_print_string
-                0x0000000000000874       0x4c ./src/lcd.o
-                0x0000000000000874                LCD_print_string
+                0x0000000000000860       0x4c ./src/lcd.o
+                0x0000000000000860                LCD_print_string
  .text.LCD_print_integer
-                0x00000000000008c0       0x34 ./src/lcd.o
-                0x00000000000008c0                LCD_print_integer
+                0x00000000000008ac       0x34 ./src/lcd.o
+                0x00000000000008ac                LCD_print_integer
  .text.Chip_Clock_EnablePeriphClock
-                0x00000000000008f4       0x38 ./src/switch_matrix.o
+                0x00000000000008e0       0x38 ./src/switch_matrix.o
  .text.Chip_Clock_DisablePeriphClock
-                0x000000000000092c       0x3c ./src/switch_matrix.o
+                0x0000000000000918       0x3c ./src/switch_matrix.o
  .text.reset_switch_matrix
-                0x0000000000000968       0x48 ./src/switch_matrix.o
-                0x0000000000000968                reset_switch_matrix
+                0x0000000000000954       0x48 ./src/switch_matrix.o
+                0x0000000000000954                reset_switch_matrix
  .text.SystemInit
-                0x00000000000009b0       0x10 ./src/sysinit.o
-                0x00000000000009b0                SystemInit
+                0x000000000000099c       0x10 ./src/sysinit.o
+                0x000000000000099c                SystemInit
  .text.Chip_Clock_EnablePeriphClock
-                0x00000000000009c0       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000000000009ac       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_Clock_DisablePeriphClock
-                0x00000000000009f8       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x00000000000009e4       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_Clock_SetUARTClockDiv
-                0x0000000000000a34       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000a20       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_SWM_DisableFixedPin
-                0x0000000000000a50       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000a3c       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_GPIO_SetPinState
-                0x0000000000000a8c       0x40 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000a78       0x40 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_GPIO_SetPinDIROutput
-                0x0000000000000acc       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000ab8       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_UART_Enable
-                0x0000000000000b1c       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000b08       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_UART_TXEnable
-                0x0000000000000b40       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000b2c       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Chip_UART_ConfigData
-                0x0000000000000b60       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000b4c       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Board_LED_Init
-                0x0000000000000b8c       0x4c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000b78       0x4c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Board_UART_Init
-                0x0000000000000bd8       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000bc4       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
  .text.Board_Debug_Init
-                0x0000000000000c0c       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x0000000000000c0c                Board_Debug_Init
+                0x0000000000000bf8       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000bf8                Board_Debug_Init
  .text.Board_Init
-                0x0000000000000c5c       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x0000000000000c5c                Board_Init
+                0x0000000000000c48       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000000c48                Board_Init
  .text.Chip_Clock_EnablePeriphClock
-                0x0000000000000c78       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x0000000000000c64       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
  .text.Chip_Clock_DisablePeriphClock
-                0x0000000000000cb0       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x0000000000000c9c       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
  .text.Board_SetupMuxing
-                0x0000000000000cec       0x4c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
-                0x0000000000000cec                Board_SetupMuxing
+                0x0000000000000cd8       0x4c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x0000000000000cd8                Board_SetupMuxing
  .text.Board_SetupClocking
-                0x0000000000000d38       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
-                0x0000000000000d38                Board_SetupClocking
+                0x0000000000000d24       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x0000000000000d24                Board_SetupClocking
  .text.Board_SystemInit
-                0x0000000000000d50       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
-                0x0000000000000d50                Board_SystemInit
+                0x0000000000000d3c       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+                0x0000000000000d3c                Board_SystemInit
  .text.SystemCoreClockUpdate
-                0x0000000000000d64       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
-                0x0000000000000d64                SystemCoreClockUpdate
+                0x0000000000000d50       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+                0x0000000000000d50                SystemCoreClockUpdate
  .text.Chip_SYSCTL_AssertPeriphReset
-                0x0000000000000d7c       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000d68       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_DeassertPeriphReset
-                0x0000000000000db4       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000da0       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_PeriphReset
-                0x0000000000000de8       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000dd4       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_SetUARTClockDiv
-                0x0000000000000e10       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000dfc       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetUARTClockDiv
-                0x0000000000000e2c       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000e18       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_SetUSARTFRGDivider
-                0x0000000000000e44       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000e30       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_GetUSARTFRGDivider
-                0x0000000000000e68       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000e54       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_SetUSARTFRGMultiplier
-                0x0000000000000e80       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000e6c       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_SYSCTL_GetUSARTFRGMultiplier
-                0x0000000000000ea4       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000e90       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetMainOscRate
-                0x0000000000000ebc       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000ea8       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetIntOscRate
-                0x0000000000000ed0       0x10 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000ebc       0x10 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetExtClockInRate
-                0x0000000000000ee0       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000ecc       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetWDTLFORate
-                0x0000000000000ef4       0x48 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000ee0       0x48 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_GetPLLFreq
-                0x0000000000000f3c       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000f28       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .text.Chip_Clock_SetSystemPLLSource
-                0x0000000000000f60       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000000f60                Chip_Clock_SetSystemPLLSource
+                0x0000000000000f4c       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000f4c                Chip_Clock_SetSystemPLLSource
  .text.Chip_Clock_SetMainClockSource
-                0x0000000000000f8c       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000000f8c                Chip_Clock_SetMainClockSource
+                0x0000000000000f78       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000f78                Chip_Clock_SetMainClockSource
  .text.Chip_Clock_SetCLKOUTSource
-                0x0000000000000fb8       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000000fb8                Chip_Clock_SetCLKOUTSource
+                0x0000000000000fa4       0x3c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000fa4                Chip_Clock_SetCLKOUTSource
  .text.Chip_Clock_GetWDTOSCRate
-                0x0000000000000ff4       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000000ff4                Chip_Clock_GetWDTOSCRate
+                0x0000000000000fe0       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000000fe0                Chip_Clock_GetWDTOSCRate
  .text.Chip_Clock_GetSystemPLLInClockRate
-                0x0000000000001014       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000001014                Chip_Clock_GetSystemPLLInClockRate
+                0x0000000000001000       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000001000                Chip_Clock_GetSystemPLLInClockRate
  .text.Chip_Clock_GetSystemPLLOutClockRate
-                0x0000000000001064       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000001064                Chip_Clock_GetSystemPLLOutClockRate
+                0x0000000000001050       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000001050                Chip_Clock_GetSystemPLLOutClockRate
  .text.Chip_Clock_GetMainClockRate
-                0x000000000000108c       0x64 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x000000000000108c                Chip_Clock_GetMainClockRate
+                0x0000000000001078       0x64 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000001078                Chip_Clock_GetMainClockRate
  .text.Chip_Clock_GetSystemClockRate
-                0x00000000000010f0       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x00000000000010f0                Chip_Clock_GetSystemClockRate
+                0x00000000000010dc       0x24 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000000000010dc                Chip_Clock_GetSystemClockRate
  .text.Chip_Clock_GetUSARTNBaseClockRate
-                0x0000000000001114       0x84 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000001114                Chip_Clock_GetUSARTNBaseClockRate
+                0x0000000000001100       0x84 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000001100                Chip_Clock_GetUSARTNBaseClockRate
  .text.Chip_Clock_SetUSARTNBaseClockRate
-                0x0000000000001198       0x84 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
-                0x0000000000001198                Chip_Clock_SetUSARTNBaseClockRate
+                0x0000000000001184       0x84 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000001184                Chip_Clock_SetUSARTNBaseClockRate
  .text.Chip_Clock_EnablePeriphClock
-                0x000000000000121c       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+                0x0000000000001208       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
  .text.Chip_GPIO_Init
-                0x0000000000001254       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
-                0x0000000000001254                Chip_GPIO_Init
+                0x0000000000001240       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+                0x0000000000001240                Chip_GPIO_Init
  .text.Chip_SYSCTL_AssertPeriphReset
-                0x000000000000126c       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x0000000000001258       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_SYSCTL_DeassertPeriphReset
-                0x00000000000012a4       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x0000000000001290       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_SYSCTL_PeriphReset
-                0x00000000000012d8       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x00000000000012c4       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_Clock_EnablePeriphClock
-                0x0000000000001300       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x00000000000012ec       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.I2C_GetResetID
-                0x0000000000001338       0x44 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x0000000000001324       0x44 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.I2C_GetClockID
-                0x000000000000137c       0x44 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x0000000000001368       0x44 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
  .text.Chip_I2C_Init
-                0x00000000000013c0       0x30 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
-                0x00000000000013c0                Chip_I2C_Init
+                0x00000000000013ac       0x30 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+                0x00000000000013ac                Chip_I2C_Init
  .text.Chip_I2C_GetClockDiv
-                0x00000000000013f0       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00000000000013dc       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_GetStatus
-                0x000000000000140c       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00000000000013f8       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_ClearStatus
-                0x0000000000001428       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001414       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_IsMasterPending
-                0x0000000000001444       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001430       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_GetMasterState
-                0x0000000000001464       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001450       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SendStart
-                0x0000000000001480       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000000000000146c       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SendStop
-                0x0000000000001498       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001484       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_MasterContinue
-                0x00000000000014b0       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x000000000000149c       0x18 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_WriteByte
-                0x00000000000014c8       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00000000000014b4       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SetDutyCycle
-                0x00000000000014e8       0x7c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00000000000014d4       0x7c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .text.Chip_I2CM_SetBusSpeed
-                0x0000000000001564       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x0000000000001564                Chip_I2CM_SetBusSpeed
+                0x0000000000001550       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001550                Chip_I2CM_SetBusSpeed
  .text.Chip_I2CM_XferHandler
-                0x00000000000015b4      0x164 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x00000000000015b4                Chip_I2CM_XferHandler
+                0x00000000000015a0      0x164 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x00000000000015a0                Chip_I2CM_XferHandler
  .text.Chip_I2CM_Xfer
-                0x0000000000001718       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x0000000000001718                Chip_I2CM_Xfer
+                0x0000000000001704       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001704                Chip_I2CM_Xfer
  .text.Chip_I2CM_XferBlocking
-                0x0000000000001768       0x54 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
-                0x0000000000001768                Chip_I2CM_XferBlocking
+                0x0000000000001754       0x54 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001754                Chip_I2CM_XferBlocking
  .text.Chip_IOCON_PinSetI2CMode
-                0x00000000000017bc       0x4c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
-                0x00000000000017bc                Chip_IOCON_PinSetI2CMode
+                0x00000000000017a8       0x4c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+                0x00000000000017a8                Chip_IOCON_PinSetI2CMode
  .text.Chip_SWM_MovablePinAssign
-                0x0000000000001808       0x64 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
-                0x0000000000001808                Chip_SWM_MovablePinAssign
+                0x00000000000017f4       0x64 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+                0x00000000000017f4                Chip_SWM_MovablePinAssign
  .text.Chip_SetupIrcClocking
-                0x000000000000186c       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
-                0x000000000000186c                Chip_SetupIrcClocking
+                0x0000000000001858       0x20 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+                0x0000000000001858                Chip_SetupIrcClocking
  .text.Chip_SYSCTL_AssertPeriphReset
-                0x000000000000188c       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x0000000000001878       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_SYSCTL_DeassertPeriphReset
-                0x00000000000018c4       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00000000000018b0       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_SYSCTL_PeriphReset
-                0x00000000000018f8       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00000000000018e4       0x28 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_Clock_EnablePeriphClock
-                0x0000000000001920       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x000000000000190c       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.getUARTClockID
-                0x0000000000001958       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x0000000000001944       0x34 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
  .text.Chip_UART_Init
-                0x000000000000198c       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
-                0x000000000000198c                Chip_UART_Init
+                0x0000000000001978       0x50 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x0000000000001978                Chip_UART_Init
  .text.Chip_UART_SetBaud
-                0x00000000000019dc       0x30 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
-                0x00000000000019dc                Chip_UART_SetBaud
+                0x00000000000019c8       0x30 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+                0x00000000000019c8                Chip_UART_SetBaud
  .text.Chip_Clock_SetupSystemPLL
-                0x0000000000001a0c       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x00000000000019f8       0x38 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_Clock_IsSystemPLLLocked
-                0x0000000000001a44       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x0000000000001a30       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_Clock_SetSysClockDiv
-                0x0000000000001a60       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x0000000000001a4c       0x1c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_FMC_SetFLASHAccess
-                0x0000000000001a7c       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x0000000000001a68       0x2c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.pll_config
-                0x0000000000001aa8       0x6c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x0000000000001a94       0x6c /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .text.Chip_IRC_SetFreq
-                0x0000000000001b14       0xf4 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
-                0x0000000000001b14                Chip_IRC_SetFreq
+                0x0000000000001b00       0xf4 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x0000000000001b00                Chip_IRC_SetFreq
  .text.Chip_SYSCTL_PowerDown
-                0x0000000000001c08       0x44 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
-                0x0000000000001c08                Chip_SYSCTL_PowerDown
+                0x0000000000001bf4       0x44 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+                0x0000000000001bf4                Chip_SYSCTL_PowerDown
  .text.Chip_SYSCTL_PowerUp
-                0x0000000000001c4c       0x48 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
-                0x0000000000001c4c                Chip_SYSCTL_PowerUp
+                0x0000000000001c38       0x48 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+                0x0000000000001c38                Chip_SYSCTL_PowerUp
  .text.__weak_main
-                0x0000000000001c94        0x8 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(__weak__main.o)
-                0x0000000000001c94                __main
-                0x0000000000001c94                __weak_main
- .text.itoa     0x0000000000001c9c       0x68 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
-                0x0000000000001c9c                itoa
+                0x0000000000001c80        0x8 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(__weak__main.o)
+                0x0000000000001c80                __main
+                0x0000000000001c80                __weak_main
+ .text.itoa     0x0000000000001c88       0x68 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
+                0x0000000000001c88                itoa
  .text.__aeabi_division_idivmod
-                0x0000000000001d04       0x78 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
-                0x0000000000001d04                __aeabi_idiv
-                0x0000000000001d04                __aeabi_idivmod
-                0x0000000000001d0a                __aeabi_uidiv
-                0x0000000000001d0a                __aeabi_uidivmod
+                0x0000000000001cf0       0x78 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_32.o)
+                0x0000000000001cf0                __aeabi_idiv
+                0x0000000000001cf0                __aeabi_idivmod
+                0x0000000000001cf6                __aeabi_uidiv
+                0x0000000000001cf6                __aeabi_uidivmod
  .text.__aeabi_division_uldivmod
-                0x0000000000001d7c       0x5a /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_64.o)
-                0x0000000000001d7c                __aeabi_uldivmod
+                0x0000000000001d68       0x5a /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_64.o)
+                0x0000000000001d68                __aeabi_uldivmod
  .text.__aeabi_division_idiv0
-                0x0000000000001dd6        0x2 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_idiv0.o)
-                0x0000000000001dd6                __aeabi_idiv0
+                0x0000000000001dc2        0x2 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/libcr_eabihelpers.a(division_idiv0.o)
+                0x0000000000001dc2                __aeabi_idiv0
  *(.rodata .rodata.* .constdata .constdata.*)
  .rodata.ledBits
-                0x0000000000001dd8        0x3 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- *fill*         0x0000000000001ddb        0x1 ff
+                0x0000000000001dc4        0x3 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ *fill*         0x0000000000001dc7        0x1 ff
  .rodata.OscRateIn
-                0x0000000000001ddc        0x4 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x0000000000001ddc                OscRateIn
+                0x0000000000001dc8        0x4 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000001dc8                OscRateIn
  .rodata.ExtRateIn
-                0x0000000000001de0        0x4 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
-                0x0000000000001de0                ExtRateIn
+                0x0000000000001dcc        0x4 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+                0x0000000000001dcc                ExtRateIn
  .rodata.wdtOSCRate
-                0x0000000000001de4       0x40 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000000000001dd0       0x40 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
  .rodata.Chip_I2CM_XferHandler
-                0x0000000000001e24       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+                0x0000000000001e10       0x14 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
  .rodata.config_tab
-                0x0000000000001e38      0x354 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+                0x0000000000001e24      0x354 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .rodata.digits
-                0x000000000000218c       0x11 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
-                0x00000000000021a0                . = ALIGN (0x4)
- *fill*         0x000000000000219d        0x3 ff
+                0x0000000000002178       0x11 /Applications/MCUXpressoIDE_10.0.0_344/ide/tools/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m/libcr_c.a(itoa.o)
+                0x000000000000218c                . = ALIGN (0x4)
+ *fill*         0x0000000000002189        0x3 ff
 
-.glue_7         0x00000000000021a0        0x0
- .glue_7        0x00000000000021a0        0x0 linker stubs
+.glue_7         0x000000000000218c        0x0
+ .glue_7        0x000000000000218c        0x0 linker stubs
 
-.glue_7t        0x00000000000021a0        0x0
- .glue_7t       0x00000000000021a0        0x0 linker stubs
+.glue_7t        0x000000000000218c        0x0
+ .glue_7t       0x000000000000218c        0x0 linker stubs
 
-.vfp11_veneer   0x00000000000021a0        0x0
- .vfp11_veneer  0x00000000000021a0        0x0 linker stubs
+.vfp11_veneer   0x000000000000218c        0x0
+ .vfp11_veneer  0x000000000000218c        0x0 linker stubs
 
-.v4_bx          0x00000000000021a0        0x0
- .v4_bx         0x00000000000021a0        0x0 linker stubs
+.v4_bx          0x000000000000218c        0x0
+ .v4_bx         0x000000000000218c        0x0 linker stubs
 
-.iplt           0x00000000000021a0        0x0
- .iplt          0x00000000000021a0        0x0 ./src/SleepyZzz.o
+.iplt           0x000000000000218c        0x0
+ .iplt          0x000000000000218c        0x0 ./src/SleepyZzz.o
 
-.rel.dyn        0x00000000000021a0        0x0
- .rel.iplt      0x00000000000021a0        0x0 ./src/SleepyZzz.o
+.rel.dyn        0x000000000000218c        0x0
+ .rel.iplt      0x000000000000218c        0x0 ./src/SleepyZzz.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000000000021a0                __exidx_start = .
+                0x000000000000218c                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000000021a0                __exidx_end = .
-                0x00000000000021a0                _etext = .
+                0x000000000000218c                __exidx_end = .
+                0x000000000000218c                _etext = .
 
 .mtb_buffer_default
                 0x0000000010000000      0x100
@@ -2168,7 +2168,7 @@ END GROUP
                 0x0000000010000100                . = ALIGN (0x4)
                 0x0000000010000100                _end_uninit_RESERVED = .
 
-.data           0x0000000010000100        0x0 load address 0x00000000000021a0
+.data           0x0000000010000100        0x0 load address 0x000000000000218c
  FILL mask 0xff
                 0x0000000010000100                _data = .
  *(vtable)
@@ -2177,21 +2177,22 @@ END GROUP
                 0x0000000010000100                . = ALIGN (0x4)
                 0x0000000010000100                _edata = .
 
-.igot.plt       0x0000000010000100        0x0 load address 0x00000000000021a0
+.igot.plt       0x0000000010000100        0x0 load address 0x000000000000218c
  .igot.plt      0x0000000010000100        0x0 ./src/SleepyZzz.o
 
-.bss            0x0000000010000100       0x38 load address 0x00000000000021a0
+.bss            0x0000000010000100       0x38 load address 0x000000000000218c
                 0x0000000010000100                _bss = .
  *(.bss*)
  .bss.sensorVals
                 0x0000000010000100       0x10 ./src/SleepyZzz.o
                 0x0000000010000100                sensorVals
- .bss.i.6745    0x0000000010000110        0x4 ./src/SleepyZzz.o
+ .bss.i.6743    0x0000000010000110        0x4 ./src/SleepyZzz.o
  .bss.tx_packet
                 0x0000000010000114        0x1 ./src/adc.o
  *fill*         0x0000000010000115        0x3 
  .bss.rx_packet
-                0x0000000010000118        0x4 ./src/adc.o
+                0x0000000010000118        0x3 ./src/adc.o
+ *fill*         0x000000001000011b        0x1 
  .bss.i2cmXferRec
                 0x000000001000011c       0x10 ./src/i2c.o
  .bss.tx_packet
@@ -2208,7 +2209,7 @@ END GROUP
                 0x0000000010000138                _ebss = .
                 [!provide]                        PROVIDE (end, .)
 
-.noinit         0x0000000010000138        0x0 load address 0x00000000000021a0
+.noinit         0x0000000010000138        0x0 load address 0x000000000000218c
                 0x0000000010000138                _noinit = .
  *(.noinit*)
                 0x0000000010000138                . = ALIGN (0x4)
@@ -2218,29 +2219,29 @@ END GROUP
                 0xffffffffefffeb1d                PROVIDE (__valid_user_code_checksum, (0x0 - (((_vStackTop + (ResetISR + 0x1)) + (DEFINED (NMI_Handler)?NMI_Handler:M0_NMI_Handler + 0x1)) + (DEFINED (HardFault_Handler)?HardFault_Handler:M0_HardFault_Handler + 0x1))))
 OUTPUT(SleepyZzz.axf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0x7ef1
+.debug_info     0x0000000000000000     0x7ee5
  .debug_info    0x0000000000000000      0x5be ./src/SleepyZzz.o
- .debug_info    0x00000000000005be      0x210 ./src/adc.o
- .debug_info    0x00000000000007ce      0x203 ./src/cr_startup_lpc8xx.o
- .debug_info    0x00000000000009d1       0x3f ./src/crp.o
- .debug_info    0x0000000000000a10      0x9d1 ./src/i2c.o
- .debug_info    0x00000000000013e1      0x2e5 ./src/lcd.o
- .debug_info    0x00000000000016c6       0x51 ./src/mtb.o
- .debug_info    0x0000000000001717      0x671 ./src/switch_matrix.o
- .debug_info    0x0000000000001d88       0xc3 ./src/sysinit.o
- .debug_info    0x0000000000001e4b      0xce7 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_info    0x0000000000002b32      0x6af /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
- .debug_info    0x00000000000031e1       0xcd /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
- .debug_info    0x00000000000032ae      0xa81 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
- .debug_info    0x0000000000003d2f      0x665 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
- .debug_info    0x0000000000004394      0x7bc /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
- .debug_info    0x0000000000004b50      0x525 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
- .debug_info    0x0000000000005075      0x6a5 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
- .debug_info    0x000000000000571a      0x349 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
- .debug_info    0x0000000000005a63      0x5ea /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
- .debug_info    0x000000000000604d      0xbc6 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
- .debug_info    0x0000000000006c13      0xe4f /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
- .debug_info    0x0000000000007a62      0x48f /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_info    0x00000000000005be      0x204 ./src/adc.o
+ .debug_info    0x00000000000007c2      0x203 ./src/cr_startup_lpc8xx.o
+ .debug_info    0x00000000000009c5       0x3f ./src/crp.o
+ .debug_info    0x0000000000000a04      0x9d1 ./src/i2c.o
+ .debug_info    0x00000000000013d5      0x2e5 ./src/lcd.o
+ .debug_info    0x00000000000016ba       0x51 ./src/mtb.o
+ .debug_info    0x000000000000170b      0x671 ./src/switch_matrix.o
+ .debug_info    0x0000000000001d7c       0xc3 ./src/sysinit.o
+ .debug_info    0x0000000000001e3f      0xce7 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_info    0x0000000000002b26      0x6af /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_info    0x00000000000031d5       0xcd /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_info    0x00000000000032a2      0xa81 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_info    0x0000000000003d23      0x665 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_info    0x0000000000004388      0x7bc /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_info    0x0000000000004b44      0x525 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_info    0x0000000000005069      0x6a5 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_info    0x000000000000570e      0x349 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_info    0x0000000000005a57      0x5ea /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_info    0x0000000000006041      0xbc6 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_info    0x0000000000006c07      0xe4f /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_info    0x0000000000007a56      0x48f /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
 .debug_abbrev   0x0000000000000000     0x1b36
  .debug_abbrev  0x0000000000000000      0x1e7 ./src/SleepyZzz.o
@@ -2405,74 +2406,74 @@ OUTPUT(SleepyZzz.axf elf32-littlearm)
  .debug_macro   0x000000000000508b      0x1e0 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
  .debug_macro   0x000000000000526b      0x1f8 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
-.debug_line     0x0000000000000000     0x5868
+.debug_line     0x0000000000000000     0x5866
  .debug_line    0x0000000000000000      0x538 ./src/SleepyZzz.o
- .debug_line    0x0000000000000538      0x44f ./src/adc.o
- .debug_line    0x0000000000000987       0xb9 ./src/cr_startup_lpc8xx.o
- .debug_line    0x0000000000000a40       0x7c ./src/crp.o
- .debug_line    0x0000000000000abc      0x49a ./src/i2c.o
- .debug_line    0x0000000000000f56      0x515 ./src/lcd.o
- .debug_line    0x000000000000146b       0x99 ./src/mtb.o
- .debug_line    0x0000000000001504      0x449 ./src/switch_matrix.o
- .debug_line    0x000000000000194d      0x3f5 ./src/sysinit.o
- .debug_line    0x0000000000001d42      0x64e /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
- .debug_line    0x0000000000002390      0x452 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
- .debug_line    0x00000000000027e2      0x389 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
- .debug_line    0x0000000000002b6b      0x5d9 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
- .debug_line    0x0000000000003144      0x3c2 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
- .debug_line    0x0000000000003506      0x436 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
- .debug_line    0x000000000000393c      0x4db /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
- .debug_line    0x0000000000003e17      0x4b3 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
- .debug_line    0x00000000000042ca      0x3c9 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
- .debug_line    0x0000000000004693      0x411 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
- .debug_line    0x0000000000004aa4      0x5ad /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
- .debug_line    0x0000000000005051      0x451 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
- .debug_line    0x00000000000054a2      0x3c6 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_line    0x0000000000000538      0x44d ./src/adc.o
+ .debug_line    0x0000000000000985       0xb9 ./src/cr_startup_lpc8xx.o
+ .debug_line    0x0000000000000a3e       0x7c ./src/crp.o
+ .debug_line    0x0000000000000aba      0x49a ./src/i2c.o
+ .debug_line    0x0000000000000f54      0x515 ./src/lcd.o
+ .debug_line    0x0000000000001469       0x99 ./src/mtb.o
+ .debug_line    0x0000000000001502      0x449 ./src/switch_matrix.o
+ .debug_line    0x000000000000194b      0x3f5 ./src/sysinit.o
+ .debug_line    0x0000000000001d40      0x64e /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_line    0x000000000000238e      0x452 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_line    0x00000000000027e0      0x389 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_line    0x0000000000002b69      0x5d9 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_line    0x0000000000003142      0x3c2 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_line    0x0000000000003504      0x436 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_line    0x000000000000393a      0x4db /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_line    0x0000000000003e15      0x4b3 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_line    0x00000000000042c8      0x3c9 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_line    0x0000000000004691      0x411 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_line    0x0000000000004aa2      0x5ad /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_line    0x000000000000504f      0x451 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_line    0x00000000000054a0      0x3c6 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
 
-.debug_str      0x0000000000000000     0xd50f
+.debug_str      0x0000000000000000     0xd505
  .debug_str     0x0000000000000000     0xa505 ./src/SleepyZzz.o
                                        0xa5bd (size before relaxing)
- .debug_str     0x000000000000a505      0x12f ./src/adc.o
-                                       0x9e5f (size before relaxing)
- .debug_str     0x000000000000a634      0x167 ./src/cr_startup_lpc8xx.o
+ .debug_str     0x000000000000a505      0x125 ./src/adc.o
+                                       0x9e55 (size before relaxing)
+ .debug_str     0x000000000000a62a      0x167 ./src/cr_startup_lpc8xx.o
                                        0x252d (size before relaxing)
- .debug_str     0x000000000000a79b       0xe9 ./src/crp.o
+ .debug_str     0x000000000000a791       0xe9 ./src/crp.o
                                        0x2490 (size before relaxing)
- .debug_str     0x000000000000a884      0x958 ./src/i2c.o
+ .debug_str     0x000000000000a87a      0x958 ./src/i2c.o
                                        0xa69d (size before relaxing)
- .debug_str     0x000000000000b1dc      0x259 ./src/lcd.o
+ .debug_str     0x000000000000b1d2      0x259 ./src/lcd.o
                                        0x9f96 (size before relaxing)
- .debug_str     0x000000000000b435       0xd0 ./src/mtb.o
+ .debug_str     0x000000000000b42b       0xd0 ./src/mtb.o
                                        0x28c1 (size before relaxing)
- .debug_str     0x000000000000b505       0xc7 ./src/switch_matrix.o
+ .debug_str     0x000000000000b4fb       0xc7 ./src/switch_matrix.o
                                        0xa3dd (size before relaxing)
- .debug_str     0x000000000000b5cc       0x11 ./src/sysinit.o
+ .debug_str     0x000000000000b5c2       0x11 ./src/sysinit.o
                                        0x9cc8 (size before relaxing)
- .debug_str     0x000000000000b5dd      0x445 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
+ .debug_str     0x000000000000b5d3      0x445 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board.o)
                                        0xa6b3 (size before relaxing)
- .debug_str     0x000000000000ba22       0xc5 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
+ .debug_str     0x000000000000ba18       0xc5 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug/liblpc_board_lpc812max.a(board_sysinit.o)
                                        0xa33e (size before relaxing)
- .debug_str     0x000000000000bae7       0x6b /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_str     0x000000000000badd       0x6b /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(chip_8xx.o)
                                        0x99ad (size before relaxing)
- .debug_str     0x000000000000bb52      0x746 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_str     0x000000000000bb48      0x746 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(clock_8xx.o)
                                        0xa379 (size before relaxing)
- .debug_str     0x000000000000c298       0x32 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
+ .debug_str     0x000000000000c28e       0x32 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(gpio_8xx.o)
                                        0x9e27 (size before relaxing)
- .debug_str     0x000000000000c2ca       0x54 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
+ .debug_str     0x000000000000c2c0       0x54 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2c_common_8xx.o)
                                        0x9fc0 (size before relaxing)
- .debug_str     0x000000000000c31e      0x163 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
+ .debug_str     0x000000000000c314      0x163 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(i2cm_8xx.o)
                                        0x9bbb (size before relaxing)
- .debug_str     0x000000000000c481      0x2fc /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
+ .debug_str     0x000000000000c477      0x2fc /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(iocon_8xx.o)
                                        0x9ee5 (size before relaxing)
- .debug_str     0x000000000000c77d       0xe1 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
+ .debug_str     0x000000000000c773       0xe1 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(swm_8xx.o)
                                        0x9d86 (size before relaxing)
- .debug_str     0x000000000000c85e      0x161 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_str     0x000000000000c854      0x161 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(sysinit_8xx.o)
                                        0x9de1 (size before relaxing)
- .debug_str     0x000000000000c9bf      0x1e7 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_str     0x000000000000c9b5      0x1e7 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(uart_8xx.o)
                                        0xa14c (size before relaxing)
- .debug_str     0x000000000000cba6      0x855 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
+ .debug_str     0x000000000000cb9c      0x855 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(irc_8xx.o)
                                        0xa5ed (size before relaxing)
- .debug_str     0x000000000000d3fb      0x114 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_str     0x000000000000d3f1      0x114 /Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug/liblpc_chip_8xx.a(syscon_8xx.o)
                                        0x9c9d (size before relaxing)
 
 .comment        0x0000000000000000       0x6e

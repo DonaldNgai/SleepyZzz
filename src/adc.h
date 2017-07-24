@@ -14,8 +14,8 @@
 	typedef enum {
 		AIN0,
 		AIN1,
-		AIN2,
-		AIN3,
+//		AIN2,
+//		AIN3,
 		NUMBER_OF_ANALOG_INPUTS
 	}AIN_VALUE;
 
