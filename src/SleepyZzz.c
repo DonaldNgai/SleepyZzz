@@ -36,13 +36,25 @@
 
 char print_buffer[50];
 sensor_values_t sensorVals;
+
+char recv0_buf[512];
+#define BUF_LEN 100
+	char string_buffer[512];
+/* UART handle and memory for ROM API */
+UART_HANDLE_T* uart0Handle;
+
+
+/* Use a buffer size larger than the expected return value of
+   uart_get_mem_size() for the static UART handle type */
+uint32_t uart0HandleMEM[0x10];
+
 /**
  * @brief	Handle interrupt from SysTick timer
  * @return	Nothing
  */
+
 void SysTick_Handler(void)
 {
-//	Board_LED_Toggle(0);
 
 	get_sensor_values(&sensorVals);
 
