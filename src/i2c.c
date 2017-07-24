@@ -20,7 +20,7 @@ static I2CM_XFER_T  i2cmXferRec;
 // This mean 850k of bits per I2C clock
 // Hence SCL is Chip_Clock_GetSystemClockRate() / (Chip_I2C_GetClockDiv(pI2C) * busSpeed);
 // Because we need to know how many ticks on the main clock need to go by per I2C tick
-#define I2C_BITRATE             (85000) //85kHz
+#define I2C_BITRATE             (45000) //85kHz
 
 /* file local variables */
 static volatile int intErrCode;

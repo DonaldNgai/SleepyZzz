@@ -8,7 +8,8 @@
 #ifndef LCD_H_
 #define LCD_H_
 
-#define LCD_i2c_address	0x28 //80
+#define LCD_i2c_address	0x28 //40
+//#define LCD_i2c_address	0x50 //80
 #define LCD_max_data_rate 100 //KHz
 
 typedef enum {

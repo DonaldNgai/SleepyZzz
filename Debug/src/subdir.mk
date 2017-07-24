@@ -44,7 +44,7 @@ C_DEPS += \
 src/%.o: ../src/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU C Compiler'
-	arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M0PLUS -D__MTB_BUFFER_SIZE=256 -D__USE_LPCOPEN -D__LPC8XX__ -D__REDLIB__ -I"/home/donald/Documents/MCUXpresso_10.0.0_344/workspace/SleepyZzz/inc" -I"/home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc" -I"/home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb -specs=redlib.specs -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	arm-none-eabi-gcc -DDEBUG -D__CODE_RED -DCORE_M0PLUS -D__MTB_BUFFER_SIZE=256 -D__USE_LPCOPEN -D__LPC8XX__ -D__REDLIB__ -I"/Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/inc" -I"/Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/inc" -O0 -fno-common -g3 -Wall -c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -mcpu=cortex-m0 -mthumb -specs=redlib.specs -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
