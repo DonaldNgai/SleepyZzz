@@ -28,8 +28,6 @@
 #include "print.h"
 #include "SleepyZzz.h"
 
-#define I2C_ADDR_7BIT           (0x60)
-
 #define TICKRATE_HZ (10)	/* 10 ticks per second */
 //Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
 //Meaning 41.66ns clock period
@@ -102,7 +100,6 @@ void program_init(void){
 	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
 	setupUART((uint32_t) LPC_USART0, &uart0Handle, uart0HandleMEM, sizeof(uart0HandleMEM), cfg0);
 
-//	setup_wifi_module(uart0Handle);
 }
 
 int main(void) {
@@ -110,22 +107,12 @@ int main(void) {
 	char string_buffer[512];
 
 	program_init();
-//	LCD_print_integer(LINE_1,SystemCoreClock);
-//	LCD_print_string(LINE_3,"Hello World!\0");
 
 	Board_LED_Set(0, false);
-	// join_network();
-	/* Transmit the welcome message and instructions using the
-	   putline function */
-	my_sprintf(string_buffer, "Test %d\r\n",true);
-//	set_module_mode();
-//	LCD_print_integer(LINE_2,my_sprintf(string_buffer, "Test %d\r\n",123));;
 
-	print_to_console("Beginning of Program\r\n");
+	print_to_console("\r\nBeginning of Program\r\n");
 
-	print_to_console(string_buffer);
-
-	putLineUART(uart0Handle,"AT\r\n");
+	putLineUART(uart0Handle,"AT\0");
 
 	print_to_console("Sent AT to UART0\r\n");
 
@@ -137,32 +124,6 @@ int main(void) {
 	recv0_buf[sizeof(recv0_buf) - 1] = '\0';	/* Safety */
 	print_to_console(recv0_buf);
 	LCD_print_string(LINE_3, recv0_buf);
-
-
-//
-//	recv1_buf[sizeof(recv1_buf) - 1] = '\0';	/* Safety */
-//	if (strlen(recv1_buf) == (sizeof(recv1_buf) - 1)) {
-//		print_to_console("**String was truncated, input data longer than "
-//					"receive buffer***\r\n");
-//	}
-//	print_to_console(recv1_buf);
-
-	/* Transmit the message for byte/character part of the exampel */
-	print_to_console("\r\nByte receive with echo: "
-				"Press a key to echo it back. Press ESC to exit\r");
-
-//	/* Endless loop until ESC key is pressed */
-//	recv_buf[0] = '\n';
-//	while (recv_buf[0] != ESCKEY) {
-//		/* Echo it back */
-//		LPC_UARTD_API->uart_put_char(uartHandle, recv_buf[0]);
-//
-//		/* uart_get_char will block until a character is received */
-//		recv_buf[0] = LPC_UARTD_API->uart_get_char(uartHandle);
-//	}
-
-	/* Transmit the message for byte/character part of the exampel */
-	print_to_console("\r\nESC key received, exiting\r\n");
 
 //    // Force the counter to be placed into memory
 //    volatile static int i = 0 ;
