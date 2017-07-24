@@ -1,7 +1,7 @@
 /*
  * helper.c
  *
- *  Created on: Jul 19, 2017
+ *  Created on: Jul 23, 2017
  *      Author: donald
  */
 
@@ -16,7 +16,7 @@ void blink_led(int number_of_blinks, int led)
 	{
 
 //		Board_LED_Set(2, true);
-		Board_LED_Toggle(led);
+//		Board_LED_Toggle(led);
 		while(count <= 1000000)
 		{
 			count ++;
@@ -27,5 +27,11 @@ void blink_led(int number_of_blinks, int led)
 //	Board_LED_Set(1, true);
 }
 
-
-
+void delay(int ticks)
+{
+	int i = 0;
+	while (i <= ticks)
+	{
+		i++;
+	}
+}
