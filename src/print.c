@@ -18,11 +18,11 @@
 //static char recv1_buf[32];
 
 /* UART handle and memory for ROM API */
-UART_HANDLE_T* uart1Handle;
+UART_HANDLE_T* uartHandle;
 
 /* Use a buffer size larger than the expected return value of
    uart_get_mem_size() for the static UART handle type */
-uint32_t uart1HandleMEM[0x10];
+uint32_t uartHandleMEM[0x10];
 
 #ifdef ENABLE_DECIMAL
 static void ftoa_fixed(char *buffer, double value);
@@ -44,7 +44,7 @@ void setup_usb_console(void){
 	Init_UART_PinMux(SWM_U1_TXD_O,6,SWM_U1_RXD_I,1);
 	Chip_UART_Init(LPC_USART1);
 	/* Allocate UART handle, setup UART parameters, and initialize UART clocking */
-	setupUART((uint32_t) LPC_USART1, &uart1Handle, uart1HandleMEM, sizeof(uart1HandleMEM), cfg1);
+	setupUART((uint32_t) LPC_USART1, &uartHandle, uartHandleMEM, sizeof(uartHandleMEM), cfg1);
 
 }
 
@@ -258,27 +258,27 @@ int my_sprintf(char *file, char *fmt, ...) {
 //	/* Get a string for the UART and echo it back to the caller. Data is NOT
 //	   echoed back via the UART using this function. */
 void print_to_console(char* string){
-	putLineUART(uart1Handle, string);
+	putLineUART(uartHandle, string);
 }
 
 void echo_to_console(void)
 {
 	char recv_buf[5];
 	char output_buffer[10];
-	putLineUART(uart1Handle, "Console is echoing until 'ESC' is pressed\r\n");
+	putLineUART(uartHandle, "Console is echoing until 'ESC' is pressed\r\n");
 	recv_buf[0] = '\n';
 	while (recv_buf[0] != ESC_KEY) {
 		 /* Echo it back */
-//		 LPC_UARTD_API->uart_put_char(uart1Handle, recv_buf[0]);
+//		 LPC_UARTD_API->uart_put_char(uartHandle, recv_buf[0]);
 		my_sprintf(output_buffer,"I: %d, C: %c\r\n",recv_buf[0],(int)recv_buf[0]);
 		print_to_console(output_buffer);
 		 /* uart_get_char will block until a character is received */
-		 recv_buf[0] = LPC_UARTD_API->uart_get_char(uart1Handle);
+		 recv_buf[0] = LPC_UARTD_API->uart_get_char(uartHandle);
 	}
 }
 
 void get_line_from_console(char* recv_buffer, int buffer_size)
 {
-	putLineUART(uart1Handle, "Reading keyboard. Terminate line using Ctrl+m(13 - Carriage Return - r), Ctrl+j(10 - Line Feed - n)\r\n");
-	getLineUART(uart1Handle, recv_buffer, buffer_size);
+	putLineUART(uartHandle, "Reading keyboard. Terminate line using Ctrl+m(13 - Carriage Return - r), Ctrl+j(10 - Line Feed - n)\r\n");
+	getLineUART(uartHandle, recv_buffer, buffer_size);
 }
