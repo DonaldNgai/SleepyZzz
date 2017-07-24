@@ -7,9 +7,11 @@
  */
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include "lcd.h"
 #include "board.h"
 #include "i2c.h"
+#include "helper.h"
 
 #define CLOCK_PERIOD_IN_NANOSECONDS	33
 #define WRITE_CHAR_DELAY_NANOSECONDS	30000
@@ -29,15 +31,6 @@ static uint8_t rx_packet; //Unnecessary
 static void send_packet(int number_of_bytes)
 {
 	SetupXferRecAndExecute(LCD_i2c_address, tx_packet, number_of_bytes, &rx_packet, 0);
-}
-
-static void delay(int ticks)
-{
-	int i = 0;
-	while (i <= ticks)
-	{
-		i++;
-	}
 }
 
 /*****************************************************************************
@@ -88,6 +81,8 @@ void LCD_print_string(lcd_lines line, char* string)
 	#ifdef restrictLineChange
 		int count = 0;
 	#endif
+
+	string[strlen(string)] = '\0';	/* Safety */
 
 	set_lcd_cursor(line);
 
