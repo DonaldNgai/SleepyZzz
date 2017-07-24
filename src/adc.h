@@ -10,12 +10,13 @@
 
 	#define ADC_I2C_ADDRESS	0b1001111
 	#define ADC_POR_VALUE	0x80h
+	#define HEARTRATE_BUFFER_SIZE	30
 
 	typedef enum {
 		AIN0,
 		AIN1,
-//		AIN2,
-//		AIN3,
+		AIN2,
+		AIN3,
 		NUMBER_OF_ANALOG_INPUTS
 	}AIN_VALUE;
 
