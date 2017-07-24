@@ -18,12 +18,17 @@
 
 #include <cr_section_macros.h>
 
+#include <string.h>
+#include <stdlib.h>
 #include "switch_matrix.h"
 #include "i2c.h"
 #include "lcd.h"
 #include "adc.h"
-
-#define I2C_ADDR_7BIT           (0x60)
+#include "uart.h"
+#include "wifi.h"
+#include "print.h"
+#include "helper.h"
+#include "SleepyZzz.h"
 
 #define TICKRATE_HZ (10)	/* 10 ticks per second */
 //Main clock and system clock should be 30MHz because we got a 4.99Hz LED frequency when probing pin 7
