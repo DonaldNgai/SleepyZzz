@@ -40,7 +40,7 @@ src/lcd.o src/lcd.d: ../src/lcd.c ../src/lcd.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/irc_8xx.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/inc/board_api.h \
  /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h \
- ../src/i2c.h
+ ../src/i2c.h ../src/helper.h
 
 ../src/lcd.h:
 
@@ -127,3 +127,5 @@ src/lcd.o src/lcd.d: ../src/lcd.c ../src/lcd.h \
 /home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/inc/lpc_types.h:
 
 ../src/i2c.h:
+
+../src/helper.h:

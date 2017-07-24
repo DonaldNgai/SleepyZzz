@@ -27,3 +27,11 @@ void blink_led(int number_of_blinks, int led)
 //	Board_LED_Set(1, true);
 }
 
+void delay(int ticks)
+{
+	int i = 0;
+	while (i <= ticks)
+	{
+		i++;
+	}
+}
