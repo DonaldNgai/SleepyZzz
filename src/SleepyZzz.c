@@ -125,12 +125,12 @@ int main(void) {
 // 	Get char from WIFI Module
 //	recv0_buf[0] = LPC_UARTD_API->uart_get_char(uart0Handle);
 // 	How to put a line to Wifi Module
- 	putLineUART(uart0Handle,"AT\r\r\n\r\n");
-
- 	getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
-
- 	my_sprintf(string_buffer,"Received: %s", recv0_buf);
- 	print_to_console(string_buffer);
+// 	putLineUART(uart0Handle,"AT\r\r\n\r\n\0");
+//
+// 	getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
+//
+// 	my_sprintf(string_buffer,"Received: %s", recv0_buf);
+// 	print_to_console(string_buffer);
 
    // Force the counter to be placed into memory
 	volatile static int i = 0 ;
@@ -140,13 +140,25 @@ int main(void) {
 		// Enter an infinite loop, just incrementing a counter
 		i++;
 
-		get_line_from_console(recv0_buf,sizeof(recv0_buf));
+		if (i > 1000000){
+			putLineUART(uart0Handle,"AT\r\r\n\r\n\0");
+			Board_LED_Toggle(1);
+		}
 
-		putLineUART(uart0Handle,recv0_buf);
+//		get_line_from_console(recv0_buf,sizeof(recv0_buf));
+//
+//		putLineUART(uart0Handle,recv0_buf);
+//
+		getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
 
-		my_sprintf(string_buffer,"Received: %s", recv0_buf);
+//		my_sprintf(string_buffer,"Received: %s\n", recv0_buf);
 
-		print_to_console(string_buffer);
+		print_to_console(recv0_buf);
+
+		if (i > 1000000){
+			putLineUART(uart0Handle,"AT\r\r\n\r\n\0");
+			Board_LED_Toggle(1);
+		}
 	}
     return 0 ;
 }

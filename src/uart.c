@@ -101,7 +101,7 @@ void putLineUART(UART_HANDLE_T* uartHandle, const char *send_data)
 	param.size = strlen(send_data);
 
 	/* Polling mode, do not append CR/LF to sent data */
-	param.transfer_mode = TX_MODE_BUF_EMPTY;
+	param.transfer_mode = TX_MODE_SZERO_SEND_CRLF;
 	param.driver_mode = DRIVER_MODE_POLLING;
 
 	/* Transmit the data */
