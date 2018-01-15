@@ -104,6 +104,7 @@ void program_init(void){
 int main(void) {
 
 	char recv0_buf[100];
+	char string_buffer[100];
 
 	program_init();
 
@@ -111,9 +112,9 @@ int main(void) {
 
 	print_to_console("\r\nBeginning of Program\r\n");
 
-	echo_to_console();
+	//echo_to_console();
 
-	get_line_from_console(recv0_buf,sizeof(recv0_buf));
+	//get_line_from_console(recv0_buf,sizeof(recv0_buf));
 
 //  How to print to console and use sprintf
 //	print_to_console("Sent AT to UART0\r\n");
@@ -124,7 +125,12 @@ int main(void) {
 // 	Get char from WIFI Module
 //	recv0_buf[0] = LPC_UARTD_API->uart_get_char(uart0Handle);
 // 	How to put a line to Wifi Module
-// 	putLineUART(uart0Handle,"AT\r\n");
+// 	putLineUART(uart0Handle,"AT\r\r\n\r\n\0");
+//
+// 	getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
+//
+// 	my_sprintf(string_buffer,"Received: %s", recv0_buf);
+// 	print_to_console(string_buffer);
 
    // Force the counter to be placed into memory
 	volatile static int i = 0 ;
@@ -132,7 +138,27 @@ int main(void) {
 	while(1)
 	{
 		// Enter an infinite loop, just incrementing a counter
-		i++
+		i++;
+
+		if (i > 1000000){
+			putLineUART(uart0Handle,"AT\r\r\n\r\n\0");
+			Board_LED_Toggle(1);
+		}
+
+//		get_line_from_console(recv0_buf,sizeof(recv0_buf));
+//
+//		putLineUART(uart0Handle,recv0_buf);
+//
+		getLineUART(uart0Handle, recv0_buf, sizeof(recv0_buf));
+
+//		my_sprintf(string_buffer,"Received: %s\n", recv0_buf);
+
+		print_to_console(recv0_buf);
+
+		if (i > 1000000){
+			putLineUART(uart0Handle,"AT\r\r\n\r\n\0");
+			Board_LED_Toggle(1);
+		}
 	}
     return 0 ;
 }

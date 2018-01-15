@@ -29,7 +29,7 @@ all: SleepyZzz.axf
 SleepyZzz.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"/Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_board_lpc812max/Debug" -L"/Users/adamseeto/Desktop/stuff/school/FYDP/code/lpc_chip_8xx/Debug" -Xlinker -Map="SleepyZzz.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0 -mthumb -T "SleepyZzz_Debug.ld" -o "SleepyZzz.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"/home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_board_lpc812max/Debug" -L"/home/donald/Documents/MCUXpresso_10.0.0_344/workspace/lpc_chip_8xx/Debug" -Xlinker -Map="SleepyZzz.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -mcpu=cortex-m0 -mthumb -T "SleepyZzz_Debug.ld" -o "SleepyZzz.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
