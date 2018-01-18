@@ -1,3 +1,5 @@
+#include <SparkFun_ADXL345.h>
+
 #include <SoftwareSerial.h>
 #define loopDurationInMillis  10000
 
@@ -7,6 +9,7 @@ int rawTmpVoltage;
 float celsiusTmp, tmpMilliVolts;
 int val = 0;
 int startTime = 0;
+ADXL345 adxl = ADXL345();             // USE FOR I2C COMMUNICATION
 
 void setup() {
   Serial.begin(115200);
