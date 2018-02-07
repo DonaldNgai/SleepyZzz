@@ -47,3 +47,61 @@ adxl.singleTapINT(1);
 //attachInterrupt(digitalPinToInterrupt(interruptPin), ADXL_ISR, RISING);   // Attach Interrupt
 
 }
+
+/********************* ISR *********************/
+/* Look for Interrupts and Triggered Action    */
+void ADXL_ISR(bool* freefall_detected) {
+  
+  // getInterruptSource clears all triggered actions after returning value
+  // Do not call again until you need to recheck for triggered actions
+  byte interrupts = adxl.getInterruptSource();
+
+  *freefall_detected = false;
+  
+  // Free Fall Detection
+  if(adxl.triggered(interrupts, ADXL345_FREE_FALL)){
+    Serial.println("*** FREE FALL ***");
+    //add code here to do when free fall is sensed
+    *freefall_detected = true;
+  } 
+  
+//  
+//  // Inactivity
+//  if(adxl.triggered(interrupts, ADXL345_INACTIVITY)){
+//    Serial.println("*** INACTIVITY ***");
+//     //add code here to do when inactivity is sensed
+//  }
+//  
+//  // Activity
+//  if(adxl.triggered(interrupts, ADXL345_ACTIVITY)){
+//    Serial.println("*** ACTIVITY ***"); 
+//     //add code here to do when activity is sensed
+//  }
+//  
+//  // Double Tap Detection
+//  if(adxl.triggered(interrupts, ADXL345_DOUBLE_TAP)){
+//    Serial.println("*** DOUBLE TAP ***");
+//     //add code here to do when a 2X tap is sensed
+//  }
+//  
+//  // Tap Detection
+//  if(adxl.triggered(interrupts, ADXL345_SINGLE_TAP)){
+//    Serial.println("*** TAP ***");
+//     //add code here to do when a tap is sensed
+//  } 
+}
+
+void filter_adxl(int* x, int* y, int* z, 
+ExponentialFilter<int>* x_filter, ExponentialFilter<int>* y_filter, ExponentialFilter<int>* z_filter, 
+int* filtered_x, int* filtered_y, int* filtered_z)
+{
+  x_filter->Filter(*x);
+  filtered_x = x_filter->Current();
+
+  y_filter->Filter(*y);
+  filtered_y = y_filter->Current();
+
+  z_filter->Filter(*z);
+  filtered_z = z_filter->Current();
+}
+
