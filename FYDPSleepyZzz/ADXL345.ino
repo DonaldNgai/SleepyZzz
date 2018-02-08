@@ -1,6 +1,6 @@
 void setupADXL345(){
 
-Serial.println("ADXL345 Accelerometer Setup");
+//Serial.println("ADXL345 Accelerometer Setup");
 
 adxl.powerOn();                     // Power on the ADXL345
 

@@ -4,11 +4,11 @@
 #include "RollingAverage.h"
 #include "HeartSpeed.h"
 
-#define LOOP_DURATION_IN_MILLIS  1000
+#define LOOP_DURATION_IN_MILLIS  10
 #define SERIAL_BAUD_RATE 9600
 #define AVERAGING_BUFFER_SIZE 10
 #define AVERAGE_HEART_RATE_BUFFER_SIZE 3
-#define DATA_STORAGE_DEPTH 12
+#define DATA_STORAGE_DEPTH 3
 
 typedef enum
 {
@@ -16,6 +16,16 @@ typedef enum
   ACCEL_Y,
   ACCEL_Z
 } accel_orientation;
+
+//-------------Data Request Variables----------//
+char header1[] = "POST /api/v1/data?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODA1Njc4NSwiZXhwIjoxNTE4MTQzMTg1fQ.-a4Gc2C0idjsOKwRBl3AcwWmjhyziyxpC1cUHbNuex8 HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: ";
+char header2[] = "\r\nUser-Agent: Arduino/1.0\r\nAuthorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n";
+char * data = new char[300];
+char * val = new char[20];
+String s = "";
+
+#define FLOAT_STRING_LENGTH 7
+#define FLOAT_STRING_DECIMALS 2
 
 //-------------Sensor Variable Initialization----------//
 SoftwareSerial esp8266(2,3); //RX - pin 2, TX - pin 3
@@ -86,8 +96,8 @@ void loop() {
       accel_data[ACCEL_Z][current_index] = averagedZ;
       freefall_data[current_index] = freefall_detected;
 
-      //if (current_index == DATA_STORAGE_DEPTH) 
-      //PUT CODE TO SEND DATA HERE
+      if (current_index == DATA_STORAGE_DEPTH-1) 
+        sendData(heart_rate_data,accel_data,freefall_data,temp_data);
       
       //Send Data Package
       ADXL_ISR(&freefall_detected);
