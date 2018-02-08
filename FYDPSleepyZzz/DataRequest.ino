@@ -11,15 +11,18 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
     Serial.write(esp8266.read());
   }
 
+  delay(100);
+
   esp8266.print(F("AT+CIPSENDEX=2048\r\n"));
   while(!esp8266.available());
   while(esp8266.available()){
     Serial.write(esp8266.read());
   }
-  
+  delay(100);
+//    return;
   esp8266.print(F("POST /api/v1/data?token= "));
   esp8266.write(token);
-  esp8266.print(F(" HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: "));
+  esp8266.print(F(" HTTP/1.1\r\nHost: 138.197.153.154\r\nContent-Type: application/json\r\nContent-Length: "));
   esp8266.print(233);
   esp8266.print(F("\r\nUser-Agent: Arduino/1.0\r\nAuthorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n"));
 
@@ -70,11 +73,11 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
     
   esp8266.write(data);
   esp8266.print(F("\r\n\r\n\\0"));
-  while(!esp8266.available());
-  
-  while(esp8266.available()){
-    Serial.write(esp8266.read());
-  }
+//  delay(1000);
+//  while(!esp8266.available());
+//  while(esp8266.available()){
+//    Serial.write(esp8266.read());
+//  }
 
 //  Serial.flush();
 
