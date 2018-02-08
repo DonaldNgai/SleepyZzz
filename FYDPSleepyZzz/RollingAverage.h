@@ -9,7 +9,7 @@ class RollingAverage
     void add_value(float new_value, float* new_average);
   private:
     int   _numReadings;
-    int*  readings;                  // the readings from the analog input
+    float*  readings;                  // the readings from the analog input
     int   readIndex = 0;              // the index of the current reading
     float total = 0;                  // the running total
     float average = 0;                // the average
