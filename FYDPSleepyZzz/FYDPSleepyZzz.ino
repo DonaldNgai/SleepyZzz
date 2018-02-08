@@ -92,20 +92,20 @@ void loop() {
       //Send Data Package
       ADXL_ISR(&freefall_detected);
 
-      Serial.print("Index: ");
-      Serial.print(current_index);
-      Serial.print(" Temp: ");
-      Serial.print(averagedTemp);
-      Serial.print(" X: ");
-      Serial.print(averagedX);
-      Serial.print(" Y: ");
-      Serial.print(averagedY);
-      Serial.print(" Z: ");
-      Serial.print(averagedZ);
-      Serial.print(" Free: ");
-      Serial.print(freefall_detected);
-      Serial.print(" Heart: ");
-      Serial.println(averagedHeartRate);
+//      Serial.print("Index: ");
+//      Serial.print(current_index);
+//      Serial.print(" Temp: ");
+//      Serial.print(averagedTemp);
+//      Serial.print(" X: ");
+//      Serial.print(averagedX);
+//      Serial.print(" Y: ");
+//      Serial.print(averagedY);
+//      Serial.print(" Z: ");
+//      Serial.print(averagedZ);
+//      Serial.print(" Free: ");
+//      Serial.print(freefall_detected);
+//      Serial.print(" Heart: ");
+//      Serial.println(averagedHeartRate);
 
       current_index = (current_index + 1) % DATA_STORAGE_DEPTH;
     }
