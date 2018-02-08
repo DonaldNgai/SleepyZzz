@@ -3,8 +3,9 @@
 #include <SoftwareSerial.h>
 #include "RollingAverage.h"
 #include "HeartSpeed.h"
+#include <avr/pgmspace.h>
 
-#define LOOP_DURATION_IN_MILLIS  10
+#define LOOP_DURATION_IN_MILLIS  1000
 #define SERIAL_BAUD_RATE 9600
 #define AVERAGING_BUFFER_SIZE 10
 #define AVERAGE_HEART_RATE_BUFFER_SIZE 3
@@ -18,8 +19,21 @@ typedef enum
 } accel_orientation;
 
 //-------------Data Request Variables----------//
-char header1[] = "POST /api/v1/data?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODA1Njc4NSwiZXhwIjoxNTE4MTQzMTg1fQ.-a4Gc2C0idjsOKwRBl3AcwWmjhyziyxpC1cUHbNuex8 HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: ";
-char header2[] = "\r\nUser-Agent: Arduino/1.0\r\nAuthorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n";
+//char header1[] = "POST /api/v1/data?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: ";
+//char header2[] = "\r\nUser-Agent: Arduino/1.0\r\nAuthorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n";
+//const char string_0[] PROGMEM = "POST /api/v1/data?token=";
+////token
+//const char string_1[] PROGMEM = " HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: ";
+//const char string_2[] PROGMEM = "application/json\r\nContent-Length: ";
+////content length
+//const char string_3[] PROGMEM = "\r\nUser-Agent: Arduino/1.0\r\nAuthorization:";
+//const char string_4[] PROGMEM = " Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS";
+//const char string_5[] PROGMEM = "04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n";
+//const char* const string_table[] PROGMEM = {string_0, string_1, string_2, string_3, string_4, string_5};
+//char header1[330];
+//char header2[150];
+//char header[330];
+
 char * data = new char[300];
 char * val = new char[20];
 String s = "";
@@ -78,6 +92,7 @@ short int current_index = 0;
 
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
+  esp8266.begin(SERIAL_BAUD_RATE);
   setupADXL345();
 
   heartspeed.setCB(heartrate_cb);
@@ -85,6 +100,15 @@ void setup() {
 }
 
 void loop() {
+
+    while(true){
+      while(esp8266.available()){
+        Serial.write(esp8266.read());
+      }
+      while(Serial.available()){
+        esp8266.write(Serial.read());
+      }
+    }
   
     if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
       startTime = millis();

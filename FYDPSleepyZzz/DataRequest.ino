@@ -1,6 +1,28 @@
+  char token[211] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
+
+
 void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fall[], float temperature[]){
 //  char header1[] = "POST /hello HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: ";
 //  message = message + "{\"test\":\"test\"}\r\n\r\n\\0";
+
+  esp8266.print(F("AT+CIPSTART=\"TCP\",\"138.197.153.154\",80,1000\r\n"));
+  while(!esp8266.available());
+  while(esp8266.available()){
+    Serial.write(esp8266.read());
+  }
+
+  esp8266.print(F("AT+CIPSENDEX=2048\r\n"));
+  while(!esp8266.available());
+  while(esp8266.available()){
+    Serial.write(esp8266.read());
+  }
+  
+  esp8266.print(F("POST /api/v1/data?token= "));
+  esp8266.write(token);
+  esp8266.print(F(" HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: "));
+  esp8266.print(233);
+  esp8266.print(F("\r\nUser-Agent: Arduino/1.0\r\nAuthorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n"));
+
 
   strcpy(data,"{\"heartrate\":[");
   for(int i=0;i<DATA_STORAGE_DEPTH;i++){
@@ -44,43 +66,17 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
   }
   strcat(data,"]}");
 
-  Serial.println(data);
+//  Serial.println(data);
+    
+  esp8266.write(data);
+  esp8266.print(F("\r\n\r\n\\0"));
+  while(!esp8266.available());
   
-//  esp8266.write("AT+CIPSTART=\"TCP\",\"138.197.153.154\",80,1000\r\n");
-//  while(!esp8266.available());
-//  while(esp8266.available()){
-//    Serial.write(esp8266.read());
-//  }
-//  
-//  delay(100);
-//          
-//  esp8266.write("AT+CIPSENDEX=2048\r\n");
-//  while(!esp8266.available());
-//  while(esp8266.available()){
-//    Serial.write(esp8266.read());
-//  }
-  
-//  delay(100);
-  
-//  esp8266.write(header1);
-//  esp8266.print(data.length());
-//  esp8266.write(header2);
-//  esp8266.write(dta);
-//  esp8266.write("\r\n\r\n\\0");
-//  Serial.write(header1);
-//  Serial.print(data.length());
-//  Serial.write(header2);
-//  Serial.write(dta);
-//  Serial.write("\r\n\r\n\\0");
-//  while(!esp8266.available());
-//  while(esp8266.available()){
-//    Serial.write(esp8266.read());
-//  }
+  while(esp8266.available()){
+    Serial.write(esp8266.read());
+  }
 
-  Serial.flush();
-//  delete data;
-//  data = NULL;
-//  delete val;
-//  val = NULL;
+//  Serial.flush();
+
 
 }

@@ -60,7 +60,7 @@ void ADXL_ISR(bool* freefall_detected) {
   
   // Free Fall Detection
   if(adxl.triggered(interrupts, ADXL345_FREE_FALL)){
-    Serial.println("*** FREE FALL ***");
+//    Serial.println("*** FREE FALL ***");
     //add code here to do when free fall is sensed
     *freefall_detected = true;
   } 
