@@ -93,88 +93,77 @@ short int current_index = 0;
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   esp8266.begin(SERIAL_BAUD_RATE);
-//  setupADXL345();
+  setupADXL345();
 //
-//  heartspeed.setCB(heartrate_cb);
-//  heartspeed.begin();
+  heartspeed.setCB(heartrate_cb);
+  heartspeed.begin();
 }
 
 void loop() {
   
-//    esp8266.print(F("AT+CIPSTART=\"TCP\",\"138.197.153.154\",80,1000\r\n"));
-//
-//      
+    if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
+      startTime = millis();
 
-  
-//    if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
-//      startTime = millis();
-//
-//      temp_data[current_index] = averagedTemp;
-//      heart_rate_data[current_index] = averagedHeartRate;
-//      accel_data[ACCEL_X][current_index] = averagedX;
-//      accel_data[ACCEL_Y][current_index] = averagedY;
-//      accel_data[ACCEL_Z][current_index] = averagedZ;
-//      freefall_data[current_index] = freefall_detected;
-//
-//      if (current_index == DATA_STORAGE_DEPTH-1) 
-
-
-        heart_rate_data[0] = 1;
-        heart_rate_data[1] = 2;
-        heart_rate_data[2] = 3;
-        accel_data[0][0] = 4;
-        accel_data[0][1] = 4;
-        accel_data[0][2] = 4;
-        accel_data[1][0] = 5;
-        accel_data[1][1] = 5;
-        accel_data[1][2] = 5;
-        accel_data[2][0] = 6;
-        accel_data[2][1] = 6;
-        accel_data[2][2] = 6;
-        freefall_data[0] = true;
-        freefall_data[1] = false;
-        freefall_data[2] = true;
-        temp_data[0] = 7;
-        temp_data[1] = 8;
-        temp_data[2] = 9;
-        sendData(heart_rate_data,accel_data,freefall_data,temp_data);
-
-    while(true){
-      while(esp8266.available()){
-        Serial.write(esp8266.read());
-      }
-      while(Serial.available()){
-        esp8266.write(Serial.read());
-      }
-    }
+      temp_data[current_index] = averagedTemp;
+      heart_rate_data[current_index] = averagedHeartRate;
+      accel_data[ACCEL_X][current_index] = averagedX;
+      accel_data[ACCEL_Y][current_index] = averagedY;
+      accel_data[ACCEL_Z][current_index] = averagedZ;
+      ADXL_ISR(&freefall_detected);
+      freefall_data[current_index] = freefall_detected;
       
-//      //Send Data Package
-//      ADXL_ISR(&freefall_detected);
-//
-////      Serial.print("Index: ");
-////      Serial.print(current_index);
-////      Serial.print(" Temp: ");
-////      Serial.print(averagedTemp);
-////      Serial.print(" X: ");
-////      Serial.print(averagedX);
-////      Serial.print(" Y: ");
-////      Serial.print(averagedY);
-////      Serial.print(" Z: ");
-////      Serial.print(averagedZ);
-////      Serial.print(" Free: ");
-////      Serial.print(freefall_detected);
-////      Serial.print(" Heart: ");
-////      Serial.println(averagedHeartRate);
-//
-//      current_index = (current_index + 1) % DATA_STORAGE_DEPTH;
-//    }
-//    
-//    adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
-//    XAverage.add_value(x,&averagedX);
-//    YAverage.add_value(y,&averagedY);
-//    ZAverage.add_value(z,&averagedZ);
-//
-//    get_temp_in_celsius(&celsiusTemp);
-//    TempAverage.add_value(celsiusTemp,&averagedTemp);
+      if (current_index == DATA_STORAGE_DEPTH-1) {
+          heartspeed.stop();
+          sendData(heart_rate_data,accel_data,freefall_data,temp_data);
+
+//          while (true){
+//              char output[100];
+//              short output_index = 0;
+//              Serial.flush();
+//              while(esp8266.available()){
+//                  char c = esp8266.read();
+////                Serial.write(esp8266.read());
+//                  output[output_index] = c;
+//                  output_index++;
+//                  output[output_index] = "\0";
+////                  Serial.print(c);
+//              }
+//              Serial.println("HI");
+//              Serial.print(output);
+//              while(!esp8266.available()){}     
+//          }
+
+          //This is necessary to ensure that the Serial is done writing before enabling
+          //Interrupts to ensure that writes aren't interrupted.
+          delay(100); 
+          
+          heartspeed.begin();
+      }
+
+//      Serial.print("Index: ");
+//      Serial.print(current_index);
+//      Serial.print(" Temp: ");
+//      Serial.print(averagedTemp);
+//      Serial.print(" X: ");
+//      Serial.print(averagedX);
+//      Serial.print(" Y: ");
+//      Serial.print(averagedY);
+//      Serial.print(" Z: ");
+//      Serial.print(averagedZ);
+//      Serial.print(" Free: ");
+//      Serial.print(freefall_detected);
+//      Serial.print(" Heart: ");
+//      Serial.println(averagedHeartRate);
+
+      current_index = (current_index + 1) % DATA_STORAGE_DEPTH;
+    }
+    
+    adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
+    XAverage.add_value(x,&averagedX);
+    YAverage.add_value(y,&averagedY);
+    ZAverage.add_value(z,&averagedZ);
+
+    get_temp_in_celsius(&celsiusTemp);
+    TempAverage.add_value(celsiusTemp,&averagedTemp);
         
 }

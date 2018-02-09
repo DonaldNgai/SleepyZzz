@@ -1,5 +1,4 @@
-  char token[211] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
-
+char token[211] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
 
 void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fall[], float temperature[]){
 //  char header1[] = "POST /hello HTTP/1.1\r\nHost: 138.197.153.154:80\r\nContent-Type: application/json\r\nContent-Length: ";
@@ -19,8 +18,8 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
     Serial.write(esp8266.read());
   }
   delay(100);
-//    return;
-  esp8266.print(F("POST /api/v1/data?token= "));
+
+  esp8266.print(F("POST /api/v1/data?token="));
   esp8266.write(token);
   esp8266.print(F(" HTTP/1.1\r\nHost: 138.197.153.154\r\nContent-Type: application/json\r\nContent-Length: "));
   esp8266.print(233);
@@ -36,7 +35,6 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
     }
   }
   
-//  Serial.println(data);
   
   strcat(data,"],\"movement\":[");
   for(int i=0;i<DATA_STORAGE_DEPTH;i++){
@@ -57,7 +55,6 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
       strcat(data,",");
     }
   }
-//  Serial.println(data);
   
   strcat(data,"],\"temperature\":[");
   for(int i=0;i<DATA_STORAGE_DEPTH;i++){
@@ -68,8 +65,6 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
     }
   }
   strcat(data,"]}");
-
-//  Serial.println(data);
     
   esp8266.write(data);
   esp8266.print(F("\r\n\r\n\\0"));
