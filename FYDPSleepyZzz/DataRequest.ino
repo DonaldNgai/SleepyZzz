@@ -36,20 +36,61 @@ void tokenRequest(){
     
     char c = "\0";
     int output_index = 0;
+
+//    const size_t capacity = JSON_OBJECT_SIZE(2) + 286;
+//    DynamicJsonBuffer jsonBuffer(capacity);
+//    JsonObject& root = jsonBuffer.parseObject(esp8266);
+//    if (!root.success()) {
+//      Serial.println(F("Parsing failed!"));
+//      return;
+//    }
+//  
+//    // Extract values
+//    Serial.println(F("Response:"));
+//    Serial.println(root["token"].as<char*>());
+//    Serial.println(root["device"].as<char*>());
+//    Serial.flush();
+//    return;
      
     while (true){
         delay(100);
         while(esp8266.available()){
+            delay(1); //Allow esp to read data
             c = esp8266.read();
 //            token.append(c);
 //            token.concat(c);
+            if (c == '{') {
+              output_index = 0;
+//              Serial.println("Found {");
+              Serial.flush();
+            }
+
             token[output_index] = c;
             output_index++;
             token[output_index] = "\0";
             
             if (c == '}') {
+//              Serial.println("Found }");
+              Serial.flush();
+
+              DynamicJsonBuffer jsonBuffer;
+              JsonObject& root = jsonBuffer.parseObject(token);
+              if (!root.success()) {
+                Serial.println(F("Parsing failed!"));
+              }
+//              token = root["token"];
+//              strcpy(token, root["token"]); 
+//              root["token"].copyTo(token);
+              // Extract values
+              Serial.println(F("Response:"));
+              Serial.println(root["token"].as<char*>());
+              Serial.println(root["device"].as<char*>());
+//              Serial.println(token);
+              Serial.println("END");
+              Serial.flush();
               return;
             }
+            
           }
     
         while(!esp8266.available()){} 

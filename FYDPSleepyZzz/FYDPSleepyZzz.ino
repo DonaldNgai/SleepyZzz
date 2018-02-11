@@ -4,6 +4,7 @@
 #include "RollingAverage.h"
 #include "HeartSpeed.h"
 #include <avr/pgmspace.h>
+#include "ArduinoJson-v5.13.0.h"
 
 #define LOOP_DURATION_IN_MILLIS  1000
 #define SERIAL_BAUD_RATE 9600
@@ -21,8 +22,11 @@ typedef enum
 //-------------Data Request Variables----------//
 //String token = "";
 //char* tokenssss;
-char* token = new char[270];
-//char token[270] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
+//char* token = new char[270];
+//const char* jsonToken;
+//char* jsonToken = new char[211];
+char token[270] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
+//char * token = new char[270];
 char * data = new char[300];
 char * val = new char[20];
 String s = "";
@@ -70,10 +74,15 @@ void setup() {
   delay(100);
 //  int index = token.indexOf("token");
 
-  Serial.println("HI");
+//  Serial.println("HI");
 //  Serial.println(index);
 //  Serial.println(token.substring(50,80));
-  Serial.println(token);
+//  Serial.println(token);
+//
+//  const size_t capacity = JSON_OBJECT_SIZE(2) + 286;
+//  DynamicJsonBuffer jsonBuffer(capacity);
+//  JsonObject& root = jsonBuffer.parseObject(token);
+  
   
   setupADXL345();
 
