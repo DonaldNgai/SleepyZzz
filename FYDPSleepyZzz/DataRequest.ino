@@ -74,8 +74,9 @@ bool tokenRequest(){
               Serial.println(output_index);
 //              Serial.flush();
 
-              const size_t bufferSize = JSON_OBJECT_SIZE(2) + 287;
-              DynamicJsonBuffer jsonBuffer(bufferSize);
+              const size_t bufferSize = JSON_OBJECT_SIZE(2) + 286;
+//              DynamicJsonBuffer jsonBuffer(bufferSize);
+              StaticJsonBuffer<bufferSize> jsonBuffer;
               JsonObject& root = jsonBuffer.parseObject(token);
               if (!root.success()) {
                 Serial.println(F("Parsing failed!"));
