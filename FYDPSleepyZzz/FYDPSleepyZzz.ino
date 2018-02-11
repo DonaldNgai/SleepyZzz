@@ -70,7 +70,8 @@ void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   esp8266.begin(SERIAL_BAUD_RATE);
 
-  tokenRequest();
+  while (!tokenRequest());
+  
   delay(100);
 //  int index = token.indexOf("token");
 

@@ -19,7 +19,7 @@ void openDataChannel(){
   delay(100);
 }
 
-void tokenRequest(){
+bool tokenRequest(){
 //GET /api/v1/token?device=-KpeRPjghebc5YjXyFSf HTTP/1.1
 //Host: 138.197.153.154
 //Content-Type: application/json
@@ -71,24 +71,27 @@ void tokenRequest(){
             
             if (c == '}') {
 //              Serial.println("Found }");
-              Serial.flush();
+//              Serial.flush();
 
               DynamicJsonBuffer jsonBuffer;
               JsonObject& root = jsonBuffer.parseObject(token);
               if (!root.success()) {
-                Serial.println(F("Parsing failed!"));
+//                Serial.println(F("Parsing failed!"));
+                return false;
               }
 //              token = root["token"];
-//              strcpy(token, root["token"]); 
+
 //              root["token"].copyTo(token);
               // Extract values
-              Serial.println(F("Response:"));
-              Serial.println(root["token"].as<char*>());
-              Serial.println(root["device"].as<char*>());
-//              Serial.println(token);
-              Serial.println("END");
-              Serial.flush();
-              return;
+//              Serial.println(F("Response:"));
+//              Serial.println(root["token"].as<char*>());
+//              Serial.println(root["device"].as<char*>());
+              
+              strcpy(token, root["token"]); 
+              
+//              Serial.println("END");
+//              Serial.flush();
+              return true;
             }
             
           }
