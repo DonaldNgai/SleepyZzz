@@ -25,11 +25,10 @@ typedef enum
 //char* token = new char[270];
 //const char* jsonToken;
 //char* jsonToken = new char[211];
-char token[270] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
+static char token[270] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
 //char * token = new char[270];
 char * data = new char[300];
 char * val = new char[20];
-String s = "";
 
 #define FLOAT_STRING_LENGTH 7
 #define FLOAT_STRING_DECIMALS 2
@@ -75,10 +74,10 @@ void setup() {
   delay(100);
 //  int index = token.indexOf("token");
 
-//  Serial.println("HI");
+  Serial.println(F("Token: "));
 //  Serial.println(index);
 //  Serial.println(token.substring(50,80));
-//  Serial.println(token);
+  Serial.println(token);
 //
 //  const size_t capacity = JSON_OBJECT_SIZE(2) + 286;
 //  DynamicJsonBuffer jsonBuffer(capacity);
@@ -127,7 +126,7 @@ void loop() {
 
           //This is necessary to ensure that the Serial is done writing before enabling
           //Interrupts to ensure that writes aren't interrupted.
-          delay(100); 
+          delay(200); 
           
           heartspeed.begin();
       }

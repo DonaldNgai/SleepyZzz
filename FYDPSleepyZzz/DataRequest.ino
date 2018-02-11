@@ -5,7 +5,6 @@ void connectServer(){
   while(esp8266.available()){
     Serial.write(esp8266.read()); // These need to be here as there is some kind of timing thing that will cause Wifi to fail if removed
   }
-
   delay(100);
 }
 
@@ -57,26 +56,30 @@ bool tokenRequest(){
         while(esp8266.available()){
             delay(1); //Allow esp to read data
             c = esp8266.read();
-//            token.append(c);
-//            token.concat(c);
+//            Serial.write(c);
+            
             if (c == '{') {
               output_index = 0;
-//              Serial.println("Found {");
-              Serial.flush();
+//              Serial.println(F("Found {"));
+//              Serial.flush();
             }
 
             token[output_index] = c;
             output_index++;
-            token[output_index] = "\0";
+            token[output_index] = '\0';
             
             if (c == '}') {
-//              Serial.println("Found }");
+              Serial.println(F("Preprocessed Token: "));
+              Serial.println(token);
+              Serial.println(output_index);
 //              Serial.flush();
 
-              DynamicJsonBuffer jsonBuffer;
+              const size_t bufferSize = JSON_OBJECT_SIZE(2) + 287;
+              DynamicJsonBuffer jsonBuffer(bufferSize);
               JsonObject& root = jsonBuffer.parseObject(token);
               if (!root.success()) {
-//                Serial.println(F("Parsing failed!"));
+                Serial.println(F("Parsing failed!"));
+                Serial.println(token);
                 return false;
               }
 //              token = root["token"];
