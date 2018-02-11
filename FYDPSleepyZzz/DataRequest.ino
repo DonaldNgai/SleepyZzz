@@ -69,9 +69,9 @@ bool tokenRequest(){
             token[output_index] = '\0';
             
             if (c == '}') {
-              Serial.println(F("Preprocessed Token: "));
-              Serial.println(token);
-              Serial.println(output_index);
+//              Serial.println(F("Preprocessed Token: "));
+//              Serial.println(token);
+//              Serial.println(output_index);
 //              Serial.flush();
 
               const size_t bufferSize = JSON_OBJECT_SIZE(2) + 286;
