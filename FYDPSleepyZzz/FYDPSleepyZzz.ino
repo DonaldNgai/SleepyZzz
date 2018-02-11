@@ -19,7 +19,10 @@ typedef enum
 } accel_orientation;
 
 //-------------Data Request Variables----------//
-char token[211] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
+//String token = "";
+//char* tokenssss;
+char* token = new char[270];
+//char token[270] = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkZXZpY2UiOiItS3BlUlBqZ2hlYmM1WWpYeUZTZiIsImJhYnkiOiItS3BlZGdVZkRPU1AwZFRnb0ZQMCIsImlhdCI6MTUxODExODUwNywiZXhwIjoxNTE4MjA0OTA3fQ.wts8u_hzJ9WbGbx4FJ2ToGCyVaA7GNCmmYDxaLAPRFY";
 char * data = new char[300];
 char * val = new char[20];
 String s = "";
@@ -62,6 +65,16 @@ short int current_index = 0;
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   esp8266.begin(SERIAL_BAUD_RATE);
+
+  tokenRequest();
+  delay(100);
+//  int index = token.indexOf("token");
+
+  Serial.println("HI");
+//  Serial.println(index);
+//  Serial.println(token.substring(50,80));
+  Serial.println(token);
+  
   setupADXL345();
 
   heartspeed.setCB(heartrate_cb);
