@@ -63,6 +63,13 @@ RollingAverage YAverage(AVERAGING_BUFFER_SIZE);
 RollingAverage ZAverage(AVERAGING_BUFFER_SIZE);
 bool freefall_detected;
 bool freefall_data [DATA_STORAGE_DEPTH];
+#define offsetX   0.5       // OFFSET values
+#define offsetY   6.5
+#define offsetZ   15.5
+
+#define gainX     -255.5        // GAIN factors
+#define gainY     -254.5
+#define gainZ     -251.5 
 
 //--------------Global Variables------------//
 unsigned long int startTime = 0;
@@ -155,12 +162,18 @@ void loop() {
 //      Serial.print(current_index);
 //      Serial.print(" Temp: ");
 //      Serial.print(averagedTemp);
-//      Serial.print(" X: ");
-//      Serial.print(averagedX);
-//      Serial.print(" Y: ");
-//      Serial.print(averagedY);
-//      Serial.print(" Z: ");
-//      Serial.print(averagedZ);
+      Serial.print(" XR: ");
+      Serial.print(x);
+      Serial.print(" YR: ");
+      Serial.print(y);
+      Serial.print(" ZR: ");
+      Serial.println(z);
+      Serial.print(" X: ");
+      Serial.print(averagedX);
+      Serial.print(" Y: ");
+      Serial.print(averagedY);
+      Serial.print(" Z: ");
+      Serial.println(averagedZ);
 //      Serial.print(" Free: ");
 //      Serial.print(freefall_detected);
 //      Serial.print(" Heart: ");
@@ -171,11 +184,11 @@ void loop() {
     
     adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
 //    Serial.println(F("\r\n\r\nX"));
-    XAverage.add_value(x,&averagedX);
+    XAverage.add_value((x - offsetX)/gainX,&averagedX);
 //    Serial.println(F("\r\n\r\nY"));
-    YAverage.add_value(y,&averagedY);
+    YAverage.add_value((y - offsetY)/gainY,&averagedY);
 //    Serial.println(F("\r\n\r\nZ"));
-    ZAverage.add_value(z,&averagedZ);
+    ZAverage.add_value((z - offsetZ)/gainZ,&averagedZ);
 
     get_temp_in_celsius(&celsiusTemp);
 //    Serial.println(F("\r\n\r\nTemp"));
