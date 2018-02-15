@@ -4,8 +4,12 @@ RollingAverage::RollingAverage(int numReadings)
 {
   _numReadings = numReadings;
   readings = new float[numReadings];
+//  Serial.println(_numReadings);
   for (int thisReading = 0; thisReading < numReadings; thisReading++) {
     readings[thisReading] = 0;
+//    Serial.print(thisReading);
+//    Serial.print(" ");
+//    Serial.println(readings[thisReading]);
   }
 }
 
@@ -31,10 +35,20 @@ void RollingAverage::add_value(float new_value, float* new_average)
     readIndex = 0;
   }
 
-//  Serial.print("New: ");
+  
+//  for (int thisReading = 0; thisReading < _numReadings; thisReading++) {
+////    readings[thisReading] = 0;
+//    Serial.print(readings[thisReading]);
+//    Serial.print(" ");
+//  }
+//
+//  Serial.print(F("\nNew: "));
 //  Serial.print(new_value);
-//  Serial.print(" Avg: ");
+//  Serial.print(F(" Total: "));
+//  Serial.print(total);
+//  Serial.print(F(" Avg: "));
 //  Serial.println(*new_average);
+//  Serial.println((int)new_average);
 
   // calculate the average:
   *new_average = total / _numReadings;

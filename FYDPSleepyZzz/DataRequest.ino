@@ -1,10 +1,38 @@
+void readResponse(int val){
+  for(int i=0; i<val;i++){
+    if (esp8266.available())   {  
+      Serial.write(esp8266.read());
+    }
+  }
+}
+
+
+void connectWifi(){  
+  esp8266.print(F("AT+CWMODE=1\r\n"));
+  delay(100);
+  readResponse(50);
+  esp8266.print(F("AT+CIPMODE=0\r\n"));
+  delay(100);
+  readResponse(50);
+  esp8266.print(F("AT+CIPMUX=0\r\n"));
+  delay(100);
+  readResponse(50);
+//  esp8266.print(F("AT+CWJAP=\"NETGEAR87\",\"rapidcello213\"\r\n"));
+  esp8266.print(F("AT+CWJAP=\"uw-event\",\"U5juuuEba3\"\r\n"));
+  for(int i = 0; i< 15; i++){
+    delay(1000);
+    readResponse(10000);
+  }
+}
+
 
 void connectServer(){
   esp8266.print(F("AT+CIPSTART=\"TCP\",\"138.197.153.154\",80,1000\r\n"));
   while(!esp8266.available());
-  while(esp8266.available()){
-    Serial.write(esp8266.read()); // These need to be here as there is some kind of timing thing that will cause Wifi to fail if removed
-  }
+//  while(esp8266.available()){
+//    Serial.write(esp8266.read()); // These need to be here as there is some kind of timing thing that will cause Wifi to fail if removed
+//  }
+  readResponse(50);
   delay(100);
 }
 
@@ -12,9 +40,11 @@ void openDataChannel(){
   //IMPORTANT!!!! YOU MUST SEND "\r\n\r\n\\0" TO CLOSE THIS DATA CHANNEL!!!
   esp8266.print(F("AT+CIPSENDEX=2048\r\n"));
   while(!esp8266.available());
-  while(esp8266.available()){
-    Serial.write(esp8266.read()); // These need to be here as there is some kind of timing thing that will cause Wifi to fail if removed
-  }
+//  while(esp8266.available()){
+//    Serial.write(esp8266.read()); // These need to be here as there is some kind of timing thing that will cause Wifi to fail if removed
+//  }
+  readResponse(50);
+
   delay(100);
 }
 
@@ -112,7 +142,8 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
   esp8266.print(F("POST /api/v1/data?token="));
   esp8266.write(token);
   esp8266.print(F(" HTTP/1.1\r\nHost: 138.197.153.154\r\nContent-Type: application/json\r\nContent-Length: "));
-  esp8266.print(233);
+//  esp8266.print(233);//AVERAGING_BUFFER_SIZE 3
+  esp8266.print(359);//AVERAGING_BUFFER_SIZE 5
   esp8266.print(F("\r\nUser-Agent: Arduino/1.0\r\nAuthorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\nConnection: Close\r\n\r\n"));
 
   strcpy(data,"{\"heartrate\":[");
@@ -123,8 +154,11 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
       strcat(data, ",");
     }
   }
+  Serial.write(data);
+  esp8266.write(data);
   
-  strcat(data,"],\"movement\":[");
+//  strcat(data,"],\"movement\":[");
+  strcpy(data,"],\"movement\":[");
   for(int i=0;i<DATA_STORAGE_DEPTH;i++){
     strcat(data,"{");
     strcat(data,"\"x\":");
@@ -143,8 +177,12 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
       strcat(data,",");
     }
   }
+//  Serial.println(strlen(data));
+  Serial.write(data);
+  esp8266.write(data);
   
-  strcat(data,"],\"temperature\":[");
+//  strcat(data,"],\"temperature\":[");
+  strcpy(data,"],\"temperature\":[");
   for(int i=0;i<DATA_STORAGE_DEPTH;i++){
     dtostrf(temperature[i], FLOAT_STRING_LENGTH, FLOAT_STRING_DECIMALS, val);
     strcat(data, val);
@@ -153,8 +191,11 @@ void sendData(float heartrate[], float movement[3][DATA_STORAGE_DEPTH], bool fal
     }
   }
   strcat(data,"]}");
+  Serial.write(data);
     
   esp8266.write(data);
+//  Serial.println(strlen(data));
+//  Serial.write(data);
   esp8266.print(F("\r\n\r\n\\0"));
 
 }

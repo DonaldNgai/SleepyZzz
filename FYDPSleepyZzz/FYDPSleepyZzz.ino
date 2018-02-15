@@ -6,11 +6,11 @@
 #include <avr/pgmspace.h>
 #include "ArduinoJson-v5.13.0.h"
 
-#define LOOP_DURATION_IN_MILLIS  1000
+#define LOOP_DURATION_IN_MILLIS  500
 #define SERIAL_BAUD_RATE 9600
-#define AVERAGING_BUFFER_SIZE 10
-#define AVERAGE_HEART_RATE_BUFFER_SIZE 3
-#define DATA_STORAGE_DEPTH 3
+#define AVERAGING_BUFFER_SIZE 5
+#define AVERAGE_HEART_RATE_BUFFER_SIZE 5
+#define DATA_STORAGE_DEPTH 5
 
 typedef enum
 {
@@ -55,6 +55,9 @@ RollingAverage HeartRateAverage(AVERAGE_HEART_RATE_BUFFER_SIZE);
 int x,y,z;
 float averagedX,averagedY,averagedZ;
 float accel_data [3][DATA_STORAGE_DEPTH];
+//RollingAverage XAverage = new RollingAverage(AVERAGING_BUFFER_SIZE);
+//RollingAverage YAverage = new RollingAverage(AVERAGING_BUFFER_SIZE);
+//RollingAverage ZAverage = new RollingAverage(AVERAGING_BUFFER_SIZE);
 RollingAverage XAverage(AVERAGING_BUFFER_SIZE);
 RollingAverage YAverage(AVERAGING_BUFFER_SIZE);
 RollingAverage ZAverage(AVERAGING_BUFFER_SIZE);
@@ -68,6 +71,10 @@ short int current_index = 0;
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   esp8266.begin(SERIAL_BAUD_RATE);
+
+  connectWifi();
+
+  Serial.println(F("\r\nFinished Connecting\r\n"));
 
   while (!tokenRequest());
   
@@ -83,14 +90,25 @@ void setup() {
 //  DynamicJsonBuffer jsonBuffer(capacity);
 //  JsonObject& root = jsonBuffer.parseObject(token);
   
-  
   setupADXL345();
 
   heartspeed.setCB(heartrate_cb);
   heartspeed.begin();
+
+  Serial.println("Setup Complete");
 }
 
 void loop() {
+// ////Uncomment this to interface with the wifi module
+//  while(true){
+//    if ( esp8266.available() )   {  
+//      Serial.write(esp8266.read());
+//    }
+//
+//    if ( Serial.available() )   {  
+//      esp8266.write(Serial.read());
+//    }
+//  }
   
     if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
       startTime = millis();
@@ -124,6 +142,8 @@ void loop() {
 //              while(!esp8266.available()){}     
 //          }
 
+          readResponse(10000);
+
           //This is necessary to ensure that the Serial is done writing before enabling
           //Interrupts to ensure that writes aren't interrupted.
           delay(200); 
@@ -150,11 +170,15 @@ void loop() {
     }
     
     adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
+//    Serial.println(F("\r\n\r\nX"));
     XAverage.add_value(x,&averagedX);
+//    Serial.println(F("\r\n\r\nY"));
     YAverage.add_value(y,&averagedY);
+//    Serial.println(F("\r\n\r\nZ"));
     ZAverage.add_value(z,&averagedZ);
 
     get_temp_in_celsius(&celsiusTemp);
+//    Serial.println(F("\r\n\r\nTemp"));
     TempAverage.add_value(celsiusTemp,&averagedTemp);
         
 }
