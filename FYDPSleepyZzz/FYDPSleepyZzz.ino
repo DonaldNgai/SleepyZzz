@@ -28,7 +28,7 @@ char * val = new char[20];
 
 //-------------Sensor Variable Initialization----------//
 SoftwareSerial esp8266(2,3); //RX - pin 2, TX - pin 3
-#define heartPin  1
+#define heartPin  A1
 #define tempPin 0
 //const int heartPin = A1; 
 //int tempPin = 0;
@@ -90,13 +90,15 @@ void setup() {
   Serial.println("Setup Complete");
 }
 
+int tempHeart,lastHeartRate;
 void loop() {  
     if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
       startTime = millis();
 
       temp_data[current_index] = averagedTemp;
 //      heart_rate_data[current_index] = averagedHeartRate;
-      heart_rate_data[current_index] = 95;
+//      Serial.println(lastHeartRate);
+      heart_rate_data[current_index] = lastHeartRate;
       accel_data[ACCEL_X][current_index] = averagedX;
       accel_data[ACCEL_Y][current_index] = averagedY;
       accel_data[ACCEL_Z][current_index] = averagedZ;
@@ -104,39 +106,16 @@ void loop() {
       if (current_index == DATA_STORAGE_DEPTH-1) {
           sendData(heart_rate_data,accel_data,freefall_data,temp_data);
 
-//          readResponse(10000);
-
           //This is necessary to ensure that the Serial is done writing before enabling
           //Interrupts to ensure that writes aren't interrupted.
           delay(200); 
           
       }
 
-//      Serial.print("Index: ");
-//      Serial.print(current_index);
-//      Serial.print(" Temp: ");
-//      Serial.print(averagedTemp);
-//      Serial.print(" XR: ");
-//      Serial.print(x);
-//      Serial.print(" YR: ");
-//      Serial.print(y);
-//      Serial.print(" ZR: ");
-//      Serial.println(z);
-//      Serial.print(" X: ");
-//      Serial.print(averagedX);
-//      Serial.print(" Y: ");
-//      Serial.print(averagedY);
-//      Serial.print(" Z: ");
-//      Serial.println(averagedZ);
-//      Serial.print(" Free: ");
-//      Serial.print(freefall_detected);
-//      Serial.print(" Heart: ");
-//      Serial.println(averagedHeartRate);
       freefall_data[current_index] = 0; // Reset freefall data after sending it
       current_index = (current_index + 1) % DATA_STORAGE_DEPTH;
     }
 
-    
     adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
     XAverage.add_value((x - offsetX)/gainX,&averagedX);
     YAverage.add_value((y - offsetY)/gainY,&averagedY);
@@ -147,5 +126,8 @@ void loop() {
 
     get_temp_in_celsius(&celsiusTemp);
     TempAverage.add_value(celsiusTemp,&averagedTemp);
+
+    tempHeart = get_heartrate();
+    if (tempHeart > 0) lastHeartRate = tempHeart;
         
 }
