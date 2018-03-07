@@ -64,7 +64,7 @@ bool tokenRequest(){
     delay(200);
     
     char c = "\0";
-    int output_index = 0;
+    short int output_index = 0;
 
 //    const size_t capacity = JSON_OBJECT_SIZE(2) + 286;
 //    DynamicJsonBuffer jsonBuffer(capacity);

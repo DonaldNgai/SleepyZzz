@@ -29,8 +29,8 @@ adxl.setTimeInactivity(10);         // How many seconds of no activity is inacti
 //adxl.setDoubleTapWindow(200);       // 1.25 ms per increment
 
 // Set values for what is considered FREE FALL (0-255)
-adxl.setFreeFallThreshold(7);       // (5 - 9) recommended - 62.5mg per increment
-adxl.setFreeFallDuration(30);       // (20 - 70) recommended - 5ms per increment
+adxl.setFreeFallThreshold(5);       // (5 - 9) recommended - 62.5mg per increment
+adxl.setFreeFallDuration(5);       // (20 - 70) recommended - 5ms per increment
 
 // Setting all interupts to take place on INT1 pin
 //adxl.setImportantInterruptMapping(1, 1, 1, 1, 1);     // Sets "adxl.setEveryInterruptMapping(single tap, double tap, free fall, activity, inactivity);" 
@@ -60,7 +60,7 @@ void ADXL_ISR(bool* freefall_detected) {
   
   // Free Fall Detection
   if(adxl.triggered(interrupts, ADXL345_FREE_FALL)){
-//    Serial.println("*** FREE FALL ***");
+    Serial.println(F("*** FREE FALL ***"));
     //add code here to do when free fall is sensed
     *freefall_detected = true;
   } 
@@ -91,17 +91,17 @@ void ADXL_ISR(bool* freefall_detected) {
 //  } 
 }
 
-void filter_adxl(int* x, int* y, int* z, 
-ExponentialFilter<int>* x_filter, ExponentialFilter<int>* y_filter, ExponentialFilter<int>* z_filter, 
-int* filtered_x, int* filtered_y, int* filtered_z)
-{
-  x_filter->Filter(*x);
-  filtered_x = x_filter->Current();
-
-  y_filter->Filter(*y);
-  filtered_y = y_filter->Current();
-
-  z_filter->Filter(*z);
-  filtered_z = z_filter->Current();
-}
+//void filter_adxl(int* x, int* y, int* z, 
+//ExponentialFilter<int>* x_filter, ExponentialFilter<int>* y_filter, ExponentialFilter<int>* z_filter, 
+//int* filtered_x, int* filtered_y, int* filtered_z)
+//{
+//  x_filter->Filter(*x);
+//  filtered_x = x_filter->Current();
+//
+//  y_filter->Filter(*y);
+//  filtered_y = y_filter->Current();
+//
+//  z_filter->Filter(*z);
+//  filtered_z = z_filter->Current();
+//}
 

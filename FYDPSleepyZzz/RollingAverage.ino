@@ -1,6 +1,6 @@
 #include "RollingAverage.h"
 
-RollingAverage::RollingAverage(int numReadings)
+RollingAverage::RollingAverage(byte numReadings)
 {
   _numReadings = numReadings;
   readings = new float[numReadings];
