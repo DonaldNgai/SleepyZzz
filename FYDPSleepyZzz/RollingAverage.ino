@@ -42,15 +42,18 @@ void RollingAverage::add_value(float new_value, float* new_average)
 //    Serial.print(" ");
 //  }
 //
-//  Serial.print(F("\nNew: "));
-//  Serial.print(new_value);
-//  Serial.print(F(" Total: "));
-//  Serial.print(total);
-//  Serial.print(F(" Avg: "));
-//  Serial.println(*new_average);
-//  Serial.println((int)new_average);
 
   // calculate the average:
   *new_average = total / _numReadings;
+  if (*new_average > 1000){ 
+    Serial.print(F("\nNew: "));
+    Serial.print(new_value);
+    Serial.print(F(" Total: "));
+    Serial.print(total);
+    Serial.print(F(" numReadings: "));
+    Serial.print(_numReadings);
+    Serial.print(F(" Avg: "));
+    Serial.println(*new_average);
+  }
 }
 

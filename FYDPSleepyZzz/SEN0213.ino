@@ -3,15 +3,10 @@
 #define N 30
 #define HP_CONSTANT ((float) 1 / (float) M)
 #define RAND_RES 100000000
-#define HB_BUFF_SIZE 4
 #define HB_DIFF_RANGE 20
 #define HB_STANDARD_BPM 75
 
-bool beat;
-unsigned int hb_times[HB_BUFF_SIZE] = {0};
-int hb_vals[HB_BUFF_SIZE] = {0};
-int hb_idx = 0;
-int average_hb = 0;
+int last_beat_time;
 
 /* Portion pertaining to Pan-Tompkins QRS detection */
 
@@ -46,6 +41,28 @@ int win_idx = 0;
 int number_iter = 0;
 
 int tmp = 0;
+
+void get_heartrate(){
+    int current_beat_time;
+    int last_hr, current_hr;
+  
+    if(detect(analogRead(heartPin))){
+      current_beat_time = millis();
+      current_hr = (int) (60.0 / ((current_beat_time - last_beat_time)/1000.0));
+      
+      if((current_hr < last_hr + HB_DIFF_RANGE) || (current_hr < (HB_STANDARD_BPM + HB_DIFF_RANGE))){
+        HeartRateAverage.add_value(current_hr,&averagedHeartRate);
+//        Serial.print("HR: ");
+//        Serial.println(average_hb/HB_BUFF_SIZE);
+
+        last_hr = current_hr;
+        last_beat_time = current_beat_time;
+        
+      } 
+    } else {
+      delay(1);
+    }
+}
 
 bool detect(float new_ecg_pt) {
   // copy new point into circular buffer, increment index
@@ -122,9 +139,9 @@ bool detect(float new_ecg_pt) {
       threshold = next_eval_pt;
     }
 
-                // only increment number_iter iff it is less than winSize
-                // if it is bigger, then the counter serves no further purpose
-                number_iter++;
+    // only increment number_iter iff it is less than winSize
+    // if it is bigger, then the counter serves no further purpose
+    number_iter++;
   }
   
   // check if detection hold off period has passed
@@ -172,29 +189,5 @@ bool detect(float new_ecg_pt) {
         // return false if we didn't detect a new QRS
   return false;
     
-}
-
-int get_heartrate(){
-    beat = detect(analogRead(heartPin));
-  
-    if(beat){
-      average_hb = 0;
-      hb_times[hb_idx] = millis();
-      hb_vals[hb_idx] = (int) (60.0 / ((hb_times[hb_idx] - hb_times[(hb_idx == 0) ? HB_BUFF_SIZE - 1 : hb_idx - 1])/1000.0));
-      if((hb_vals[hb_idx] < (hb_vals[(hb_idx == 0) ? HB_BUFF_SIZE - 1 : hb_idx - 1] + HB_DIFF_RANGE)) || (hb_vals[hb_idx] < (HB_STANDARD_BPM + HB_DIFF_RANGE))){
-        for(int i = 0; i < HB_BUFF_SIZE; i++){
-          average_hb += hb_vals[i];
-        }
-//        Serial.print("HR: ");
-//        Serial.println(average_hb/HB_BUFF_SIZE);
-        hb_idx++;
-        hb_idx = hb_idx % HB_BUFF_SIZE;
-        
-        return average_hb/HB_BUFF_SIZE;
-      } 
-    } else {
-      delay(1);
-      return 0;
-    }
 }
 

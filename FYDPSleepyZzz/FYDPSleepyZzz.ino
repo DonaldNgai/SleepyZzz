@@ -7,8 +7,8 @@
 
 #define LOOP_DURATION_IN_MILLIS  1000
 #define SERIAL_BAUD_RATE 9600
-#define AVERAGING_BUFFER_SIZE 5
-#define AVERAGE_HEART_RATE_BUFFER_SIZE 5
+#define AVERAGING_BUFFER_SIZE 4
+#define AVERAGE_HEART_RATE_BUFFER_SIZE 3
 #define DATA_STORAGE_DEPTH 5
 
 typedef enum
@@ -41,9 +41,9 @@ float temp_data [DATA_STORAGE_DEPTH];
 RollingAverage TempAverage(AVERAGING_BUFFER_SIZE);
 
 //--------------Heart Rate Sensor Variables-------------//
-//float averagedHeartRate;
+float averagedHeartRate;
 float heart_rate_data [DATA_STORAGE_DEPTH];
-//RollingAverage HeartRateAverage(AVERAGE_HEART_RATE_BUFFER_SIZE);
+RollingAverage HeartRateAverage(AVERAGE_HEART_RATE_BUFFER_SIZE);
 
 //--------------Accerlerometer Variables----------------//
 int x,y,z;
@@ -90,26 +90,18 @@ void setup() {
   Serial.println("Setup Complete");
 }
 
-int tempHeart,lastHeartRate;
 void loop() {  
     if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
       startTime = millis();
 
       temp_data[current_index] = averagedTemp;
-//      heart_rate_data[current_index] = averagedHeartRate;
-//      Serial.println(lastHeartRate);
-      heart_rate_data[current_index] = lastHeartRate;
+      heart_rate_data[current_index] = averagedHeartRate;
       accel_data[ACCEL_X][current_index] = averagedX;
       accel_data[ACCEL_Y][current_index] = averagedY;
       accel_data[ACCEL_Z][current_index] = averagedZ;
       
       if (current_index == DATA_STORAGE_DEPTH-1) {
           sendData(heart_rate_data,accel_data,freefall_data,temp_data);
-
-          //This is necessary to ensure that the Serial is done writing before enabling
-          //Interrupts to ensure that writes aren't interrupted.
-          delay(200); 
-          
       }
 
       freefall_data[current_index] = 0; // Reset freefall data after sending it
@@ -127,7 +119,6 @@ void loop() {
     get_temp_in_celsius(&celsiusTemp);
     TempAverage.add_value(celsiusTemp,&averagedTemp);
 
-    tempHeart = get_heartrate();
-    if (tempHeart > 0) lastHeartRate = tempHeart;
+    get_heartrate();
         
 }
