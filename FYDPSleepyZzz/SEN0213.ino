@@ -1,12 +1,12 @@
 #define winSize 250
-#define M 5
+#define M 10
 #define N 30
 #define HP_CONSTANT ((float) 1 / (float) M)
 #define RAND_RES 100000000
-#define HB_DIFF_RANGE 20
+#define HB_DIFF_RANGE 40
 #define HB_STANDARD_BPM 75
 
-int last_beat_time;
+unsigned int last_beat_time;
 
 /* Portion pertaining to Pan-Tompkins QRS detection */
 
@@ -42,26 +42,50 @@ int number_iter = 0;
 
 int tmp = 0;
 
+unsigned int current_beat_time;
+int last_hr, current_hr;
+
 void get_heartrate(){
-    int current_beat_time;
-    int last_hr, current_hr;
-  
+  #if defined DEBUG && defined SHOW_HEART
+    Serial.print(analogRead(heartPin));
+  #endif
     if(detect(analogRead(heartPin))){
+      #if defined DEBUG && defined SHOW_HEART
+        Serial.print(",");
+        Serial.println(1000);
+      #endif
       current_beat_time = millis();
       current_hr = (int) (60.0 / ((current_beat_time - last_beat_time)/1000.0));
-      
+     
       if((current_hr < last_hr + HB_DIFF_RANGE) || (current_hr < (HB_STANDARD_BPM + HB_DIFF_RANGE))){
+//        Serial.println(current_beat_time - last_beat_time);
+//        Serial.print("                           ");
+//        Serial.println(current_hr);
+        if(current_hr < last_hr*0.7){
+          current_hr = last_hr*0.8;
+        }
+//        Serial.println(current_hr);
+//        Serial.println();
         HeartRateAverage.add_value(current_hr,&averagedHeartRate);
-//        Serial.print("HR: ");
-//        Serial.println(average_hb/HB_BUFF_SIZE);
 
+        if((last_hr == 87) && (current_hr == 87)){
+          number_iter = 0;
+          win_idx = 0;
+          win_max = -10000000;
+          hp_sum = 0;
+          lp_sum = 0;
+        }
         last_hr = current_hr;
         last_beat_time = current_beat_time;
         
       } 
     } else {
       delay(1);
-    }
+      #if defined DEBUG && defined SHOW_HEART
+        Serial.print(",");
+        Serial.println(0);
+      #endif
+      }
 }
 
 bool detect(float new_ecg_pt) {

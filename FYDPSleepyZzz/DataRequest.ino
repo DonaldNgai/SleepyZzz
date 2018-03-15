@@ -21,7 +21,7 @@ void connectWifi(){
 //  esp8266.print(F("AT+CWJAP=\"uw-event\",\"U5juuuEba3\"\r\n"));
   for(int i = 0; i< 15; i++){
     delay(1000);
-    readResponse(10000);
+    readResponse(5000);
   }
 }
 
@@ -56,9 +56,9 @@ bool tokenRequest(){
     connectServer();
     openDataChannel();
 
-    esp8266.print(F("GET /api/v1/token?device=-KpeRPjghebc5YjXyFSf HTTP/1.1\r\n")); // Maggie
+//    esp8266.print(F("GET /api/v1/token?device=-KpeRPjghebc5YjXyFSf HTTP/1.1\r\n")); // Maggie
 //    esp8266.print(F("GET /api/v1/token?device=-L5Kt_nen-F3uOhXll2s HTTP/1.1\r\n")); // Bart
-//    esp8266.print(F("GET /api/v1/token?device=-L5KvH-aTUSfnrBDdF1H HTTP/1.1\r\n")); // Lisa
+    esp8266.print(F("GET /api/v1/token?device=-L5KvH-aTUSfnrBDdF1H HTTP/1.1\r\n")); // Lisa
     esp8266.print(F("Host: 138.197.153.154\r\n"));
     esp8266.print(F("Content-Type: application/json\r\n"));
     esp8266.print(F("Authorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\n\r\n\\0"));

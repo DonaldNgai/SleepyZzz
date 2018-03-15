@@ -5,6 +5,10 @@
 #include <avr/pgmspace.h>
 #include "ArduinoJson-v5.13.0.h"
 
+#define DEBUG
+//#define SHOW_HEART
+#define SHOW_ACC
+
 #define LOOP_DURATION_IN_MILLIS  1000
 #define SERIAL_BAUD_RATE 9600
 #define AVERAGING_BUFFER_SIZE 5
@@ -72,25 +76,34 @@ byte current_index = 0;
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
   esp8266.begin(SERIAL_BAUD_RATE);
-
+#if !defined DEBUG && !defined DEBUG_ACC
   connectWifi();
 
   Serial.println(F("\r\nFinished Connecting\r\n"));
 
   while (!tokenRequest());
-  
+
   delay(100);
 
   Serial.println(F(""));
   Serial.println(F("Token: "));
   Serial.println(token);
-
+#endif
   setupADXL345();
 
-  Serial.println("Setup Complete");
+//  Serial.println("Setup Complete");
 }
 
 void loop() {  
+//  while(true){
+//    if(Serial.available()){
+//      esp8266.write(Serial.read());
+//    }
+//    if(esp8266.available()){
+//      Serial.write(esp8266.read());
+//    }
+//  }
+  
     if (millis() - startTime > LOOP_DURATION_IN_MILLIS){
       startTime = millis();
 
@@ -101,7 +114,11 @@ void loop() {
       accel_data[ACCEL_Z][current_index] = averagedZ;
       
       if (current_index == DATA_STORAGE_DEPTH-1) {
+        #ifndef DEBUG
           sendData(heart_rate_data,accel_data,freefall_data,temp_data);
+        #else
+          delay(1000); //For simulating sendData latency in testing
+        #endif
       }
 
       freefall_data[current_index] = 0; // Reset freefall data after sending it
@@ -109,6 +126,12 @@ void loop() {
     }
 
     adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
+
+//    #if defined DEBUG && defined SHOW_ACC
+//      Serial.print( sqrt(x*x + y*y + z*z) );
+//      Serial.print(",");
+//    #endif
+    
     XAverage.add_value((x - offsetX)/gainX,&averagedX);
     YAverage.add_value((y - offsetY)/gainY,&averagedY);
     ZAverage.add_value((z - offsetZ)/gainZ,&averagedZ);

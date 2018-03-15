@@ -41,11 +41,20 @@ void RollingAverage::add_value(float new_value, float* new_average)
 //    Serial.print(readings[thisReading]);
 //    Serial.print(" ");
 //  }
-//
 
+  //Skip zeroes
+  int numZeroes = 0;
+  for(int i = 0; i < _numReadings; i++){
+    if(readings[i] == 0)
+      numZeroes++;
+  }
   // calculate the average:
-  *new_average = total / _numReadings;
-  if (*new_average > 1000){ 
+  if(numZeroes == _numReadings){
+    *new_average = 0;
+  } else {
+    *new_average = total / (_numReadings - numZeroes);
+  }
+  if ((*new_average > 1000) || (*new_average < -1000)){ 
     Serial.print(F("\nNew: "));
     Serial.print(new_value);
     Serial.print(F(" Total: "));
@@ -54,6 +63,10 @@ void RollingAverage::add_value(float new_value, float* new_average)
     Serial.print(_numReadings);
     Serial.print(F(" Avg: "));
     Serial.println(*new_average);
+    total = 0;
+    for (int thisReading = 0; thisReading < _numReadings; thisReading++) {
+      readings[thisReading] = 0;
+    }
   }
 }
 
