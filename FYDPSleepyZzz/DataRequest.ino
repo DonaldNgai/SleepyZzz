@@ -49,14 +49,16 @@ void openDataChannel(){
 }
 
 bool tokenRequest(){
-//GET /api/v1/token?device=-KpeRPjghebc5YjXyFSf HTTP/1.1
+//GET /api/v1/token?device=-L5Kt_nen-F3uOhXll2s HTTP/1.1
 //Host: 138.197.153.154
 //Content-Type: application/json
 //Authorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==
     connectServer();
     openDataChannel();
 
-    esp8266.print(F("GET /api/v1/token?device=-KpeRPjghebc5YjXyFSf HTTP/1.1\r\n"));
+    esp8266.print(F("GET /api/v1/token?device=-KpeRPjghebc5YjXyFSf HTTP/1.1\r\n")); // Maggie
+//    esp8266.print(F("GET /api/v1/token?device=-L5Kt_nen-F3uOhXll2s HTTP/1.1\r\n")); // Bart
+//    esp8266.print(F("GET /api/v1/token?device=-L5KvH-aTUSfnrBDdF1H HTTP/1.1\r\n")); // Lisa
     esp8266.print(F("Host: 138.197.153.154\r\n"));
     esp8266.print(F("Content-Type: application/json\r\n"));
     esp8266.print(F("Authorization: Basic c2xlZXB5enp6OkRFNEYxQzE3LTMwOEQtNEY0OS04MjU2LTRERTlFN0M5QjhDQg==\r\n\r\n\\0"));
