@@ -5,9 +5,10 @@
 #include <avr/pgmspace.h>
 #include "ArduinoJson-v5.13.0.h"
 
-#define DEBUG
+//#define DEBUG
 //#define SHOW_HEART
-#define SHOW_ACC
+//#define SIMULATE_WIFI
+//#define SHOW_ACC
 
 #define LOOP_DURATION_IN_MILLIS  1000
 #define SERIAL_BAUD_RATE 9600
@@ -112,32 +113,32 @@ void loop() {
       accel_data[ACCEL_X][current_index] = averagedX;
       accel_data[ACCEL_Y][current_index] = averagedY;
       accel_data[ACCEL_Z][current_index] = averagedZ;
+      freefall_data[current_index] = freefall_detected;
       
       if (current_index == DATA_STORAGE_DEPTH-1) {
         #ifndef DEBUG
           sendData(heart_rate_data,accel_data,freefall_data,temp_data);
-        #else
+        #elif defined DEBUG && defined SIMULATE_WIFI
           delay(1000); //For simulating sendData latency in testing
         #endif
       }
 
-      freefall_data[current_index] = 0; // Reset freefall data after sending it
+//      freefall_data[current_index] = 0; // Reset freefall data after sending it
+      freefall_detected = false;
       current_index = (current_index + 1) % DATA_STORAGE_DEPTH;
     }
 
     adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store them in variables declared above x,y,z
 
-//    #if defined DEBUG && defined SHOW_ACC
-//      Serial.print( sqrt(x*x + y*y + z*z) );
-//      Serial.print(",");
-//    #endif
+    #if defined DEBUG && defined SHOW_ACC
+      Serial.println( sqrt(x*x + y*y + z*z) );
+    #endif
     
     XAverage.add_value((x - offsetX)/gainX,&averagedX);
     YAverage.add_value((y - offsetY)/gainY,&averagedY);
     ZAverage.add_value((z - offsetZ)/gainZ,&averagedZ);
 
     ADXL_ISR(&freefall_detected);
-    freefall_data[current_index] = freefall_data[current_index] | freefall_detected;
 
     get_temp_in_celsius(&celsiusTemp);
     TempAverage.add_value(celsiusTemp,&averagedTemp);

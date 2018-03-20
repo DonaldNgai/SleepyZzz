@@ -17,6 +17,7 @@ void connectWifi(){
   esp8266.print(F("AT+CIPMUX=0\r\n"));
   delay(100);
   readResponse(50);
+//  esp8266.print(F("AT+CWJAP=\"AndroidAP\",\"lgmg8567\"\r\n"));
   esp8266.print(F("AT+CWJAP=\"NETGEAR87\",\"rapidcello213\"\r\n"));
 //  esp8266.print(F("AT+CWJAP=\"uw-event\",\"U5juuuEba3\"\r\n"));
   for(int i = 0; i< 15; i++){

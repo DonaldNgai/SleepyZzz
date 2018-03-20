@@ -55,8 +55,6 @@ void ADXL_ISR(bool* freefall_detected) {
   // getInterruptSource clears all triggered actions after returning value
   // Do not call again until you need to recheck for triggered actions
   byte interrupts = adxl.getInterruptSource();
-
-  *freefall_detected = false;
   
   // Free Fall Detection
   if(adxl.triggered(interrupts, ADXL345_FREE_FALL)){
